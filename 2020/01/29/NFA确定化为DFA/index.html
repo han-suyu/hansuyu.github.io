@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <title>NFA确定化为DFA - 愿风载尘</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 80vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>愿风载尘</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/photos/">
+                <i class="iconfont icon-youtube-fill"></i>
+                photos
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+ 
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/bg.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                NFA确定化为DFA
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-01-29 13:16">
+      2020年1月29日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="一、实验名称"><a href="#一、实验名称" class="headerlink" title="一、实验名称"></a>一、实验名称</h3><p>​    不确定有穷状态自动机的确定化</p>
+<h3 id="二、实验目的"><a href="#二、实验目的" class="headerlink" title="二、实验目的"></a>二、实验目的</h3><p>输入：非确定有穷状态自动机NFA </p>
+<p>输出：确定化的有穷状态自动机DFA</p>
+<a id="more"></a>
+
+<h3 id="三、实验原理"><a href="#三、实验原理" class="headerlink" title="三、实验原理"></a>三、实验原理</h3><h5 id="1、NFA定义"><a href="#1、NFA定义" class="headerlink" title="1、NFA定义"></a>1、NFA定义</h5><p>​    一个不确定的有穷自动机M是一个五元组，M=(K,E,f,S,Z)其中</p>
+<p>a.   K是一个有穷集，它的每个元素称为一个状态；</p>
+<p>b.   E是一个有穷字母表，它的每个元素称为一个输入符号；</p>
+<p>c.   f是一个从K×E<em>到K的子集的映像，即：K*E</em>-&gt;2k，其中2k表示K的幂集；</p>
+<p>d.   S包含于K，是一个非空初态集；</p>
+<p>e.   Z包含于K，是一个终态集。</p>
+<h5 id="2、DFA的定义"><a href="#2、DFA的定义" class="headerlink" title="2、DFA的定义"></a>2、DFA的定义</h5><p>一个确定的有穷自动机M是一个五元组，M=(K,E,f,S,Z)其中</p>
+<p>a.   K是一个有穷集，它的每个元素称为一个状态；</p>
+<p>b.   E是一个有穷字母表，它的每个元素称为一个输入符号；</p>
+<p>c.   f是转换函数，是K×E-&gt;K上的映像，即，如f(ki,a)=kj(ki∈K,kj∈K)就意味着，当前状态为ki，输入字符为a时，将转换到下一状态kj，我们把kj称作ki的一个后继状态；</p>
+<p>d.   S∈K，是唯一的一个初态；</p>
+<p>e.   Z包含于K，是一个终态集，终态也称可接受状态或结束状态。</p>
+<h5 id="3、closure函数"><a href="#3、closure函数" class="headerlink" title="3、closure函数"></a>3、closure函数</h5><p>状态集合I的ε—闭包，表示为ε—closure(I)，定义为一状态集，是状态集I中的任何状态S经任意条ε弧而能到达的状态的集合。</p>
+<h5 id="4、move函数"><a href="#4、move函数" class="headerlink" title="4、move函数"></a>4、move函数</h5><p>​    状态集合I的a弧转换，表示为move(I,a)，定义为状态集合J，其中J是所有那些从I中的某一状态经过一条a弧而到达的状态的全体。</p>
+<h3 id="四、实验思路"><a href="#四、实验思路" class="headerlink" title="四、实验思路"></a>四、实验思路</h3><p>​    本次实验采用python完成。</p>
+<h5 id="1、输入"><a href="#1、输入" class="headerlink" title="1、输入"></a>1、输入</h5><p>​    根据课本NFA的定义，输入五元组，依次输入状态集、输入符号、初态集、终态集以及映像，将这些分别存入五个列表中。其中关于映像的输入格式：先输入状态一，再输入输入符号，最后输入状态二，一次输入一条弧。</p>
+<h5 id="2、closure算法"><a href="#2、closure算法" class="headerlink" title="2、closure算法"></a>2、closure算法</h5><p>​    定义closure函数形式为closure(a,f)，其中，a为要做closure闭包的状态集合，f为NFA的映像的集合。具体思想为：</p>
+<p>​    a.设立一个最终返回结果的列表b，初值与列表a相等。设立一个空列表s，用于存放每次closure闭包新加入的状态。</p>
+<p>​    b.执行while循环，此循环判断条件为1，即会一直执行下去，直到遇到closure闭包没有新增状态的时候执行结束。</p>
+<p>​    c.对a中的每一个状态求closure闭包，即判断f中状态一等于a中状态的弧，再判断f中该状态的弧是否为ε（具体代码中用’$’代替），若是，则将该弧的状态二加入s中。</p>
+<p>​    d.判断s是否为空，若为空则说明此次循环没有新增状态，即说明closure闭包在上一次循环时已执行完毕，输出上次循环的结果b。若s不为空，说明本次循环仍然有新增状态，则将新增状态加入b中，并且将新增的状态集合赋值给a，以新增的状态集继续做循环判断，直到某次循环s为空结束。</p>
+<h5 id="3、move算法"><a href="#3、move算法" class="headerlink" title="3、move算法"></a>3、move算法</h5><p>​    move算法的核心思想与closure算法一致，其函数形式为move(a,e,f)，其中e为move算法move(I,a)的a。move算法只需要求从状态集合中某一状态经过一条a弧而到达的状态全体，所以不需要进行while循环执行多次，只需执行closure算法中c步骤一次即可。</p>
+<h5 id="4、构造子集"><a href="#4、构造子集" class="headerlink" title="4、构造子集"></a>4、构造子集</h5><p>​    建立两个列表C1、C2，其中C1用于存放最终的状态集，C2作为标记使用，对应C1中的子集，若C1中的子集也进行了closure闭包则C2中相应元素标记为1，否则为0。具体思想为：</p>
+<p>​    a.首先对初态集进行closure闭包，存于C1中，C2的第一个元素赋值为0。</p>
+<p>​    b.标记C2第一个元素为1，对C1中第一个集合先做move算法再做closure算法，若其中一个算法得出空集合则直接返回空列表，否则判断C1中是否有该状态集，若无则加入C1中，C2中相应元素赋值为0，表示未标记。</p>
+<p>​    c.重复执行b步骤，直到C2中所有元素为1，表示标记完毕，执行完成，所得到C1为最终状态子集。</p>
+<h5 id="5、输出"><a href="#5、输出" class="headerlink" title="5、输出"></a>5、输出</h5><p>​    采用矩阵形式输出，C1中每个状态集合的下标为最终合并后的状态。</p>
+<h3 id="五、实验小结"><a href="#五、实验小结" class="headerlink" title="五、实验小结"></a>五、实验小结</h3><p>​    本次实验主要遇到了以下问题：</p>
+<h5 id="1、输入存储问题"><a href="#1、输入存储问题" class="headerlink" title="1、输入存储问题"></a>1、输入存储问题</h5><p>​    若根据课本形式应输入M=(K,E,f,S,Z)，再对f进行展开，虽然用算法实现这一形式不难，但是对于后续的操作不太方便，所以最终选择了依次输出五元组，分别存于五个列表中。</p>
+<h5 id="2、closure算法问题"><a href="#2、closure算法问题" class="headerlink" title="2、closure算法问题"></a>2、closure算法问题</h5><p>​    最初想用递归的思想实现closure算法，即每次进行一步closure闭包，返回结果为新得到的状态集的closure闭包，但是对于递归结束的判断条件以及参数的传递不太明确，所以最终没有选择递归，而是选择了死循环里面加上退出循环条件的形式完成。</p>
+<h5 id="3、输出问题"><a href="#3、输出问题" class="headerlink" title="3、输出问题"></a>3、输出问题</h5><p>​    输出的形式最终没有实现DFA的状态图而是使用矩阵的形式输出，问题在于对于以状态集合为结点构造状态图这样的图形形式方面的知识不了解，最终以矩阵形式输出。</p>
+<p>​    通过本次实验，对于NFA转换为DFA的过程有了深刻的认识，对于closure算法和move算法的思想非常清楚。</p>
+<h3 id="六、附件"><a href="#六、附件" class="headerlink" title="六、附件"></a>六、附件</h3><h5 id="1、源代码"><a href="#1、源代码" class="headerlink" title="1、源代码"></a>1、源代码</h5><pre><code class="hljs python">K = []  <span class="hljs-comment"># 状态</span>
+E = []  <span class="hljs-comment"># 符号</span>
+f = []  <span class="hljs-comment"># 弧</span>
+S = []  <span class="hljs-comment"># 初态</span>
+Z = []  <span class="hljs-comment"># 终态</span>
+
+<span class="hljs-comment"># 输入</span>
+a = input(<span class="hljs-string">'输入状态(以空格区分,以换行结束):'</span>)
+K = a.split(<span class="hljs-string">' '</span>)
+a = input(<span class="hljs-string">'输入输入符号(以空格区分,以换行结束):'</span>)
+E = a.split(<span class="hljs-string">' '</span>)
+a = input(<span class="hljs-string">'输入初态(以空格区分,以换行结束):'</span>)
+S = a.split(<span class="hljs-string">' '</span>)
+a = input(<span class="hljs-string">'输入终态(以空格区分,以换行结束):'</span>)
+Z = a.split(<span class="hljs-string">' '</span>)
+print(<span class="hljs-string">'输入弧的条数:'</span>)
+n = int(input())
+print(<span class="hljs-string">'输入弧(分别输入状态1,输入符号,状态2,以空格区分换行结束,ε表示为$)'</span>)
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):
+    f.append([])
+    a = input()
+    f[len(f)<span class="hljs-number">-1</span>] = a.split(<span class="hljs-string">' '</span>)
+
+<span class="hljs-comment"># closure 算法</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">closure</span><span class="hljs-params">(a, f)</span>:</span>  <span class="hljs-comment"># a为列表</span>
+    b = a
+    <span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:
+        s = []
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> a:
+            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(len(f)):
+                <span class="hljs-keyword">if</span> i == f[j][<span class="hljs-number">0</span>] <span class="hljs-keyword">and</span> f[j][<span class="hljs-number">1</span>] == <span class="hljs-string">'$'</span>:
+                        s.append(f[j][<span class="hljs-number">2</span>])
+        <span class="hljs-keyword">if</span> len(s) == <span class="hljs-number">0</span>:
+            <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> s:
+                b.append(i)
+                a = s
+    <span class="hljs-keyword">return</span> sorted(b)
+
+<span class="hljs-comment"># move 算法</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">move</span><span class="hljs-params">(a, e, f)</span>:</span>  <span class="hljs-comment"># a为列表 e为一个符号</span>
+      s = []
+      <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> a:
+          <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(len(f)):
+              <span class="hljs-keyword">if</span> i == f[j][<span class="hljs-number">0</span>] <span class="hljs-keyword">and</span> f[j][<span class="hljs-number">1</span>] == e:
+                  s.append(f[j][<span class="hljs-number">2</span>])
+      <span class="hljs-keyword">return</span> sorted(s)
+
+<span class="hljs-comment"># 算出最终子集</span>
+C1 = []  <span class="hljs-comment"># C1为最终子集</span>
+C2 = []
+C1.append(closure(S, f))
+C2.append(<span class="hljs-number">0</span>)
+<span class="hljs-keyword">while</span> C2.pop(len(C2)<span class="hljs-number">-1</span>) == <span class="hljs-number">0</span>:
+    C2.append(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(C1)):
+        <span class="hljs-keyword">if</span> C2[i] == <span class="hljs-number">0</span>:
+            C2[i] = <span class="hljs-number">1</span>
+            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> E:
+                A = move(C1[i], j, f)
+                <span class="hljs-keyword">if</span> A == []:
+                    <span class="hljs-keyword">break</span>
+                B = closure(A, f)
+                <span class="hljs-keyword">if</span> B == []:
+                    <span class="hljs-keyword">break</span>
+                k = <span class="hljs-number">0</span>
+                <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> C1:
+                    <span class="hljs-keyword">if</span> B == m:
+                        k = k+<span class="hljs-number">1</span>
+                <span class="hljs-keyword">if</span> k == <span class="hljs-number">0</span>:
+                    C1.append(B)
+                    C2.append(<span class="hljs-number">0</span>)
+print(<span class="hljs-string">'输出NFA构造的子集:'</span>)
+print(C1)
+print(<span class="hljs-string">'输出DFA:'</span>)
+print(<span class="hljs-string">'S'</span>, end=<span class="hljs-string">'   '</span>)
+<span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> E:
+    print(x, end=<span class="hljs-string">'   '</span>)
+print(<span class="hljs-string">'\n'</span>)
+<span class="hljs-comment"># 输出DFA</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(C1)):
+    print(i, end=<span class="hljs-string">'   '</span>)
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> E:
+        a1 = move(C1[i], j, f)
+        <span class="hljs-keyword">if</span> a1 == []:
+            print(a1, end=<span class="hljs-string">'   '</span>)
+            <span class="hljs-keyword">continue</span>
+        a2 = closure(a1, f)
+        <span class="hljs-keyword">if</span> a2 == []:
+            print(a2, end=<span class="hljs-string">'   '</span>)
+            <span class="hljs-keyword">continue</span>
+        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> range(len(C1)):
+            <span class="hljs-keyword">if</span> C1[k] == a2:
+                print(k, end=<span class="hljs-string">'   '</span>)
+                <span class="hljs-keyword">break</span>
+    y = <span class="hljs-number">0</span>  <span class="hljs-comment"># 判断子集中是否有终态</span>
+    <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> Z:
+        <span class="hljs-keyword">if</span> m <span class="hljs-keyword">in</span> C1[i]:
+            y = y+<span class="hljs-number">1</span>
+    <span class="hljs-keyword">if</span> y == <span class="hljs-number">0</span>:
+        print(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">else</span>:
+        print(<span class="hljs-number">1</span>)
+    print(<span class="hljs-string">'\n'</span>)</code></pre>
+
+
+
+<h5 id="2、程序输出结果"><a href="#2、程序输出结果" class="headerlink" title="2、程序输出结果"></a>2、程序输出结果</h5><p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/NFA%E7%A1%AE%E5%AE%9A%E5%8C%96%E4%B8%BADFA/5.png" srcset="/img/loading.gif" alt=""></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/01/29/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">文法类型的判断和推导序列的生成</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/01/29/LL(1)%E6%96%87%E6%B3%95%E7%9A%84%E5%88%A4%E6%96%AD%E5%8F%8A%E8%BD%AC%E6%8D%A2/">
+                        <span class="hidden-mobile">LL(1)文法的判断及转换</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "0GczNmun2zmN2vdrogxJXWU3-gzGzoHsz",
+          app_key: "NlTLpnO69Qf4A1UR4Dk7S65w",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2020/01/29/NFA%E7%A1%AE%E5%AE%9A%E5%8C%96%E4%B8%BADFA/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '0GczNmun2zmN2vdrogxJXWU3-gzGzoHsz'
+    var app_key = 'NlTLpnO69Qf4A1UR4Dk7S65w'
+    var server_url = 'https://0gcznmun.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

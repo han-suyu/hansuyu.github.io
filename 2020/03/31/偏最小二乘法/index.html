@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <title>偏最小二乘法 - 愿风载尘</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 80vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>愿风载尘</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/photos/">
+                <i class="iconfont icon-youtube-fill"></i>
+                photos
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+ 
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/bg.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                偏最小二乘法
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-03-31 19:16">
+      2020年3月31日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>偏最小二乘法是一种数学优化技术，它通过最小化误差的平方和找到一组数据的最佳函数匹配。 用最简的方法求得一些绝对不可知的真值，而令误差平方之和为最小。 很多其他的优化问题也可通过最小化能量或最大化熵用最小二乘形式表达。</p>
+<a id="more"></a>
+
+<pre><code class="hljs matlab"><span class="hljs-comment">%偏最小二乘法</span>
+clc <span class="hljs-comment">% 清屏</span>
+clear all; <span class="hljs-comment">% 删除workplace变量</span>
+close all; <span class="hljs-comment">% 关掉显示图形窗口</span>
+format short
+pz=[<span class="hljs-number">191</span> <span class="hljs-number">36</span>  <span class="hljs-number">50</span>  <span class="hljs-number">5</span>   <span class="hljs-number">162</span> <span class="hljs-number">60</span>
+<span class="hljs-number">189</span> <span class="hljs-number">37</span>  <span class="hljs-number">52</span>  <span class="hljs-number">2</span>   <span class="hljs-number">110</span> <span class="hljs-number">60</span>
+<span class="hljs-number">193</span> <span class="hljs-number">38</span>  <span class="hljs-number">58</span>  <span class="hljs-number">12</span>  <span class="hljs-number">101</span> <span class="hljs-number">101</span>
+<span class="hljs-number">162</span> <span class="hljs-number">35</span>  <span class="hljs-number">62</span>  <span class="hljs-number">12</span>  <span class="hljs-number">105</span> <span class="hljs-number">37</span>
+<span class="hljs-number">189</span> <span class="hljs-number">35</span>  <span class="hljs-number">46</span>  <span class="hljs-number">13</span>  <span class="hljs-number">155</span> <span class="hljs-number">58</span>
+<span class="hljs-number">182</span> <span class="hljs-number">36</span>  <span class="hljs-number">56</span>  <span class="hljs-number">4</span>   <span class="hljs-number">101</span> <span class="hljs-number">42</span>
+<span class="hljs-number">211</span> <span class="hljs-number">38</span>  <span class="hljs-number">56</span>  <span class="hljs-number">8</span>   <span class="hljs-number">101</span> <span class="hljs-number">38</span>
+<span class="hljs-number">167</span> <span class="hljs-number">34</span>  <span class="hljs-number">60</span>  <span class="hljs-number">6</span>   <span class="hljs-number">125</span> <span class="hljs-number">40</span>
+<span class="hljs-number">176</span> <span class="hljs-number">31</span>  <span class="hljs-number">74</span>  <span class="hljs-number">15</span>  <span class="hljs-number">200</span> <span class="hljs-number">40</span>
+<span class="hljs-number">154</span> <span class="hljs-number">33</span>  <span class="hljs-number">56</span>  <span class="hljs-number">17</span>  <span class="hljs-number">251</span> <span class="hljs-number">250</span>
+<span class="hljs-number">169</span> <span class="hljs-number">34</span>  <span class="hljs-number">50</span>  <span class="hljs-number">17</span>  <span class="hljs-number">120</span> <span class="hljs-number">38</span>
+<span class="hljs-number">166</span> <span class="hljs-number">33</span>  <span class="hljs-number">52</span>  <span class="hljs-number">13</span>  <span class="hljs-number">210</span> <span class="hljs-number">115</span>
+<span class="hljs-number">154</span> <span class="hljs-number">34</span>  <span class="hljs-number">64</span>  <span class="hljs-number">14</span>  <span class="hljs-number">215</span> <span class="hljs-number">105</span>
+<span class="hljs-number">247</span> <span class="hljs-number">46</span>  <span class="hljs-number">50</span>  <span class="hljs-number">1</span>   <span class="hljs-number">50</span>  <span class="hljs-number">50</span>
+<span class="hljs-number">193</span> <span class="hljs-number">36</span>  <span class="hljs-number">46</span>  <span class="hljs-number">6</span>   <span class="hljs-number">70</span>  <span class="hljs-number">31</span>
+<span class="hljs-number">202</span> <span class="hljs-number">37</span>  <span class="hljs-number">62</span>  <span class="hljs-number">12</span>  <span class="hljs-number">210</span> <span class="hljs-number">120</span>
+<span class="hljs-number">176</span> <span class="hljs-number">37</span>  <span class="hljs-number">54</span>  <span class="hljs-number">4</span>   <span class="hljs-number">60</span>  <span class="hljs-number">25</span>
+<span class="hljs-number">157</span> <span class="hljs-number">32</span>  <span class="hljs-number">52</span>  <span class="hljs-number">11</span>  <span class="hljs-number">230</span> <span class="hljs-number">80</span>
+<span class="hljs-number">156</span> <span class="hljs-number">33</span>  <span class="hljs-number">54</span>  <span class="hljs-number">15</span>  <span class="hljs-number">225</span> <span class="hljs-number">73</span>
+<span class="hljs-number">138</span> <span class="hljs-number">33</span>  <span class="hljs-number">68</span>  <span class="hljs-number">2</span>   <span class="hljs-number">110</span> <span class="hljs-number">43</span>];<span class="hljs-comment">%每一列为一个指标，每一行为一个样本</span>
+mu=<span class="hljs-built_in">mean</span>(pz); <span class="hljs-comment">%求均值</span>
+sig=std(pz); <span class="hljs-comment">%求标准差</span>
+rr=corrcoef(pz); <span class="hljs-comment">%求相关系数矩阵</span>
+data=zscore(pz); <span class="hljs-comment">%数据标准化</span>
+n=<span class="hljs-number">3</span>; <span class="hljs-comment">% n 是自变量的个数</span>
+m=<span class="hljs-number">3</span>; <span class="hljs-comment">% m 是因变量的个数</span>
+x0=pz(:,<span class="hljs-number">1</span>:n);y0=pz(:,n+<span class="hljs-number">1</span>:<span class="hljs-keyword">end</span>);<span class="hljs-comment">%定义自变量为前n列，因变量为n+1到m列</span>
+e0=data(:,<span class="hljs-number">1</span>:n);f0=data(:,n+<span class="hljs-number">1</span>:<span class="hljs-keyword">end</span>);<span class="hljs-comment">%e0为自变量归一化值，f0为因变量归一化值</span>
+num=<span class="hljs-built_in">size</span>(e0,<span class="hljs-number">1</span>);<span class="hljs-comment">%求样本点的个数</span>
+chg=<span class="hljs-built_in">eye</span>(n); <span class="hljs-comment">% w 到 w* 变换矩阵的初始化</span>
+<span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>=<span class="hljs-number">1</span>:n
+    <span class="hljs-comment">%计算 w，w* 和t 的得分向量，</span>
+    matrix=e0'*f0*f0'*e0;
+    [vec,val]=eig(matrix); <span class="hljs-comment">%求特征值和特征向量</span>
+    val=<span class="hljs-built_in">diag</span>(val); <span class="hljs-comment">%提出对角线元素，即特征值</span>
+    [val,ind]=<span class="hljs-built_in">sort</span>(val,<span class="hljs-string">'descend'</span>);<span class="hljs-comment">%降序排列，ind为排序后原下标序号</span>
+    w(:,<span class="hljs-built_in">i</span>)=vec(:,ind(<span class="hljs-number">1</span>)); <span class="hljs-comment">%提出最大特征值对应的特征向量</span>
+    w_star(:,<span class="hljs-built_in">i</span>)=chg*w(:,<span class="hljs-built_in">i</span>); <span class="hljs-comment">%计算w*的取值</span>
+    t(:,<span class="hljs-built_in">i</span>)=e0*w(:,<span class="hljs-built_in">i</span>); <span class="hljs-comment">%计算成分ti 的得分</span>
+    alpha=e0'*t(:,<span class="hljs-built_in">i</span>)/(t(:,<span class="hljs-built_in">i</span>)'*t(:,<span class="hljs-built_in">i</span>)); <span class="hljs-comment">%计算alpha_i</span>
+    chg=chg*(<span class="hljs-built_in">eye</span>(n)-w(:,<span class="hljs-built_in">i</span>)*alpha'); <span class="hljs-comment">%计算w 到w*的变换矩阵</span>
+    e=e0-t(:,<span class="hljs-built_in">i</span>)*alpha'; <span class="hljs-comment">%计算残差矩阵</span>
+    e0=e;<span class="hljs-comment">%将残差矩阵带进下次循环</span>
+    <span class="hljs-comment">%计算ss(i)的值</span>
+    <span class="hljs-built_in">beta</span>=[t(:,<span class="hljs-number">1</span>:<span class="hljs-built_in">i</span>),<span class="hljs-built_in">ones</span>(num,<span class="hljs-number">1</span>)]\f0; <span class="hljs-comment">%求回归方程的系数</span>
+    <span class="hljs-built_in">beta</span>(<span class="hljs-keyword">end</span>,:)=[]; <span class="hljs-comment">%删除回归分析的常数项</span>
+    cancha=f0-t(:,<span class="hljs-number">1</span>:<span class="hljs-built_in">i</span>)*<span class="hljs-built_in">beta</span>; <span class="hljs-comment">%求残差矩阵</span>
+    ss(<span class="hljs-built_in">i</span>)=sum(sum(cancha.^<span class="hljs-number">2</span>)); <span class="hljs-comment">%求误差平方和</span>
+    <span class="hljs-comment">%计算p(i)</span>
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span>=<span class="hljs-number">1</span>:num
+        t1=t(:,<span class="hljs-number">1</span>:<span class="hljs-built_in">i</span>);f1=f0;
+        she_t=t1(<span class="hljs-built_in">j</span>,:);she_f=f1(<span class="hljs-built_in">j</span>,:); <span class="hljs-comment">%把舍去的第j 个样本点保存起来</span>
+        t1(<span class="hljs-built_in">j</span>,:)=[];f1(<span class="hljs-built_in">j</span>,:)=[]; <span class="hljs-comment">%删除第j 个观测值</span>
+        beta1=[t1,<span class="hljs-built_in">ones</span>(num<span class="hljs-number">-1</span>,<span class="hljs-number">1</span>)]\f1; <span class="hljs-comment">%求回归分析的系数</span>
+        beta1(<span class="hljs-keyword">end</span>,:)=[]; <span class="hljs-comment">%删除回归分析的常数项</span>
+        cancha=she_f-she_t*beta1; <span class="hljs-comment">%求残差向量</span>
+        p_i(<span class="hljs-built_in">j</span>)=sum(cancha.^<span class="hljs-number">2</span>);
+    <span class="hljs-keyword">end</span>
+    p(<span class="hljs-built_in">i</span>)=sum(p_i);
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">i</span>&gt;<span class="hljs-number">1</span>
+        Q_h2(<span class="hljs-built_in">i</span>)=<span class="hljs-number">1</span>-p(<span class="hljs-built_in">i</span>)/ss(<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>);
+    <span class="hljs-keyword">else</span>
+        Q_h2(<span class="hljs-number">1</span>)=<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">if</span> Q_h2(<span class="hljs-built_in">i</span>)&lt;<span class="hljs-number">0.0975</span>
+        fprintf(<span class="hljs-string">'提出的成分个数r=%d'</span>,<span class="hljs-built_in">i</span>);
+        fprintf(<span class="hljs-string">'   '</span>);
+        fprintf(<span class="hljs-string">'交叉的有效性=%f'</span>,Q_h2(<span class="hljs-built_in">i</span>));
+        r=<span class="hljs-built_in">i</span>;
+        <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+beta_z=[t(:,<span class="hljs-number">1</span>:r),<span class="hljs-built_in">ones</span>(num,<span class="hljs-number">1</span>)]\f0; <span class="hljs-comment">%求Y 关于t 的回归系数</span>
+beta_z(<span class="hljs-keyword">end</span>,:)=[]; <span class="hljs-comment">%删除常数项</span>
+xishu=w_star(:,<span class="hljs-number">1</span>:r)*beta_z; <span class="hljs-comment">%求Y 关于X 的回归系数，且是针对标准数据的回归系数，每一列是一个回归方程</span>
+mu_x=mu(<span class="hljs-number">1</span>:n);
+mu_y=mu(n+<span class="hljs-number">1</span>:<span class="hljs-keyword">end</span>);
+sig_x=sig(<span class="hljs-number">1</span>:n);sig_y=sig(n+<span class="hljs-number">1</span>:<span class="hljs-keyword">end</span>);
+<span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>=<span class="hljs-number">1</span>:m
+    ch0(<span class="hljs-built_in">i</span>)=mu_y(<span class="hljs-built_in">i</span>)-mu_x./sig_x*sig_y(<span class="hljs-built_in">i</span>)*xishu(:,<span class="hljs-built_in">i</span>); <span class="hljs-comment">%计算原始数据的回归方程的常数项</span>
+<span class="hljs-keyword">end</span>
+<span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>=<span class="hljs-number">1</span>:m
+    xish(:,<span class="hljs-built_in">i</span>)=xishu(:,<span class="hljs-built_in">i</span>)./sig_x'*sig_y(<span class="hljs-built_in">i</span>); <span class="hljs-comment">%计算原始数据的回归方程的系数，每一列是一个回归方程</span>
+<span class="hljs-keyword">end</span>
+<span class="hljs-built_in">disp</span>(<span class="hljs-string">'回归方程的系数，每一列是一个方程，每一列的第一个数是常数项,每一列为一个因变量与自变量们的回归方程'</span>)
+sol=[ch0;xish] <span class="hljs-comment">%显示回归方程的系数，每一列是一个方程，每一列的第一个数是常数项,每一列为一个因变量与自变量们的回归方程</span>
+<span class="hljs-comment">%此为还原为原始变量后的方程</span>
+<span class="hljs-comment">%% 感觉用途不大，用到的时候再查询怎么使用</span>
+save mydata x0 y0 num xishu ch0 xish
+w1=w(:,<span class="hljs-number">1</span>)
+w2=w(:,<span class="hljs-number">2</span>)
+wx1=w_star(:,<span class="hljs-number">1</span>)
+wx2=w_star(:,<span class="hljs-number">2</span>)
+tx1=t(:,<span class="hljs-number">1</span>)'
+tx2=t(:,<span class="hljs-number">2</span>)'
+<span class="hljs-built_in">disp</span>(<span class="hljs-string">'回归系数'</span>)
+beta_z <span class="hljs-comment">%回归系数</span>
+<span class="hljs-built_in">disp</span>(<span class="hljs-string">'系数矩阵,即未还原原始变量的系数,每一列为一个因变量与自变量的回归方程'</span>)
+xishu<span class="hljs-comment">%系数矩阵,即未还原原始变量的系数,每一列为一个因变量与自变量的回归方程</span>
+
+<span class="hljs-comment">%% 用法：分别计算出第四列第五列第六列和前三列的线性回归关系，给出系数，系数以列的方式给出，</span>
+<span class="hljs-comment">%%sol分别为常数项系数，x1 x2 x3的系数</span>
+
+
+
+
+<span class="hljs-comment">%生成mydata数据，进行偏最小二乘检验</span>
+format short
+load(<span class="hljs-string">'mydata.mat'</span>)<span class="hljs-comment">%mydata为计算偏最小二乘保存的数据集，可以用于检验</span>
+<span class="hljs-comment">%% 更直观的解释各个自变量的作用</span>
+<span class="hljs-built_in">figure</span>
+bar(xishu')<span class="hljs-comment">%分别画出三个自变量对三个因变量标准化后回归方程的系数的的长度图</span>
+axis tight
+<span class="hljs-built_in">hold</span> on
+annotation(<span class="hljs-string">'textbox'</span>,[<span class="hljs-number">0.26</span> <span class="hljs-number">0.14</span> <span class="hljs-number">0.086</span> <span class="hljs-number">0.07</span>],<span class="hljs-string">'String'</span>,&#123;<span class="hljs-string">'单杠'</span>&#125;,<span class="hljs-string">'FitBoxToText'</span>,<span class="hljs-string">'off'</span>);
+annotation(<span class="hljs-string">'textbox'</span>,[<span class="hljs-number">0.56</span> <span class="hljs-number">0.14</span> <span class="hljs-number">0.086</span> <span class="hljs-number">0.07</span>],<span class="hljs-string">'String'</span>,&#123;<span class="hljs-string">'弯曲'</span>&#125;,<span class="hljs-string">'FitBoxToText'</span>,<span class="hljs-string">'off'</span>);
+annotation(<span class="hljs-string">'textbox'</span>,[<span class="hljs-number">0.76</span> <span class="hljs-number">0.14</span> <span class="hljs-number">0.086</span> <span class="hljs-number">0.07</span>],<span class="hljs-string">'String'</span>,&#123;<span class="hljs-string">'跳高'</span>&#125;,<span class="hljs-string">'FitBoxToText'</span>,<span class="hljs-string">'off'</span>);<span class="hljs-comment">%在指定位置加注释</span>
+<span class="hljs-comment">%% 拟合效果的确定</span>
+<span class="hljs-comment">%所有点都在对角线附近均匀分布，则效果较好</span>
+ch0=<span class="hljs-built_in">repmat</span>(ch0,num,<span class="hljs-number">1</span>);<span class="hljs-comment">%repmat起复制矩阵组合为新矩阵的作用</span>
+yhat=ch0+x0*xish; <span class="hljs-comment">%计算y 的预测值</span>
+y1max=<span class="hljs-built_in">max</span>(yhat);
+y2max=<span class="hljs-built_in">max</span>(y0);
+ymax=<span class="hljs-built_in">max</span>([y1max;y2max]);
+cancha=yhat-y0; <span class="hljs-comment">%计算残差</span>
+<span class="hljs-built_in">figure</span>
+subplot(<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>)
+<span class="hljs-built_in">plot</span>(<span class="hljs-number">0</span>:ymax(<span class="hljs-number">1</span>),<span class="hljs-number">0</span>:ymax(<span class="hljs-number">1</span>),yhat(:,<span class="hljs-number">1</span>),y0(:,<span class="hljs-number">1</span>),<span class="hljs-string">'*'</span>)
+title(<span class="hljs-string">'单杠成绩预测'</span>)
+subplot(<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>)
+<span class="hljs-built_in">plot</span>(<span class="hljs-number">0</span>:ymax(<span class="hljs-number">2</span>),<span class="hljs-number">0</span>:ymax(<span class="hljs-number">2</span>),yhat(:,<span class="hljs-number">2</span>),y0(:,<span class="hljs-number">2</span>),<span class="hljs-string">'O'</span>)
+title(<span class="hljs-string">'弯曲成绩预测'</span>)
+subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)
+<span class="hljs-built_in">plot</span>(<span class="hljs-number">0</span>:ymax(<span class="hljs-number">3</span>),<span class="hljs-number">0</span>:ymax(<span class="hljs-number">3</span>),yhat(:,<span class="hljs-number">3</span>),y0(:,<span class="hljs-number">3</span>),<span class="hljs-string">'H'</span>)
+title(<span class="hljs-string">'跳高成绩预测'</span>)
+<span class="hljs-comment">%% 绘制拟合效果图和权重比重图</span></code></pre>
+
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/">数学建模</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/31/matlab%E4%BD%BF%E7%94%A8%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95%E6%B1%82%E8%A7%A3%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E5%B9%B6%E8%87%AA%E5%8A%A8%E7%94%BB%E5%87%BA%E8%B7%AF%E7%BA%BF%E5%9B%BE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">matlab求解最短路径并自动画出路线图</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/31/%E5%BC%82%E5%B8%B8%E7%82%B9%E6%A3%80%E6%B5%8B%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/">
+                        <span class="hidden-mobile">异常点检测的两种方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "0GczNmun2zmN2vdrogxJXWU3-gzGzoHsz",
+          app_key: "NlTLpnO69Qf4A1UR4Dk7S65w",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2020/03/31/%E5%81%8F%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '0GczNmun2zmN2vdrogxJXWU3-gzGzoHsz'
+    var app_key = 'NlTLpnO69Qf4A1UR4Dk7S65w'
+    var server_url = 'https://0gcznmun.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <title>文法类型的判断和推导序列的生成 - 愿风载尘</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 80vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>愿风载尘</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/photos/">
+                <i class="iconfont icon-youtube-fill"></i>
+                photos
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+ 
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/bg.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                文法类型的判断和推导序列的生成
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-01-29 13:26">
+      2020年1月29日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="一、实验名称"><a href="#一、实验名称" class="headerlink" title="一、实验名称"></a>一、实验名称</h3><p>​    文法类型的判断和推导序列的生成</p>
+<h3 id="二、实验目的"><a href="#二、实验目的" class="headerlink" title="二、实验目的"></a>二、实验目的</h3><p>​    输入：一组任意的文法规则和任意符号串。</p>
+<p>​    输出：相应的Chomsky文法类型和推导。</p>
+<a id="more"></a>
+
+<h3 id="三、实验原理"><a href="#三、实验原理" class="headerlink" title="三、实验原理"></a>三、实验原理</h3><h5 id="1、文法G定义为四元组-Vn-Vt-P-S"><a href="#1、文法G定义为四元组-Vn-Vt-P-S" class="headerlink" title="1、文法G定义为四元组(Vn,Vt,P,S)"></a>1、文法G定义为四元组(Vn,Vt,P,S)</h5><p>​    其中Vn为非终结符（或语法实体，或变量）集：Vt为终结符集；P为规则（α-&gt;β）的集合，α∈(Vn∪Vt)<em>且至少包含一个非终结符，β∈(Vn∪Vt)</em>；Vn，Vt和P是非空有穷集。S称作识别符或开始符，它是一个非终结符，至少要在一条规则中作为左部出现。</p>
+<h5 id="2、文法类型的判断"><a href="#2、文法类型的判断" class="headerlink" title="2、文法类型的判断"></a>2、文法类型的判断</h5><p>​    a.设G=(Vn,Vt,P,S)为一文法，若P中的每一个产生式α-&gt;β均满足</p>
+<p>|β|&gt;=|α|，仅仅S-&gt;ε除外，则文法G是1型或上下文有关的。</p>
+<p>​    b.设G=(Vn,Vt,P,S)，若P中的每一个产生式α-&gt;β满足: α是一个非终结符，β∈(Vn∪Vt)*，则此文法称为2型的或上下文无关的。</p>
+<p>​    c. 设G=(Vn,Vt,P,S)，若P中的每一个产生式的形式都是A-&gt;αB或A-&gt;α，其中A和B都是终结符，α∈Vt*，则G是3型文法或正规文法。</p>
+<h3 id="四、实验思路"><a href="#四、实验思路" class="headerlink" title="四、实验思路"></a>四、实验思路</h3><p>​    本实验采取C++来完成，用大写字母A到Z表示非终结符，小写字符a到z表示终结符。</p>
+<p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/1.png" srcset="/img/loading.gif" alt="实验流程图"></p>
+<h5 id="1、接受产生式"><a href="#1、接受产生式" class="headerlink" title="1、接受产生式"></a>1、接受产生式</h5><p>​    首先建立一个结构体siyuanzu，其成员有非终结符集合数组Vn，终结符集合数组Vt以及产生式集合数组rule，通过函数input来接受从键盘输入的产生式，并且存储于string类字符串数组rule中。函数input实现接受产生式功能的思路为：先确定要输入的产生式数目n，用for循环实现产生式的存储。</p>
+<h5 id="2、文法类型的判断-1"><a href="#2、文法类型的判断-1" class="headerlink" title="2、文法类型的判断"></a>2、文法类型的判断</h5><p>​    函数Grammer实现判断文法类型的功能并且输出文法的类型。其实现功能的思路为：</p>
+<p>​    a.对rule数组中每一个产生式进行判断，以“-&gt;”中的“-”作为判断条件，将产生式分为左部和右部分别计算左部和右部的长度。若youb小于左部则不是1型文法。输出0型文法；若右部大于或等于左部，则继续判断。</p>
+<p>​    b.判断文法是否为2型文法，经过a步骤的执行，若文法为1型文法，只需在此基础上判断文法的左部是否只有一个非终结符。通过判断条件zuo==1&amp;&amp;’A’&lt;=a.rule[i][zuo-1]&amp;&amp;a.rule[i][zuo-1]&lt;=’Z’确定是否为2型文法，若不满足判断条件则为1型文法，进行输出，若满足则继续判断。</p>
+<p>​    c.判断文法是否为3型文法，经过b步骤的执行，若文法为2型文法，只需在此基础上判断文法的右部是否为αB或α形式或者是Bα或α形式。通过判断条件一((you==2)&amp;&amp;(a.rule[i][num+1]&gt;=’a’)&amp;&amp;(a.rule[i][num+1]&lt;=’z’)&amp;&amp;(a.rule[i][num+2]&gt;=’A’)&amp;&amp;(a.rule[i][num+2]&lt;=’Z’))||((you==1)&amp;&amp;(a.rule[i][num+1]&gt;=’a’)&amp;&amp;(a.rule[i][num+1]&lt;=’z’))判断是否满足αB或α形式，通过判断条件二((you==2)&amp;&amp;(a.rule[i][num+1]&gt;=’A’)&amp;&amp;(a.rule[i][num+1]&lt;=’Z’)&amp;&amp;(a.rule[i][num+2]&gt;=’a’)&amp;&amp;(a.rule[i][num+2]&lt;=’z’))||((you==1)&amp;&amp;(a.rule[i][num+1]&gt;=’a’)&amp;&amp;(a.rule[i][num+1]&lt;=’z’))判断是否满足Bα或α形式。若所有产生式同时满足判断条件一或者同时满足判断条件二，则为3型文法进行输出。否则为2型文法进行输出。</p>
+<h5 id="3、将文法以四元组形式输出"><a href="#3、将文法以四元组形式输出" class="headerlink" title="3、将文法以四元组形式输出"></a>3、将文法以四元组形式输出</h5><p>​    函数output实现输出文法四元组形式的功能。具体思路为：</p>
+<p>​    a.将存放产生式的string类数组rule一分为二，用x数组存放rule中所有的大写字母即非终结符，用y数组存放rule中所有的小写字母即终结符。</p>
+<p>​    b.用双重for循环给x和y数组中重复的字符标记，重复的字符全部赋值为“！”</p>
+<p>c.将x数组中非“！”元素赋值给非终结符集Vn，将y数组中非“！”元素赋值给终结符集Vt。</p>
+<p>​    d.按照格式分别输出非终结符集Vn，终结符集Vt，产生式P以及开始符S。</p>
+<h3 id="五、实验小结"><a href="#五、实验小结" class="headerlink" title="五、实验小结"></a>五、实验小结</h3><p>​    我运用C++解决了此次实验的文法类型判断的问题，在实际解决问题的过程中，主要遇到了以下几个问题：</p>
+<h5 id="1、文法类型的判断条件"><a href="#1、文法类型的判断条件" class="headerlink" title="1、文法类型的判断条件"></a>1、文法类型的判断条件</h5><p>​    《编译原理》书本上给出了几类文法类型的定义，但是在实际的解决问题过程中，需要将书本上给的判断条件转换为C++语言中的判断条件，这需要对文法类型的定义有很好的理解。我通过判断产生式右部是否大于等于左部确定1型文法，在此基础上判断产生式左部是否为一个非终结符确定2型文法，最后在2型文法的基础上判断产生式是否全部满足αB或α形式或者是Bα或α形式确定3型文法。最终解决了文法类型判断条件的问题。</p>
+<h5 id="2、产生式的存储问题"><a href="#2、产生式的存储问题" class="headerlink" title="2、产生式的存储问题"></a>2、产生式的存储问题</h5><p>​    实验要求最少输入五条产生式，我最初是选择用C语言解决存储问题，但是发现C语言中对于字符串的处理不够灵活，于是选择了C++来解决。C++中可以用string类型来定义字符串数组，并且可以通过length函数求每个字符串的长度，这样给每条产生式的判断都带来了极大的便捷。</p>
+<h5 id="3、文法以四元组形式输出问题"><a href="#3、文法以四元组形式输出问题" class="headerlink" title="3、文法以四元组形式输出问题"></a>3、文法以四元组形式输出问题</h5><p>实验需要输出文法的四元组，即需要输出非终结符集Vn，终结符集Vt，产生式P以及开始符S，由于我将产生式存储在string类数组rule中，因此，需要将rule中的元素分为两类，大写字母为非终结符，小写字母为终结符。但是分好类的数组存在元素重复的问题，我通过一个双重for循环给重复元素标记为“！”，再将非“！”元素赋值给字符数组Vn和Vt，解决了元素重复问题。最后需要安排一下输出的格式即解决了这个问题。</p>
+<p>通过本次实验，我深入的了解了文法类型的判断，对于文法类型的判断也更加的熟练。同时，对于文法的四元组的定义更加的熟悉，并且对于运用C++解决编译原理的问题有了一定的基础。</p>
+<h3 id="六、附件"><a href="#六、附件" class="headerlink" title="六、附件"></a>六、附件</h3><h5 id="1、源代码"><a href="#1、源代码" class="headerlink" title="1、源代码"></a>1、源代码</h5><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;string&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">siyuanzu</span></span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-keyword">char</span> Vn[<span class="hljs-number">50</span>];
+	<span class="hljs-keyword">char</span> Vt[<span class="hljs-number">50</span>];
+	<span class="hljs-built_in">string</span> rule[<span class="hljs-number">20</span>];
+&#125;;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">input</span><span class="hljs-params">(siyuanzu *a)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> n,i;
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"请输入产生式数目:"</span>;
+	<span class="hljs-built_in">cin</span>&gt;&gt;n;
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"请输入产生式:\n"</span>;
+	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;n;i++)
+		<span class="hljs-built_in">cin</span>&gt;&gt;(*a).rule[i];
+	<span class="hljs-keyword">return</span> n;
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">output</span><span class="hljs-params">(siyuanzu a,<span class="hljs-keyword">int</span> n)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> i,j,length,k1=<span class="hljs-number">0</span>,k2=<span class="hljs-number">0</span>,m1=<span class="hljs-number">0</span>,m2=<span class="hljs-number">0</span>;
+	<span class="hljs-keyword">char</span> x[<span class="hljs-number">50</span>],y[<span class="hljs-number">50</span>];
+	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;n;i++)
+	&#123;
+		length=a.rule[i].length();
+		<span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;length;j++)
+		&#123;
+			<span class="hljs-keyword">if</span>(a.rule[i][j]!=<span class="hljs-string">'-'</span>&amp;&amp;a.rule[i][j]!=<span class="hljs-string">'&gt;'</span>)
+			&#123;
+				<span class="hljs-keyword">if</span>(a.rule[i][j]&gt;=<span class="hljs-string">'A'</span>&amp;&amp;a.rule[i][j]&lt;=<span class="hljs-string">'Z'</span>)
+				&#123;
+					x[k1]=a.rule[i][j];
+					k1++;
+				&#125;
+				<span class="hljs-keyword">else</span>
+				&#123;
+					y[k2]=a.rule[i][j];
+					k2++;
+				&#125;
+			&#125;
+		&#125;
+	&#125;
+	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;k1<span class="hljs-number">-1</span>;i++)
+		<span class="hljs-keyword">for</span>(j=i+<span class="hljs-number">1</span>;j&lt;k1;j++)
+		&#123;
+			<span class="hljs-keyword">if</span>(x[i]==x[j])
+				x[j]=<span class="hljs-string">'!'</span>;
+		&#125;
+	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;k1;i++)
+	&#123;
+		<span class="hljs-keyword">if</span>(x[i]!=<span class="hljs-string">'!'</span>)
+		&#123;
+			a.Vn[m1]=x[i];
+			m1++;
+		&#125;
+	&#125;
+	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;k2<span class="hljs-number">-1</span>;i++)
+		<span class="hljs-keyword">for</span>(j=i+<span class="hljs-number">1</span>;j&lt;k2;j++)
+		&#123;
+			<span class="hljs-keyword">if</span>(y[i]==y[j])
+				y[j]=<span class="hljs-string">'!'</span>;
+		&#125;
+	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;k2;i++)
+	&#123;
+		<span class="hljs-keyword">if</span>(y[i]!=<span class="hljs-string">'!'</span>)
+		&#123;
+			a.Vt[m2]=y[i];
+			m2++;
+		&#125;
+	&#125;
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"四元组G=(Vn,Vt,P,S)"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"其中非终结符Vn=&#123;"</span>;
+	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;m1<span class="hljs-number">-1</span>;i++)
+		<span class="hljs-built_in">cout</span>&lt;&lt;a.Vn[i]&lt;&lt;<span class="hljs-string">","</span>;
+	<span class="hljs-built_in">cout</span>&lt;&lt;a.Vn[m1<span class="hljs-number">-1</span>];
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"&#125;"</span>;
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"终结符Vt=&#123;"</span>;
+	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;m2<span class="hljs-number">-1</span>;i++)
+		<span class="hljs-built_in">cout</span>&lt;&lt;a.Vt[i]&lt;&lt;<span class="hljs-string">","</span>;
+	<span class="hljs-built_in">cout</span>&lt;&lt;a.Vt[m2<span class="hljs-number">-1</span>];
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"&#125;"</span>;
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"P由下列产生式组成:"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;n;i++)
+		<span class="hljs-built_in">cout</span>&lt;&lt;a.rule[i]&lt;&lt;<span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"开始符为:S"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Grammer</span><span class="hljs-params">(siyuanzu a,<span class="hljs-keyword">int</span> n)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> i,j,length,num,zuo,you;
+	<span class="hljs-keyword">char</span> c;
+	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;n;i++)
+	&#123;
+		num=<span class="hljs-number">0</span>;
+		length=a.rule[i].length();
+		<span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;length;j++)
+		&#123;
+			c=a.rule[i][j];
+			num++;
+			<span class="hljs-keyword">if</span>(c==<span class="hljs-string">'-'</span>)
+				<span class="hljs-keyword">break</span>;
+		&#125;
+		zuo=num<span class="hljs-number">-1</span>;
+		you=length-(num+<span class="hljs-number">1</span>);
+		<span class="hljs-keyword">if</span>(you&gt;=zuo)
+			<span class="hljs-keyword">continue</span>;
+		<span class="hljs-keyword">else</span>
+			<span class="hljs-keyword">break</span>;
+	&#125;
+	<span class="hljs-keyword">if</span>(i==n)
+	&#123;
+		<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;n;i++)
+		&#123;
+			num=<span class="hljs-number">0</span>;
+			length=a.rule[i].length();
+			<span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;length;j++)
+			&#123;
+				c=a.rule[i][j];
+				num++;
+				<span class="hljs-keyword">if</span>(c==<span class="hljs-string">'-'</span>)
+					<span class="hljs-keyword">break</span>;
+			&#125;
+			zuo=num<span class="hljs-number">-1</span>;
+			<span class="hljs-keyword">if</span>(zuo==<span class="hljs-number">1</span>&amp;&amp;<span class="hljs-string">'A'</span>&lt;=a.rule[i][zuo<span class="hljs-number">-1</span>]&amp;&amp;a.rule[i][zuo<span class="hljs-number">-1</span>]&lt;=<span class="hljs-string">'Z'</span>)
+				<span class="hljs-keyword">continue</span>;
+			<span class="hljs-keyword">else</span>
+				<span class="hljs-keyword">break</span>;
+		&#125;
+		<span class="hljs-keyword">if</span>(i==n)
+		&#123;
+			<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;n;i++)
+			&#123;
+				num=<span class="hljs-number">0</span>;
+				length=a.rule[i].length();
+				<span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;length;j++)
+				&#123;
+					c=a.rule[i][j];
+					num++;
+					<span class="hljs-keyword">if</span>(c==<span class="hljs-string">'-'</span>)
+						<span class="hljs-keyword">break</span>;
+				&#125;
+				you=length-(num+<span class="hljs-number">1</span>);
+				<span class="hljs-keyword">if</span>(((you==<span class="hljs-number">2</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">1</span>]&gt;=<span class="hljs-string">'a'</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">1</span>]&lt;=<span class="hljs-string">'z'</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">2</span>]&gt;=<span class="hljs-string">'A'</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">2</span>]&lt;=<span class="hljs-string">'Z'</span>))||((you==<span class="hljs-number">1</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">1</span>]&gt;=<span class="hljs-string">'a'</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">1</span>]&lt;=<span class="hljs-string">'z'</span>)))
+					<span class="hljs-keyword">continue</span>;
+				<span class="hljs-keyword">else</span> 
+					<span class="hljs-keyword">break</span>;
+			&#125;
+			<span class="hljs-keyword">if</span>(i==n)
+				<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"文法类型:3型文法"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+
+			<span class="hljs-keyword">else</span>
+			&#123;
+				<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;n;i++)
+				&#123;
+					num=<span class="hljs-number">0</span>;
+					length=a.rule[i].length();
+					<span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;length;j++)
+					&#123;
+						c=a.rule[i][j];
+						num++;
+						<span class="hljs-keyword">if</span>(c==<span class="hljs-string">'-'</span>)
+							<span class="hljs-keyword">break</span>;
+					&#125;
+					you=length-(num+<span class="hljs-number">1</span>);
+					<span class="hljs-keyword">if</span>(((you==<span class="hljs-number">2</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">1</span>]&gt;=<span class="hljs-string">'A'</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">1</span>]&lt;=<span class="hljs-string">'Z'</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">2</span>]&gt;=<span class="hljs-string">'a'</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">2</span>]&lt;=<span class="hljs-string">'z'</span>))||((you==<span class="hljs-number">1</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">1</span>]&gt;=<span class="hljs-string">'a'</span>)&amp;&amp;(a.rule[i][num+<span class="hljs-number">1</span>]&lt;=<span class="hljs-string">'z'</span>)))
+						<span class="hljs-keyword">continue</span>;
+					<span class="hljs-keyword">else</span> 
+						<span class="hljs-keyword">break</span>;
+				&#125;
+				<span class="hljs-keyword">if</span>(i==n)
+					<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"文法类型:3型文法"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+				<span class="hljs-keyword">else</span>
+					<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"文法类型:2型文法"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+			&#125;
+		&#125;
+		<span class="hljs-keyword">else</span>
+			<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"文法类型:1型文法"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	&#125;
+	<span class="hljs-keyword">else</span>
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"文法类型:0型文法"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> n,r;
+	siyuanzu a;
+	<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)
+	&#123;
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"                    1.输入产生式"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"                    2.输出文法类型及四元组"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"                    3.结束"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"输入功能号:"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cin</span>&gt;&gt;r;
+		<span class="hljs-keyword">if</span>(r&gt;<span class="hljs-number">3</span>||r&lt;<span class="hljs-number">1</span>)
+		&#123;
+			<span class="hljs-keyword">do</span>
+			&#123;
+				<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"输入有误，重新输入"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+				<span class="hljs-built_in">cin</span>&gt;&gt;r;
+			&#125;<span class="hljs-keyword">while</span>(r&lt;=<span class="hljs-number">3</span>&amp;&amp;r&gt;=<span class="hljs-number">1</span>);
+		&#125;
+		<span class="hljs-keyword">switch</span>(r)
+		&#123;
+		<span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:n=input(&amp;a);<span class="hljs-keyword">break</span>;
+		<span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:Grammer(a,n);output(a,n);<span class="hljs-keyword">break</span>;
+		<span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<span class="hljs-keyword">break</span>;
+		<span class="hljs-keyword">default</span>:<span class="hljs-keyword">break</span>;
+		&#125;
+	&#125;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+
+
+
+<h5 id="2、程序运行结果"><a href="#2、程序运行结果" class="headerlink" title="2、程序运行结果"></a>2、程序运行结果</h5><p>a.实验开始图</p>
+<p>   <img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/2.png" srcset="/img/loading.gif" alt="">                        </p>
+<p>b.非1型文法</p>
+<p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/3.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/4.png" srcset="/img/loading.gif" alt=""></p>
+<p>c.1型文法</p>
+<p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/5.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/6.png" srcset="/img/loading.gif" alt=""></p>
+<p>d.2型文法</p>
+<p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/7.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/8.png" srcset="/img/loading.gif" alt=""></p>
+<p>e.3型文法</p>
+<p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/9.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/10.png" srcset="/img/loading.gif" alt=""></p>
+<p>f.实验结束图</p>
+<p><img src="https://raw.githubusercontent.com/han-suyu/Pic/master/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/11.png" srcset="/img/loading.gif" alt=""></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/01/29/%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90LR(0)%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90%E8%A1%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">自动生成LR(0)语法分析表</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/01/29/NFA%E7%A1%AE%E5%AE%9A%E5%8C%96%E4%B8%BADFA/">
+                        <span class="hidden-mobile">NFA确定化为DFA</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    function loadValine() {
+      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "0GczNmun2zmN2vdrogxJXWU3-gzGzoHsz",
+          app_key: "NlTLpnO69Qf4A1UR4Dk7S65w",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    }
+    createObserver(loadValine, 'vcomments');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true' && window.location.hostname !== 'localhost';
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/2020/01/29/%E6%96%87%E6%B3%95%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%A4%E6%96%AD%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BA%8F%E5%88%97%E7%9A%84%E7%94%9F%E6%88%90/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = '0GczNmun2zmN2vdrogxJXWU3-gzGzoHsz'
+    var app_key = 'NlTLpnO69Qf4A1UR4Dk7S65w'
+    var server_url = 'https://0gcznmun.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(resp => resp.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

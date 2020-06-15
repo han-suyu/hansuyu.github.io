@@ -123,8 +123,8 @@
           
             <li class="nav-item">
               <a class="nav-link" href="/photos/">
-                <i class="iconfont icon-youtube-fill"></i>
-                photos
+                <i class="iconfont icon-instagram-fill"></i>
+                相册
               </a>
             </li>
           
@@ -205,6 +205,14 @@
 
   
   
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
 </div>
 
             
@@ -227,6 +235,12 @@
       <div class="container nopadding-md" id="board-ctn">
         <div class="py-5" id="board">
           <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2 个月前
+                
+              </p>
             
             <article class="markdown-body">
               <h2 id="this在java中的用法"><a href="#this在java中的用法" class="headerlink" title="this在java中的用法"></a>this在java中的用法</h2><a id="more"></a>
@@ -290,8 +304,6 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
               
                 <div class="post-prevnext row">
                   <div class="post-prev col-6">
@@ -323,30 +335,21 @@
               <div class="comments" id="comments">
                 
                 
-  <div id="vcomments"></div>
   <script type="text/javascript">
-    function loadValine() {
-      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "0GczNmun2zmN2vdrogxJXWU3-gzGzoHsz",
-          app_key: "NlTLpnO69Qf4A1UR4Dk7S65w",
-          placeholder: "说点什么",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: true,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
+    function loadUtterances() {
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.defer = false
+      s.setAttribute('repo', 'han-suyu/hansuyu.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('theme', 'github-light');
+      s.setAttribute('crossorigin', 'anonymous');
+      var e = document.getElementsByTagName('script')[0];
+      e.parentNode.insertBefore(s, e);
     }
-    createObserver(loadValine, 'vcomments');
+    createObserver(loadUtterances, 'comments')
   </script>
-  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
 
 
               </div>
@@ -409,12 +412,19 @@
 
   <footer class="mt-5">
   <div class="text-center py-3">
+
+
+<!--   通过注释掉这部分，来删去Hexo和Fluid的版权信息
     <div>
       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
       <i class="iconfont icon-love"></i>
       <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
         <span>Fluid</span></a>
     </div>
+--!>
+
+
+
     
   <div class="statistics">
     
@@ -429,6 +439,10 @@
              次
           </span>
       
+
+<i class="iconfont icon-love"></i>
+
+
       
         <!-- LeanCloud 统计UV -->
         <span id="leancloud-site-uv-container" style="display: none">
@@ -446,6 +460,33 @@
 
     
   </div>
+
+
+
+
+
+<div style="text-align: center;display:block;">    <!-- 保证居中显示--!>
+<span id="timeDate" >载入天数...</span><span id="times" >载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("07/13/2019 00:00:00");
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+</div>
+
+
+
 </footer>
 
 <!-- SCRIPTS -->
@@ -613,9 +654,9 @@
       }
     }
 
-    var app_id = '0GczNmun2zmN2vdrogxJXWU3-gzGzoHsz'
-    var app_key = 'NlTLpnO69Qf4A1UR4Dk7S65w'
-    var server_url = 'https://0gcznmun.lc-cn-n1-shared.com'
+    var app_id = 'mU0txKdFEilL1W8l9Xrl9ugs-gzGzoHsz'
+    var app_key = 'VTGx3JEppIyfK4H3BT4Hof1l'
+    var server_url = 'https://mu0txkdf.lc-cn-n1-shared.com'
 
     function fetchData(api_server) {
       var Counter = (method, url, data) => {

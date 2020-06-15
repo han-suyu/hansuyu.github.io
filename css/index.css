@@ -4250,6 +4250,9 @@ img {
 #vcomment button:hover {
   background-color: #ff7242;
 }
+#vcomment textarea {
+  background: url("https://cdn.jsdelivr.net/gh/drew233/cdn/20200409104757.webp") 100% 100% no-repeat;
+}
 #vcomment .vimg {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;

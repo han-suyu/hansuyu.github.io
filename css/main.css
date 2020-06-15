@@ -1372,7 +1372,6 @@ h6::before {
 }
 .category-item {
   font-size: 1.25rem;
-  font-weight: bold;
   display: flex;
   align-items: center;
 }

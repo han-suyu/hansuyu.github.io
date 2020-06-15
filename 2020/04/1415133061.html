@@ -334,12 +334,15 @@
               <div class="comments" id="comments">
                 
                 
+
+
+
   <script type="text/javascript">
     function loadUtterances() {
       var s = document.createElement('script');
       s.setAttribute('src', 'https://utteranc.es/client.js');
       s.defer = false
-      s.setAttribute('repo', 'han-suyu/hansuyu.github.io');
+      s.setAttribute('repo', 'han-suyu/comments');
       s.setAttribute('issue-term', 'pathname');
       
       s.setAttribute('theme', 'github-light');
@@ -438,11 +441,6 @@
              次
           </span>
       
-
-
-<span class="iconfont icon-love"></span>
-
-
       
         <!-- LeanCloud 统计UV -->
         <span id="leancloud-site-uv-container" style="display: none">
@@ -464,26 +462,6 @@
 
 
 
-
-<div style="text-align: center;display:block;">    <!-- 保证居中显示--!>
-<span id="timeDate" >载入天数...</span><span id="times" >载入时分秒...</span>
-<script>
-    var now = new Date();
-    function createtime() {
-        var grt= new Date("07/13/2019 00:00:00");
-        now.setTime(now.getTime()+250);
-        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
-        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
-        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
-        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
-        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-setInterval("createtime()",250);
-</script>
-</div>
 
 
 
@@ -654,9 +632,9 @@ setInterval("createtime()",250);
       }
     }
 
-    var app_id = 'mU0txKdFEilL1W8l9Xrl9ugs-gzGzoHsz'
-    var app_key = 'VTGx3JEppIyfK4H3BT4Hof1l'
-    var server_url = 'https://mu0txkdf.lc-cn-n1-shared.com'
+    var app_id = '0GczNmun2zmN2vdrogxJXWU3-gzGzoHsz'
+    var app_key = 'NlTLpnO69Qf4A1UR4Dk7S65w'
+    var server_url = 'https://0gcznmun.lc-cn-n1-shared.com'
 
     function fetchData(api_server) {
       var Counter = (method, url, data) => {

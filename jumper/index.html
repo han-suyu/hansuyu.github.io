@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>跳一跳 | 愿风载尘</title><meta name="description" content="*{             margin: 0;             padding: 0;             border:0;         }         #canvas-example{             width: 50%;             height: 70%;             p"><meta name="author" content="Seven"><meta name="copyright" content="Seven"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="跳一跳"><meta name="twitter:description" content="*{             margin: 0;             padding: 0;             border:0;         }         #canvas-example{             width: 50%;             height: 70%;             p"><meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="og:type" content="website"><meta property="og:title" content="跳一跳"><meta property="og:url" content="http://hansuyu.com/jumper/"><meta property="og:site_name" content="愿风载尘"><meta property="og:description" content="*{             margin: 0;             padding: 0;             border:0;         }         #canvas-example{             width: 50%;             height: 70%;             p"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-06-16T10:19:47.000Z"><meta property="article:modified_time" content="2020-06-16T10:27:15.525Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = 'false'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://hansuyu.com/jumper/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"cookieDomain":"https://hansuyu.com/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: false,
+  isSidebar: false  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">159</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">30</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-institution" aria-hidden="true"></i><span> 实验室</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-game" aria-hidden="true"></i><span> 小游戏</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><i class="fa-fw fa fa-music"></i><span> 数独</span></a></li><li><a class="site-page" href="/jumper/"><i class="fa-fw fa fa-film"></i><span> 跳一跳</span></a></li><li><a class="site-page" href="/puzzleNumber/"><i class="fa-fw fa fa-film"></i><span> 数字拼图</span></a></li></ul></div></div></div></div><div id="body-wrap"><div class="not-index-bg" id="nav" style="background-image: url(https://s1.ax1x.com/2020/06/15/NPVQZ6.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">愿风载尘</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-institution" aria-hidden="true"></i><span> 实验室</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-game" aria-hidden="true"></i><span> 小游戏</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><i class="fa-fw fa fa-music"></i><span> 数独</span></a></li><li><a class="site-page" href="/jumper/"><i class="fa-fw fa fa-film"></i><span> 跳一跳</span></a></li><li><a class="site-page" href="/puzzleNumber/"><i class="fa-fw fa fa-film"></i><span> 数字拼图</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="page_site-info"><h1 id="site_title">跳一跳</h1></div></div><main class="layout_page hide-aside" id="content-inner"><div id="page"><div id="article-container"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            border:0;
+        }
+        #canvas-example{
+            width: 50%;
+            height: 70%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin:0 auto;
+        }
+        canvas{
+            position: absolute;
+            z-index: 99;
+            background: #fff;
+        }
+    </style>
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <div id="canvas-example">
+    </div>
+    <script src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/jumper/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/jumper/tween.min.js"></script>
+    <script>
+        (function(main){
+            main();
+        })(function(){
+            'use strict'
+            /* THREE.REVISION 93dev */
+            var requestAnimationFrame = window.requestAnimationFrames
+                || window.mozRequestAnimationFrames
+                || window.webkitRequestAnimationFrame
+                || window.msRequestAnimationFrame
+                || function(callback){ window.setTimeout(callback, 1000 / 60) };
+            var renderer, width, height, group, mouseX = 0, mouseY = 0,tween,tween1;
+            width = document.getElementById('canvas-example').clientWidth;
+            height = document.getElementById('canvas-example').clientHeight;
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
+            })
+            renderer.setSize(width, height);
+            renderer.setPixelRatio( window.devicePixelRatio );
+            document.getElementById('canvas-example').appendChild(renderer.domElement);
+            renderer.setClearColor(0x888888, 1);
+            renderer.shadowMapEnabled = true; //是否开启阴影
+            renderer.shadowMapSoft = true; //软阴影
+            var camera;
+            camera = new THREE.PerspectiveCamera( 45, width/height, 1, 2000 );
+            camera.position.set(0, 100, 800);
+            var scene;
+            scene = new THREE.Scene();
+            var group = new THREE.Group();
+            scene.rotation.x = Math.PI/5;
+            scene.rotation.y = -Math.PI/5;
+            scene.add(group);
+            var directionalLight = new THREE.SpotLight(0xFFFFFF, 1.0, 0, 10, 10);;
+            directionalLight.position.x = 0;
+            directionalLight.position.y = 500;
+            directionalLight.position.z = -100;
+            directionalLight.intensity = 3;
+            directionalLight.castShadow = true;
+            directionalLight.shadow.camera.near = 1;
+            directionalLight.shadow.camera.far = 2000;          
+            scene.add(directionalLight);
+            var destice = 1;
+            var data = {
+                startposition: {x: 0, y: 0, z: 0},
+                nowposition:{x:0, y:0, z:0}
+            }
+            // 添加人物 
+            var geometry = new THREE.CylinderGeometry( 20, 20, 60, 20 );
+            var material = new THREE.MeshLambertMaterial( { color: 0xFFFFFF } );
+            var mesh = new THREE.Mesh( geometry, material );
+            mesh.castShadow = true;
+            mesh.position.set(data.startposition.x,data.startposition.y,data.startposition.z);
+            group.add(mesh);
+            var thisbox;
+            var prevbox;
+            var geometryCube = new THREE.BoxBufferGeometry( 100, 50, 100 );
+            var materialCube = new THREE.MeshLambertMaterial( { color: 0xFFFFFF } );
+            function addBlock(x, y, z){
+                // 添加方块
+                var cube = new THREE.Mesh( geometryCube, materialCube );
+                data.nowposition.x = x;
+                data.nowposition.y = y;
+                data.nowposition.z = z;
+                cube.castShadow = true;
+                cube.receiveShadow = true;  
+                cube.position.set(x,y+50,z);
+                prevbox = thisbox;
+                thisbox = cube;
+                group.add(cube);
+                var tweenCube = new TWEEN.Tween(cube.position);
+                tweenCube.easing(TWEEN.Easing.Sinusoidal.In);
+                tweenCube.to({y: cube.position.y-50}, 100);
+                tweenCube.start();
+            }
+            // 添加初始方块
+            addBlock(0, -60, 0);
+            destice = Math.random()>0.5? 1:-1;
+            if(destice == 1){
+                data.nowposition.z -= 200;
+            } else {
+               data.nowposition.x -= 200;
+            }
+            addBlock(data.nowposition.x, data.nowposition.y, data.nowposition.z);
+            animation();
+            function animation(){
+                TWEEN.update();
+                renderer.render(scene, camera);
+                requestAnimationFrame(animation);
+            }
+            var clickfalg = true;
+            var canstart = true;
+            document.getElementById('canvas-example').addEventListener('mousedown', function(){
+                if(!canstart){
+                    return false;
+                }
+                TWEEN.removeAll();
+                canstart = false;
+                // 按下事件
+                clickfalg = true;
+                // 缩小动画
+                var tweenTouch = new TWEEN.Tween(mesh.scale);
+                tweenTouch.easing(TWEEN.Easing.Sinusoidal.In);
+                tweenTouch.to({y: 0.5}, 500);
+                tweenTouch.start();
+                var tweenTouchY = new TWEEN.Tween(mesh.position);
+                tweenTouchY.easing(TWEEN.Easing.Sinusoidal.In);
+                tweenTouchY.to({y: -75/4}, 500);
+                tweenTouchY.start();
+            })
+            document.getElementById('canvas-example').addEventListener('mouseup',function(){
+                if(!clickfalg){
+                    return false;
+                }
+                TWEEN.removeAll();
+                var thisdistence = mesh.scale.y;//获取跳跃的距离
+                var mustdis = Math.floor((1-thisdistence)*500);
+                clickfalg = false;
+                mesh.position.y = 0;
+                var tweenTouch1 = new TWEEN.Tween(mesh.scale);
+                tweenTouch1.easing(TWEEN.Easing.Sinusoidal.In);
+                tweenTouch1.to({y: 1}, 400);
+                tweenTouch1.start();
+                // 跳跃
+                var pos = {
+                    x: mesh.position.x,
+                    y: mesh.position.y,
+                    z: mesh.position.z
+                }
+                var position;
+                if(destice == 1){
+                    var chhange = mustdis  * (thisbox.position.x-pos.x)/(thisbox.position.z-pos.z);
+                    position = {
+                        x: mesh.position.x - chhange,
+                        y: mesh.position.y,
+                        z: mesh.position.z-mustdis
+                    }
+                } else {
+                    var chhange = mustdis  * (thisbox.position.z-pos.z) / (thisbox.position.x-pos.x);
+                    position = {
+                        x: mesh.position.x - mustdis,
+                        y: mesh.position.y,
+                        z: mesh.position.z - chhange
+                    }
+                }
+                // 跳跃动画
+                tween = new TWEEN.Tween(pos);
+                tween1 = new TWEEN.Tween(mesh.rotation);
+                tween.easing(TWEEN.Easing.Sinusoidal.In);
+                tween1.easing(TWEEN.Easing.Sinusoidal.In);
+                tween.to(position, 500);
+                if(destice == 1){
+                    tween1.to({x: -Math.PI*2}, 400);
+                } else {
+                    tween1.to({z: Math.PI*2}, 400);
+                }
+                tween.start();
+                tween1.start();
+                tween.onUpdate(function(value){
+                    if(destice == 1){
+                        mesh.position.z = (1 - value) * (1 - value) * mesh.position.z + 2 * value * (1 - value) * (mesh.position.z + position.z) / 2 + value * value * (position.z);
+                        mesh.position.y = (1 - value) * (1 - value) * mesh.position.y + 2 * value * (1 - value) * (position.y+200) + value * value * (position.y);
+                        mesh.position.x = pos.x;
+                    } else {
+                        mesh.position.x = (1 - value) * (1 - value) * mesh.position.x + 2 * value * (1 - value) * (mesh.position.x + position.x) / 2 + value * value * (position.x);
+                        mesh.position.y = (1 - value) * (1 - value) * mesh.position.y + 2 * value * (1 - value) * (position.y + 200) + value * value * (position.y);
+                        mesh.position.z = pos.z;
+                    }
+                })
+                tween1.onComplete(function(){
+                    mesh.rotation.x = 0;
+                    mesh.rotation.z = 0;
+                })
+                tween.onComplete(function(){
+                    // 判断是否失败
+                    var lastdis =  Math.pow( thisbox.position.x-mesh.position.x ,2) + Math.pow( thisbox.position.y-mesh.position.y ,2) + Math.pow( thisbox.position.z-mesh.position.z ,2);
+                    var prev = Math.pow( prevbox.position.x-mesh.position.x ,2) + Math.pow( prevbox.position.y-mesh.position.y ,2) + Math.pow( prevbox.position.z-mesh.position.z ,2);
+                    if( prev <= 110*50 ){
+                        canstart = true;
+                        return false;
+                    } else if(lastdis >= 110*50) {
+                        alert('掉出去了');
+                        location.reload();
+                        return false;
+                    }
+                    destice = Math.random()>0.5? 1:-1;
+                    var dis = 150 + Math.floor(Math.random()*100);
+                    if(destice == 1){
+                        data.nowposition.z -= dis;
+                    } else {
+                        data.nowposition.x -= dis;
+                    }
+                    addBlock(data.nowposition.x, data.nowposition.y, data.nowposition.z);
+                    // 视角移动
+                    var tween2 = new TWEEN.Tween(group.position);
+                    tween2.easing(TWEEN.Easing.Sinusoidal.In);
+                    if(destice == 1){
+                        tween2.to({y: group.position.y,z: group.position.z + dis,x: group.position.x}, 500);
+                    } else {
+                        tween2.to({y: group.position.y, x: group.position.x + dis,z: group.position.z}, 500);
+                    }                   
+                    tween2.start();
+                    tween2.onComplete(function(){
+                        canstart = true;
+                    })
+                })
+            })
+        })
+    </script>
+</body>
+</html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By Seven</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">简</a><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/search/local-search.js"></script></body></html>

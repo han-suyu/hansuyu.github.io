@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>舔狗日记 | 愿风载尘</title><meta name="description" content="舔狗日记                                   @font-face {       font-family: &#39;MFShangYa&#39;;       src: url(&#39;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;han-suyu&#x2F;cdn&#x2F;we.dog&#x2F;font&#x2F;MFShangYa.ttf&#39;) format(&#39;truetype&#39;);"><meta name="author" content="Seven"><meta name="copyright" content="Seven"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="舔狗日记"><meta name="twitter:description" content="舔狗日记                                   @font-face {       font-family: &#39;MFShangYa&#39;;       src: url(&#39;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;han-suyu&#x2F;cdn&#x2F;we.dog&#x2F;font&#x2F;MFShangYa.ttf&#39;) format(&#39;truetype&#39;);"><meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="og:type" content="website"><meta property="og:title" content="舔狗日记"><meta property="og:url" content="http://hansuyu.com/dog/"><meta property="og:site_name" content="愿风载尘"><meta property="og:description" content="舔狗日记                                   @font-face {       font-family: &#39;MFShangYa&#39;;       src: url(&#39;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;han-suyu&#x2F;cdn&#x2F;we.dog&#x2F;font&#x2F;MFShangYa.ttf&#39;) format(&#39;truetype&#39;);"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-06-16T05:00:03.000Z"><meta property="article:modified_time" content="2020-06-16T10:19:15.340Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = 'false'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://hansuyu.com/dog/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"cookieDomain":"https://hansuyu.com/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: false,
+  isSidebar: false  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">159</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">30</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-institution" aria-hidden="true"></i><span> 实验室</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-game" aria-hidden="true"></i><span> 小游戏</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><i class="fa-fw fa fa-music"></i><span> 数独</span></a></li><li><a class="site-page" href="/jumper/"><i class="fa-fw fa fa-film"></i><span> 跳一跳</span></a></li><li><a class="site-page" href="/puzzleNumber/"><i class="fa-fw fa fa-film"></i><span> 数字拼图</span></a></li></ul></div></div></div></div><div id="body-wrap"><div class="not-index-bg" id="nav" style="background-image: url(https://s1.ax1x.com/2020/06/15/NPVQZ6.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">愿风载尘</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-institution" aria-hidden="true"></i><span> 实验室</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-game" aria-hidden="true"></i><span> 小游戏</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><i class="fa-fw fa fa-music"></i><span> 数独</span></a></li><li><a class="site-page" href="/jumper/"><i class="fa-fw fa fa-film"></i><span> 跳一跳</span></a></li><li><a class="site-page" href="/puzzleNumber/"><i class="fa-fw fa fa-film"></i><span> 数字拼图</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="page_site-info"><h1 id="site_title">舔狗日记</h1></div></div><main class="layout_page hide-aside" id="content-inner"><div id="page"><div id="article-container"><!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>舔狗日记</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="copyright" content="aHR0cHM6Ly93ZS5kb2c=">
+  <meta name="contact" content="eW5zQHFxLmNvbQ==">
+  <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/logo.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/logo.jpg">
+  <link rel="icon" type="image/png" sizes="144x144" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/logo.jpg">
+  <link rel="apple-touch-icon" type="image/png" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/logo.jpg">
+  <style>
+    @font-face {
+      font-family: 'MFShangYa';
+      src: url('https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/font/MFShangYa.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'HYTiaoTiao';
+      src: url('https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/font/HYTiaoTiao.ttf?20200415') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    html {font-size: 10.3333vw;}
+    body {
+        font-family:-apple-system,'Helvetica Neue','Helvetica','Tahoma','Arial','PingFang SC',STHeiTi,'Microsoft Yahei';
+      font-size: 11px;
+      background-color: #f4f5fd;
+      color: #03081a;
+      }
+    mark {
+      background-color: transparent;
+      background-image: -webkit-linear-gradient(#ffe21d, #ffe21d);
+      background-image: -o-linear-gradient(#ffe21d, #ffe21d);
+      background-image: linear-gradient(#ffe21d, #ffe21d);
+      background-position: 0 85%;
+      background-size: 100% 20%;
+      background-repeat: no-repeat;
+    }
+    section {
+      font-family: "HYTiaoTiao";
+      margin: auto .4rem;
+      border-width: 2px 5px 4px 3px;
+      border-style: solid;
+      border-color: #03081a;
+      flex-direction: column;
+      background-color: #fff;
+      -ms-overflow-style: none;
+    }
+    article img {display: none;}
+    article {
+      font-size: .25rem;
+      margin: 0;
+      padding: .4rem;
+      letter-spacing: 1px;
+      text-align: justify;
+      flex: 1;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+    }
+    section::-webkit-scrollbar,
+    article::-webkit-scrollbar {display: none;}
+    address {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      height: .8rem;
+      margin: 0 .4rem;
+      font-style: normal;
+      color: #8c8c8c;
+      font-size: .32rem;
+    }
+    address time {margin-right: auto;}
+    footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      padding: 0 0 .5rem;
+      padding-bottom: calc(constant(safe-area-inset-bottom) + .5rem);
+      padding-bottom: calc(env(safe-area-inset-bottom) + .5rem);
+      margin: .45rem 0 0;
+    }
+    button {
+      border: 0 none;
+      margin: 0 .3rem;
+      padding: 0;
+      background-color: #fff;
+      width: 1rem;
+      height: 1rem;
+      color: transparent;
+      border-radius: 100%;
+      background-image: url(https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/refresh.gif);
+      background-size: cover;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      box-shadow: 0 0 0.2rem rgba(0,0,0,.2);
+      cursor: pointer;
+      outline: 0;
+    }
+    footer a,
+    footer a:active,
+    footer a:visited {
+      vertical-align: middle;
+      text-decoration: none;
+      font-size: .32rem;
+      color: #3078e6;
+      padding: .2rem;
+    }
+    footer a:hover {
+      color: #03081a;
+    }
+    @media (min-width: 750px) {
+      html {font-size: 100px;}
+      section {
+        margin: auto;
+        max-width: 80%;
+        border: 0 none;
+        background-color: transparent;
+        border-radius: none;
+      }
+      article {padding:0 .4rem;}
+      address {justify-content: flex-end;}
+      address time {margin-right: .15rem;}
+    }
+    @media (orientation : landscape) and (min-width: 750px) {
+      header {padding: 10px 20px;}
+      header img {width: 36px;height: 36px;}
+      header h1 {font-size: 32px;margin-top:5px;}
+      header p {font-size: 18px;margin:0 0 0 auto;}
+    }
+  </style>
+<script src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/js/jquery.js"></script>
+<script>
+  function getOS() {
+    var userAgent = window.navigator.userAgent,
+        platform = window.navigator.platform,
+        macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+        iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+        os = null;
+    if (macosPlatforms.indexOf(platform) !== -1) {
+      os = 'Mac OS';
+    } else if (iosPlatforms.indexOf(platform) !== -1) {
+      os = 'iOS';
+    } else if (windowsPlatforms.indexOf(platform) !== -1) {
+      os = 'Windows';
+    } else if (/Android/.test(userAgent)) {
+      os = 'Android';
+    } else if (!os && /Linux/.test(platform)) {
+      os = 'Linux';
+    }
+    return os;
+  }
+  var os = getOS();
+  if(os !== 'iOS' || os !== 'Android') {
+    // 非移动端平台下才设置动态favicon
+    var favicon_images = [
+                    'https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/favicon/0.jpg',
+                    'https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/favicon/1.jpg',
+                    'https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/favicon/2.jpg',
+                    'https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/favicon/3.jpg',
+                    'https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/favicon/4.jpg',
+                    'https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/images/favicon/5.jpg'
+                ],
+    image_counter = 0; // To keep track of the current image
+    setInterval(function() {
+        $("link[rel='icon']").remove();
+        $("link[rel='shortcut icon']").remove();
+        $("head").append('<link rel="icon" href="' + favicon_images[image_counter] + '" type="image/jpeg">');  
+      // If last image then goto first image
+      // Else go to next image    
+      if(image_counter == favicon_images.length -1)
+            image_counter = 0;
+        else
+            image_counter++;
+    }, 80);
+  }
+</script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+  <section class="border-1">
+    <article>
+      昨天你领完红包就把我删了，我陷入久久地沉思。我想这其中一定有什么含义，原来你是在欲擒故纵，嫌我不够爱你。无理取闹的你变得更加可爱了，我会<mark>坚守我对你的爱</mark>的。你放心好啦！今天发工资了，发了1850，给你微信转了520，支付宝1314，还剩下16。给你发了很多消息你没回。剩下16块我在小卖部买了你爱吃的老坛酸菜牛肉面，给你寄过去了。希望你保护好食欲，我去上班了爱你~~
+    </article>
+    <address></address>
+  </section>
+  <footer><button title="点击刷新，再来一篇" onclick="randomSoul()">再来一篇</button></footer>
+<script src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/we.dog/js/index.js?20200415"></script>
+<script src="https://cdn.bootcss.com/clipboard.js/2.0.6/clipboard.min.js"></script>
+<script>
+  var content = '';
+  randomSoul();
+  $('meta[name="description"]').attr('content',content.replace(/\*\*(.*?)\*\*/g,''));
+  var clipboard = new ClipboardJS('a[data-btn="copy"]');
+  clipboard.on('success', function(e) {
+      $('tips').show(
+        setTimeout(function() {
+          $('tips').hide()
+        }, 1500)
+      );
+      e.clearSelection();
+  });
+  function randomNumBoth(min,max){
+    var range = max - min;
+    var rand = Math.random();
+    var num = min + Math.round(rand * range);
+    return num;
+  }
+  var date = new Date();
+  var year = date.getFullYear().toString(); 
+  var month = (date.getMonth() + 1).toString();
+  var day = date.getDate().toString();
+  var city = localStorage.getItem('city') || '';
+  var cloud = localStorage.getItem('cloud') || '';
+  var cond = localStorage.getItem('cond') || '';
+  var dateStart = new Date(localStorage.getItem('date') || new Date());
+  var dayDiff = date.getDate() - dateStart.getDate();
+  var weatherKeys = ['fbb7fed63979495f88fc1ddc7296f497','f3488e987bce466d8ae6b523becf278f','95cf38cd40b84df9beae340c610e8550','3cad9669ecba42c39ebfd73cdb566329','6ec2f3eef9bc448ba8a72e815dd86f12'];
+  if(city == '' || dayDiff >= 1) {
+    var weather = {};
+    for(var i=0;i < weatherKeys.length; i++) {
+      weather = getWeather(weatherKeys[i]);
+      console.log(weatherKeys[i]+':'+weather.status)
+      if (weather.status == 'ok') { break };
+    }
+    city = weather.basic.parent_city || '';
+    cloud = weather.now.fl || ''
+    cond = weather.now.cond_txt || ''
+    localStorage.setItem('city',city);
+    localStorage.setItem('cloud',cloud);
+    localStorage.setItem('cond',cond);
+    localStorage.setItem('date',new Date());
+  }
+  renderWeather();
+  function getWeather(key) {
+    var weatherData = {};
+    $.ajax({
+      url: 'https://free-api.heweather.net/s6/weather/now?location=auto_ip&key='+key,
+      type: 'get',
+      async: false,
+      success : function(data){
+        weatherData = data.HeWeather6[0];
+      }
+    });
+    return weatherData;
+  }
+  function renderWeather(){
+    var weatherHTML = '<time>'+ year+'-'+month+'-'+day+'</time><span>'+city+'·'+cond+'·'+cloud+'&#8451;</span>'
+    $('address').html(weatherHTML);
+  }
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a3bfaec321165f405968b4625458d552";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>
+
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By Seven</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">简</a><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script src="/js/search/local-search.js"></script></body></html>

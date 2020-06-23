@@ -1,71 +1,4 @@
-<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><head>
-  <meta charset="UTF-8">
-  <style>
-    #container {
-      display: block;
-    }
-    .sudoku_wrap {
-      width: inherit;
-      height: 600px;
-    }
-    .button_wrap {
-      width: 170px;
-      height: 100px;
-    }
-    .check_wrap {
-      width:170px;
-      height: 50px;
-    }
-    .center {
-      position: absolute;
-      margin:auto;
-      top:0;
-      left: 0;
-      right: 0;
-      bottom:0;
-    }
-    .center-horizontal {
-      margin-left:auto;
-      margin-right: auto;
-      left: 0;
-      right:0;
-    }
-    #sudoku {
-      width: 590px;
-      height: 540px;
-      list-style: none;
-      position: static;
-    }
-    #sudoku li {
-      width: 60px;
-      height: 60px;
-      border: 1px solid #000;
-      float: left;
-      text-align: center;
-      line-height: 60px;
-      font-size: 30px;
-    }
-    #sudoku input {
-      width: 60px;
-      height: 60px;
-      border: 0px;
-      float: left;
-      text-align: center;
-      line-height: 60px;
-      font-size: 30px;
-      padding: 0px;
-    }
-    button {
-      width:70px;
-      height: 40px;
-      font-size: 14px;
-      border-radius: 5px;
-    }
-  </style>
-<meta name="generator" content="Hexo 4.2.1"></head>
-
-
-<body>
+<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>
 <div id="container">
   <div class="sudoku_wrap">
     <ul id="sudoku" class="center">
@@ -153,7 +86,7 @@
     </ul>
   </div>
   <div id="difficulty" class="check_wrap center-horizontal">
-    <input type="radio" name="difficulty" value="easy" onclick="easy()" checked>简单
+    <input type="radio" name="difficulty" value="easy" onclick="easy()" checked="">简单
     <input type="radio" name="difficulty" value="hard" onclick="hard()">困难
     <input type="radio" name="difficulty" value="disgust" onclick="disgust()">变态
   </div>
@@ -164,5 +97,23 @@
   </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/Sudoku/sudoku.js"></script>
 </div>
-</body>
-</html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

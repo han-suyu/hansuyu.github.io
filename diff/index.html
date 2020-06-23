@@ -1,16 +1,4 @@
-<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
-<head>
-    <title>代码对比/归并</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta http-equiv="Content-Language" content="zh-CN">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/basic.css" type="text/css">
-    <script type="text/javascript" src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/jquery-1.7.2.js'></script>
-    <script type="text/javascript" src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/jquery.cookies.2.2.0.min.js'></script>
-    <link rel="stylesheet" href='https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/bootstrap.min.css'>
-    <script src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/bootstrap.min.js'></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
-<body>
+<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/codemirror.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/mergely.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/mergely.min.js"></script>
@@ -136,12 +124,12 @@
     </script>
     <div id="mainContent" class="wrapper">
         <div class="toolName">代码对比/归并</div>
-        </br>
+        <br>
         <div>
             <form class="form-inline well" style="margin:10px 0 0 0;">
                 <div style="float:left;">
                     <label>选择第一个文件：</label>
-                    <input type="file" id="file" onchange="leftFileSelect(this.files)" single/="">
+                    <input type="file" id="file" onchange="leftFileSelect(this.files)" single="" =""="">
                     <label>编码：</label>
                     <select id="l_encode" value="UTF-8" class="span1" onchange="setLeftCode();">
                         <option value="UTF-8">UTF-8</option>
@@ -153,7 +141,7 @@
                 </div>
                 <div style="float:right;">
                     <label>选择第二个文件：</label>
-                    <input type="file" id="file" onchange="rightFileSelect(this.files)" single/="">
+                    <input type="file" id="file" onchange="rightFileSelect(this.files)" single="" =""="">
                     <label>编码：</label>
                     <select id="r_encode" value="UTF-8" class="span1" onchange="setRightCode();">
                         <option value="UTF-8">UTF-8</option>
@@ -179,5 +167,23 @@
             text-decoration: none;
         }
     </style>
-</body>
-</html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

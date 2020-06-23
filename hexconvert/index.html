@@ -1,15 +1,4 @@
-<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="Content-Language" content="zh-CN" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/hexconvert/basic.css?20120912" type="text/css" />
-    <script type="text/javascript" src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/hexconvert/jquery-1.7.2.js'></script>
-    <script type="text/javascript" src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/hexconvert/jquery.cookies.2.2.0.min.js'></script>
-    <link rel="stylesheet" href='https://cdn.jsdelivr.net/gh/han-suyu/cdn/hexconvert/bootstrap.min.css' />
-    <script src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/hexconvert/bootstrap.min.js'></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
-<body>
+<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>
     <style>
         .tool_content {
             width: 1024px;
@@ -39,21 +28,20 @@
     </style>
     <div id="mainContent" class="tool_content wrapper">
         <div style="margin:10px 0 10px 0; color:#FFFFFF ">支持在2~36进制之间进行任意转换，支持浮点型</div>
-        </br>
-        </br>
-        </br>
+        <br>
+        <br>
+        <br>
         <table>
-            <tr>
+            <tbody><tr>
                 <td>
                     <div class="content_area" id="input_area">
                         <ul>
-                            <li><label class="radio"><input type="radio" name='input_' value="2" />2进制</label></li>
-                            <li><label class="radio"><input type="radio" name='input_' value="4" />4进制</label></li>
-                            <li><label class="radio"><input type="radio" name='input_' value="8" />8进制</label></li>
-                            <li><label class="radio"><input type="radio" name='input_' value="10"
-                                        checked="checked" />10进制</label></li>
-                            <li><label class="radio"><input type="radio" name='input_' value="16" />16进制</label></li>
-                            <li><label class="radio"><input type="radio" name='input_' value="32" />32进制</label></li>
+                            <li><label class="radio"><input type="radio" name="input_" value="2">2进制</label></li>
+                            <li><label class="radio"><input type="radio" name="input_" value="4">4进制</label></li>
+                            <li><label class="radio"><input type="radio" name="input_" value="8">8进制</label></li>
+                            <li><label class="radio"><input type="radio" name="input_" value="10" checked="checked">10进制</label></li>
+                            <li><label class="radio"><input type="radio" name="input_" value="16">16进制</label></li>
+                            <li><label class="radio"><input type="radio" name="input_" value="32">32进制</label></li>
                             <li><select id="input_num" class="input-small">
                                     <option value="2">2进制</option>
                                     <option value="3">3进制</option>
@@ -63,7 +51,7 @@
                                     <option value="7">7进制</option>
                                     <option value="8">8进制</option>
                                     <option value="9">9进制</option>
-                                    <option value="10" selected>10进制</option>
+                                    <option value="10" selected="">10进制</option>
                                     <option value="11">11进制</option>
                                     <option value="12">12进制</option>
                                     <option value="13">13进制</option>
@@ -93,9 +81,7 @@
                                 </select></li>
                         </ul>
                         <div class="input-prepend">
-                            <span class="add-on">转换数字</span><input id="input_value" type="text" value=""
-                                onpropertychange="px()" onchange="px()" oninput="px()" class="toolInput num_value"
-                                placeholder="在此输入待转换数字" />
+                            <span class="add-on">转换数字</span><input id="input_value" type="text" value="" onpropertychange="px()" onchange="px()" oninput="px()" class="toolInput num_value" placeholder="在此输入待转换数字">
                         </div>
                     </div>
                 </td>
@@ -104,13 +90,12 @@
                 <td>
                     <div class="content_area" id="output_area">
                         <ul>
-                            <li><label class="radio"><input type="radio" name='output_' value="2" />2进制</label></li>
-                            <li><label class="radio"><input type="radio" name='output_' value="4" />4进制</label></li>
-                            <li><label class="radio"><input type="radio" name='output_' value="8" />8进制</label></li>
-                            <li><label class="radio"><input type="radio" name='output_' value="10" />10进制</label></li>
-                            <li><label class="radio"><input type="radio" name='output_' value="16"
-                                        checked="checked" />16进制</label></li>
-                            <li><label class="radio"><input type="radio" name='output_' value="32" />32进制</label></li>
+                            <li><label class="radio"><input type="radio" name="output_" value="2">2进制</label></li>
+                            <li><label class="radio"><input type="radio" name="output_" value="4">4进制</label></li>
+                            <li><label class="radio"><input type="radio" name="output_" value="8">8进制</label></li>
+                            <li><label class="radio"><input type="radio" name="output_" value="10">10进制</label></li>
+                            <li><label class="radio"><input type="radio" name="output_" value="16" checked="checked">16进制</label></li>
+                            <li><label class="radio"><input type="radio" name="output_" value="32">32进制</label></li>
                             <li><select id="output_num" onchange="px(1);" class="input-small">
                                     <option value="2">2进制</option>
                                     <option value="3">3进制</option>
@@ -126,7 +111,7 @@
                                     <option value="13">13进制</option>
                                     <option value="14">14进制</option>
                                     <option value="15">15进制</option>
-                                    <option value="16" selected>16进制</option>
+                                    <option value="16" selected="">16进制</option>
                                     <option value="17">17进制</option>
                                     <option value="18">18进制</option>
                                     <option value="19">19进制</option>
@@ -150,16 +135,15 @@
                                 </select></li>
                         </ul>
                         <div class="input-prepend">
-                            <span class="add-on">转换结果</span><input type="text" id="output_value"
-                                class="toolInput num_value" placeholder="转换结果"></input>
+                            <span class="add-on">转换结果</span><input type="text" id="output_value" class="toolInput num_value" placeholder="转换结果">
                         </div>
                     </div>
                 </td>
             </tr>
-        </table>
-        </br>
-        </br>
-        </br>
+        </tbody></table>
+        <br>
+        <br>
+        <br>
             <div style="color:#C00;">
     <h6>引用：https://tool.oschina.net/hexconvert</h6>    
 </div>
@@ -271,5 +255,23 @@
             }
         }
     </script>
-</body>
-</html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

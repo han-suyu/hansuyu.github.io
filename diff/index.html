@@ -1,173 +1,173 @@
 <link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/codemirror.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/mergely.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/mergely.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/codemirror.css">
-    <script id="render_js" type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/javascript.js"></script>
-    <script>
-        var l_files;
-        var r_files;
-        $(document).ready(function () {
-            $('#diff').mergely({
-                cmsettings: {
-                    mode: "javascript",
-                    readOnly: false,
-                    lineWrapping: true
-                }
-            });
-        });
-        function leftFileSelect(files) {
-            l_files = files;
-            setLeft(l_files);
+<!--     头部header结束    -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/codemirror.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/mergely.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/mergely.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/codemirror.css">
+<script id="render_js" type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/javascript.js"></script>
+<script>
+    var l_files;
+    var r_files;
+$(document).ready(function() {
+    $('#diff').mergely({
+        cmsettings: {
+            mode: "javascript",
+            readOnly: false,
+            lineWrapping: true
         }
-        function rightFileSelect(files) {
-            r_files = files;
-            setRight(r_files);
-        }
-        function setRight(files) {
-            f = files[0];
-            var reader = new FileReader();
-            reader.onload = (function (file) {
-                return function (e) {
-                    $('#diff').mergely("rhs", this.result);
-                };
-            })(f);
-            reader.readAsText(f, $('#r_encode').val());
-        }
-        function setLeft(files) {
-            f = files[0];
-            var f_name = f.name;
-            var f_type = f_name.substring(f_name.lastIndexOf("."));
-            switch (f_type) {
-                case ".js":
-                    setRender("javascript/javascript.js");
-                    break;
-                case ".css":
-                    setRender("css/css.js");
-                    break;
-                case ".go":
-                    setRender("go/go.js");
-                    break;
-                case ".groovy":
-                    setRender("groovy/groovy.js");
-                    break;
-                case ".c", ".cpp":
-                    setRender("clike/clike.js");
-                    break;
-                case ".php":
-                    setRender("php/php.js");
-                    break;
-                case ".xml":
-                    setRender("xml/xml.js");
-                    break;
-                case ".html":
-                    setRender("htmlembedded/htmlembedded.js");
-                    break;
-                case ".less":
-                    setRender("less/less.js");
-                    break;
-                case ".lua":
-                    setRender("lua/lua.js");
-                    break;
-                case ".md":
-                    setRender("markdown/markdown.js");
-                    break;
-                case ".vm":
-                    setRender("velocity/velocity.js");
-                    break;
-                case ".py":
-                    setRender("python/python.js");
-                    break;
-                case ".properties":
-                    setRender("properties/properties.js");
-                    break;
-                case ".rb":
-                    setRender("ruby/ruby.js");
-                    break;
-                case ".sh":
-                    setRender("shell/shell.js");
-                    break;
-                case ".sql":
-                    setRender("plsql/plsql.js");
-                    break;
-                case ".erl":
-                    setRender("erlang/erlang.js");
-                    break;
-                case ".coffee":
-                    setRender("coffeescript/coffeescript.js");
-                    break;
-                case ".pl":
-                    setRender("perl/perl.js");
-                    break;
-                    defualt: setRender("clike/clike.js");
-            }
-            var reader = new FileReader();
-            reader.onload = (function (file) {
-                return function (e) {
-                    $('#diff').mergely("lhs", this.result);
-                };
-            })(f);
-            reader.readAsText(f, $('#l_encode').val());
-        }
-        function setLeftCode() {
-            if (null != l_files)
-                setLeft(l_files);
-        }
-        function setRightCode() {
-            if (null != r_files)
-                setRight(r_files);
-        }
-        function setRender(type) {
-            var base_src = "";
-            $("#render_js").attr("src", base_src + type);
-        }
-    </script>
-    <div id="mainContent" class="wrapper">
-        <div class="toolName">代码对比/归并</div>
-        <br>
-        <div>
-            <form class="form-inline well" style="margin:10px 0 0 0;">
-                <div style="float:left;">
-                    <label>选择第一个文件：</label>
-                    <input type="file" id="file" onchange="leftFileSelect(this.files)" single="" =""="">
-                    <label>编码：</label>
-                    <select id="l_encode" value="UTF-8" class="span1" onchange="setLeftCode();">
-                        <option value="UTF-8">UTF-8</option>
-                        <option value="GBK">GBK</option>
-                        <option value="GB2312">GB2312</option>
-                        <option value="GB18030">GB18030</option>
-                        <option value="ISO-8859-2">ISO-8859-2</option>
-                    </select>
-                </div>
-                <div style="float:right;">
-                    <label>选择第二个文件：</label>
-                    <input type="file" id="file" onchange="rightFileSelect(this.files)" single="" =""="">
-                    <label>编码：</label>
-                    <select id="r_encode" value="UTF-8" class="span1" onchange="setRightCode();">
-                        <option value="UTF-8">UTF-8</option>
-                        <option value="GBK">GBK</option>
-                        <option value="GB2312">GB2312</option>
-                        <option value="GB18030">GB18030</option>
-                        <option value="ISO-8859-2">ISO-8859-2</option>
-                    </select>
-                </div>
-            </form>
-        </div>
-        <div id="diff" class="toolUsing"></div>
-        <div style="color:#C00;">
-            <h3>引用：https://tool.oschina.net/diff</h3>
-        </div>
+    });
+});
+function leftFileSelect(files) {
+    l_files=files;
+    setLeft(l_files);
+}
+function rightFileSelect(files){
+    r_files=files;
+    setRight(r_files);
+}
+function setRight(files){
+    f=files[0];
+    var reader = new FileReader();
+    reader.onload = (function(file) {
+        return function(e) {
+            $('#diff').mergely("rhs",this.result);
+        };
+    })(f);
+    reader.readAsText(f,$('#r_encode').val());
+}
+function setLeft(files){
+    f=files[0];
+    var f_name=f.name;
+    var f_type=f_name.substring(f_name.lastIndexOf("."));
+    switch(f_type){
+        case ".js":
+            setRender("javascript/javascript.js");
+            break;
+        case ".css":
+            setRender("css/css.js");        
+            break;        
+        case ".go":
+            setRender("go/go.js");        
+            break;        
+        case ".groovy":
+            setRender("groovy/groovy.js");        
+            break;        
+        case ".c",".cpp":
+            setRender("clike/clike.js");        
+            break;    
+        case ".php":
+            setRender("php/php.js");        
+            break;        
+        case ".xml":
+            setRender("xml/xml.js");        
+            break;    
+        case ".html":
+            setRender("htmlembedded/htmlembedded.js");        
+            break;    
+        case ".less":
+            setRender("less/less.js");        
+            break;    
+        case ".lua":
+            setRender("lua/lua.js");
+            break;
+        case ".md":
+            setRender("markdown/markdown.js");
+            break;
+        case ".vm":
+            setRender("velocity/velocity.js");
+            break;
+        case ".py":
+            setRender("python/python.js");
+            break;
+        case ".properties":
+            setRender("properties/properties.js");
+            break;
+        case ".rb":
+            setRender("ruby/ruby.js");
+            break;
+        case ".sh":
+            setRender("shell/shell.js");
+            break;
+        case ".sql":
+            setRender("plsql/plsql.js");
+            break;
+        case ".erl":
+            setRender("erlang/erlang.js");
+            break;
+        case ".coffee":
+            setRender("coffeescript/coffeescript.js");
+            break;
+        case ".pl":
+            setRender("perl/perl.js");
+            break;
+        defualt:setRender("clike/clike.js");
+    }
+    var reader = new FileReader();
+    reader.onload = (function(file) {
+        return function(e) {
+            $('#diff').mergely("lhs",this.result);
+        };
+    })(f);
+    reader.readAsText(f,$('#l_encode').val());
+}
+function setLeftCode(){
+    if(null!=l_files)
+        setLeft(l_files);
+}
+function setRightCode(){
+    if(null!=r_files)
+        setRight(r_files);
+}
+function setRender(type){
+    var base_src="/js/CodeMirror-2.25/mode/";
+    $("#render_js").attr("src",base_src+type);
+}
+</script>
+<div id="mainContent" class="wrapper">
+    <div class="toolName">代码对比/归并</div>
+    <div>
+        <form class="form-inline well" style="margin:10px 0 0 0;">
+            <div style="float:left;">
+            <label>选择第一个文件：</label>
+            <input type="file" id="file" onchange="leftFileSelect(this.files)" single="">
+            <label>编码：</label>
+            <select id="l_encode" value="UTF-8" class="span1" onchange="setLeftCode();">
+                <option value="UTF-8">UTF-8</option>
+                <option value="GBK">GBK</option>
+                <option value="GB2312">GB2312</option>
+                <option value="GB18030">GB18030</option>
+                <option value="ISO-8859-2">ISO-8859-2</option>
+            </select>
+            </div>
+            <div style="float:right;">
+            <label>选择第二个文件：</label>
+            <input type="file" id="file" onchange="rightFileSelect(this.files)" single="">
+            <label>编码：</label>
+            <select id="r_encode" value="UTF-8" class="span1" onchange="setRightCode();">
+                <option value="UTF-8">UTF-8</option>
+                <option value="GBK">GBK</option>
+                <option value="GB2312">GB2312</option>
+                <option value="GB18030">GB18030</option>
+                <option value="ISO-8859-2">ISO-8859-2</option>
+            </select>
+            </div>
+        </form>
     </div>
-    <style>
-        .CodeMirror {
-            font-family: Courier New;
-            font-size: 14px;
-        }
-        .mergely-c-rem {
-            text-decoration: none;
-        }
-    </style>
+    <div id="diff" class="toolUsing"></div>
+    <div style="color:#C00;">
+        <h3>引用：https://tool.oschina.net/diff</h3>
+    </div>
+</div>
+<style>
+.CodeMirror {
+    font-family: Courier New;
+    font-size: 14px;
+}
+.mergely-c-rem{
+    text-decoration:none;
+}
+</style>
+
 
 <script>
         document.querySelectorAll('.github-emoji')

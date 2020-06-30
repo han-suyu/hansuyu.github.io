@@ -1,45 +1,46 @@
 <link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>
     <!--RGB与十六进制颜色码转换（不需要css和js外部文件）-->
-    <table style="border-collapse: collapse" bordercolor="#d9d9d9" cellspacing="0" cellpadding="8" width="100%" bgcolor="#fcfcfc" border="1">
-        <tbody>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content"> 
+    <tbody><tr> 
+      <td valign="top" class="ad"><script>ad()</script></td> 
+    </tr>
+    <tr>
+      <td valign="top" class="area"><table style="border-collapse: collapse" bordercolor="#d9d9d9" cellspacing="0" cellpadding="8" width="100%" bgcolor="#fcfcfc" border="1">
+          <tbody>
             <tr>
-                <td>
-                    <div>RGB颜色值 to 十六进制颜色码：</div>
-                    <table border="0" cellpadding="0" cellspacing="4">
-                        <tbody>
-                            <tr>
-                                <td width="200">
-                                    <input name="r1e" value="255" class="rle" maxlength="3" onkeydown="getkey(event,0);">
-                                    <input name="r1e" value="180" class="rle" maxlength="3" onkeydown="getkey(event,0);">
-                                    <input name="r1e" value="0" class="rle" maxlength="3" onkeydown="getkey(event,0);">
-                                    <input onclick="showRGB()" type="button" value="转换" name="button">
-                                </td>
-                                <td id="color1" width="50"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div id="res_1">　</div>
-                </td>
+              <td><div>RGB颜色值转换成十六进制颜色码：</div>
+                <table border="0" cellpadding="0" cellspacing="4">
+                  <tbody>
+                    <tr>
+                      <td width="200">
+                        <input name="r1e" value="255" class="rle" maxlength="3" onkeydown="getkey(event,0);">
+                        <input name="r1e" value="180" class="rle" maxlength="3" onkeydown="getkey(event,0);">
+                        <input name="r1e" value="0" class="rle" maxlength="3" onkeydown="getkey(event,0);">
+                        <input onclick="showRGB()" type="button" value="转换" name="button">
+                      </td>
+                      <td id="color1" width="50"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div id="a_mo2">　</div></td>
             </tr>
             <tr>
-                <td>
-                    <div>十六进制颜色码 to RGB颜色值：</div>
-                    <table border="0" cellpadding="0" cellspacing="4">
-                        <tbody>
-                            <tr>
-                                <td width="200">
-                                    <input name="rgb2" value="#CC00FF" size="8" maxlength="7" onkeydown="getkey(event,1);">
-                                    <input onclick="showRGB2()" type="button" value="转换" name="button">
-                                </td>
-                                <td id="color2" width="50"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div id="res_2">　</div>
-                </td>
+              <td><div>十六进制颜色码转换成RGB颜色值：</div>
+                <table border="0" cellpadding="0" cellspacing="4">
+                  <tbody>
+                    <tr>
+                      <td width="200">
+                        <input name="rgb2" value="#CC00FF" size="8" maxlength="7" onkeydown="getkey(event,1);">
+                        <input onclick="showRGB2()" type="button" value="转换" name="button">
+                      </td>
+                      <td id="color2" width="50"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div id="a_mo3">　</div></td>
             </tr>
-        </tbody>
-    </table>
+          </tbody>
+      </table>
     <br>
     <br>
     <br>
@@ -2356,7 +2357,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/farbtastic.js"></script>
 
-<script>
+</td></tr></tbody></table><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }

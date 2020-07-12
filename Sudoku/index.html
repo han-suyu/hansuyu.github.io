@@ -1,67 +1,72 @@
-<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><br>  <meta charset="UTF-8"><br>  <style></p>
-<pre><code>#container {
-  display: block;
-}
-.sudoku_wrap {
-  width: inherit;
-  height: 600px;
-}
-.button_wrap {
-  width: 170px;
-  height: 100px;
-}
-.check_wrap {
-  width:170px;
-  height: 50px;
-}
-.center {
-  position: absolute;
-  margin:auto;
-  top:0;
-  left: 0;
-  right: 0;
-  bottom:0;
-}
-.center-horizontal {
-  margin-left:auto;
-  margin-right: auto;
-  left: 0;
-  right:0;
-}
-#sudoku {
-  width: 590px;
-  height: 540px;
-  list-style: none;
-  position: static;
-}
-#sudoku li {
-  width: 60px;
-  height: 60px;
-  border: 1px solid #000;
-  float: left;
-  text-align: center;
-  line-height: 60px;
-  font-size: 30px;
-}
-#sudoku input {
-  width: 60px;
-  height: 60px;
-  border: 0px;
-  float: left;
-  text-align: center;
-  line-height: 60px;
-  font-size: 30px;
-  padding: 0px;
-}
-button {
-  width:70px;
-  height: 40px;
-  font-size: 14px;
-  border-radius: 5px;
-}
-</code></pre><p>  &lt;/style&gt;<br>&lt;/head&gt;</p>
-<p><body></p>
-<p><div id="container">
+<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>&lt;!doctype html&gt;</p>
+
+
+  <meta charset="UTF-8">
+  <style>
+    #container {
+      display: block;
+    }
+    .sudoku_wrap {
+      width: inherit;
+      height: 600px;
+    }
+    .button_wrap {
+      width: 170px;
+      height: 100px;
+    }
+    .check_wrap {
+      width:170px;
+      height: 50px;
+    }
+    .center {
+      position: absolute;
+      margin:auto;
+      top:0;
+      left: 0;
+      right: 0;
+      bottom:0;
+    }
+    .center-horizontal {
+      margin-left:auto;
+      margin-right: auto;
+      left: 0;
+      right:0;
+    }
+    #sudoku {
+      width: 590px;
+      height: 540px;
+      list-style: none;
+      position: static;
+    }
+    #sudoku li {
+      width: 60px;
+      height: 60px;
+      border: 1px solid #000;
+      float: left;
+      text-align: center;
+      line-height: 60px;
+      font-size: 30px;
+    }
+    #sudoku input {
+      width: 60px;
+      height: 60px;
+      border: 0px;
+      float: left;
+      text-align: center;
+      line-height: 60px;
+      font-size: 30px;
+      padding: 0px;
+    }
+    button {
+      width:70px;
+      height: 40px;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+  </style>
+<meta name="generator" content="Hexo 4.2.1">
+
+<div id="container">
   <div class="sudoku_wrap">
     <ul id="sudoku" class="center">
       <li x="0" y="0"></li>
@@ -146,15 +151,21 @@ button {
       <li x="8" y="7"></li>
       <li x="8" y="8"></li>
     </ul>
-  </div><br>  <div id="difficulty" class="check_wrap center-horizontal">
-    <input type="radio" name="difficulty" value="easy" onclick="easy()" checked>简单
+  </div>
+  <div id="difficulty" class="check_wrap center-horizontal">
+    <input type="radio" name="difficulty" value="easy" onclick="easy()" checked="">简单
     <input type="radio" name="difficulty" value="hard" onclick="hard()">困难
     <input type="radio" name="difficulty" value="disgust" onclick="disgust()">变态
-  </div><br>  <p id="timer" style="text-align: center"></p><br>  <div class="button_wrap center-horizontal">
+  </div>
+  <p id="timer" style="text-align: center"></p>
+  <div class="button_wrap center-horizontal">
     <button type="button" onclick="gameStart()">换一题</button>
     <button type="button" onclick="showAnswer()">看答案</button>
-  </div><br>  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/Sudoku/sudoku.js"></script><br>&lt;/div&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;</p>
-</style></p><script>
+  </div>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/Sudoku/sudoku.js"></script>
+</div>
+
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }

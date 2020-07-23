@@ -80,7 +80,7 @@ h5,
 h6 {
   position: relative;
   margin: 1rem 0 0.7rem;
-  color: #344c67;
+  color: #262626;
   font-weight: bold;
 }
 h1 code,
@@ -1840,7 +1840,7 @@ blockquote footer cite:before {
 }
 #error-wrap .error-content .error-info .error_title {
   margin-top: -4rem;
-  color: #1f2d3d;
+  color: #000;
   font-size: 9em;
 }
 @media screen and (max-width: 768px) {
@@ -1850,7 +1850,7 @@ blockquote footer cite:before {
 }
 #error-wrap .error-content .error-info .error_subtitle {
   margin-top: -3.5rem;
-  color: #1f2d3d;
+  color: #000;
   word-break: break-word;
   font-size: 1.6em;
   -webkit-line-clamp: 2;
@@ -2312,7 +2312,7 @@ blockquote footer cite:before {
   transform: scale(1);
 }
 .flink#article-container .flink-list > .flink-list-item a {
-  color: #1f2d3d;
+  color: #000;
   text-decoration: none;
 }
 .flink#article-container .flink-list > .flink-list-item a img {
@@ -4455,7 +4455,7 @@ blockquote.pullquote.right {
 .hide-toggle > .hide-button {
   padding: 0.3rem 0.5rem;
   background: #f0f0f0;
-  color: #1f2d3d;
+  color: #000;
   cursor: pointer;
 }
 .hide-toggle > .hide-button > i {
@@ -4625,7 +4625,7 @@ blockquote.pullquote.right {
   outline: 0;
   border-top: 2px solid #f0f0f0;
   background: #f0f0f0;
-  color: #1f2d3d;
+  color: #000;
   text-align: center;
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;

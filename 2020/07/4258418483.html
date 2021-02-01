@@ -1,18 +1,18 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>YOLO v4学习总结 | 明天又是周六了</title><meta name="keywords" content="目标检测,YOLO"><meta name="author" content="Seven"><meta name="copyright" content="Seven"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="原论文：《Optimal Speed and Accuracy of Object Detection》                   原论文：http:&#x2F;&#x2F;xxx.itp.ac.cn&#x2F;abs&#x2F;2004.10934 下载好的：https:&#x2F;&#x2F;wwa.lanzous.com&#x2F;iyURFf05ssb         &amp;nbsp; &amp;nbsp; 写在前面想要继续学习yo">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>YOLO v4学习总结 | 明天又是周六了</title><meta name="keywords" content="目标检测,YOLO"><meta name="author" content="Seven"><meta name="copyright" content="Seven"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="原论文：《Optimal Speed and Accuracy of Object Detection》                   原论文：http:&#x2F;&#x2F;xxx.itp.ac.cn&#x2F;abs&#x2F;2004.10934 下载好的：https:&#x2F;&#x2F;wwa.lanzous.com&#x2F;iyURFf05ssb            写在前面 想要继续学习yolo系列">
 <meta property="og:type" content="article">
 <meta property="og:title" content="YOLO v4学习总结">
 <meta property="og:url" content="https://hansy.tech/2020/07/4258418483.html">
 <meta property="og:site_name" content="明天又是周六了">
-<meta property="og:description" content="原论文：《Optimal Speed and Accuracy of Object Detection》                   原论文：http:&#x2F;&#x2F;xxx.itp.ac.cn&#x2F;abs&#x2F;2004.10934 下载好的：https:&#x2F;&#x2F;wwa.lanzous.com&#x2F;iyURFf05ssb         &amp;nbsp; &amp;nbsp; 写在前面想要继续学习yo">
+<meta property="og:description" content="原论文：《Optimal Speed and Accuracy of Object Detection》                   原论文：http:&#x2F;&#x2F;xxx.itp.ac.cn&#x2F;abs&#x2F;2004.10934 下载好的：https:&#x2F;&#x2F;wwa.lanzous.com&#x2F;iyURFf05ssb            写在前面 想要继续学习yolo系列">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/han-suyu/cover/40.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/han-suyu/cover/38.jpg">
 <meta property="article:published_time" content="2020-07-20T03:49:04.000Z">
 <meta property="article:modified_time" content="2020-07-20T03:49:04.000Z">
 <meta property="article:author" content="Seven">
 <meta property="article:tag" content="目标检测">
 <meta property="article:tag" content="YOLO">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/han-suyu/cover/40.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hansy.tech/2020/07/4258418483"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="u9AaJlYHNmU4dpUtiWPMA9_vQRU4zjcERKUymU8aEao"/><meta name="baidu-site-verification" content="m7BzC4y6nU"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/han-suyu/cover/38.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hansy.tech/2020/07/4258418483"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="u9AaJlYHNmU4dpUtiWPMA9_vQRU4zjcERKUymU8aEao"/><meta name="baidu-site-verification" content="m7BzC4y6nU"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
@@ -145,33 +145,152 @@
     if (fontSizeVal !== undefined) {
       document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
     }
-    })(window)</script><link rel="stylesheet" href="/css/my.css"><link rel="stylesheet" href="https://at.alicdn.com/t/font_2107761_ythu35kdfcq.css"><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="明天又是周六了" type="application/atom+xml">
-</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/wechat.jpg'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">179</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-institution"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/color/"><i class="fa-fw fa fa-tachometer"></i><span> RGB颜色</span></a></li><li><a class="site-page" href="/colorPick/"><i class="fa-fw fa fa-magic"></i><span> 颜色提取</span></a></li><li><a class="site-page" href="/hexconvert/"><i class="fa-fw fa fa-calculator"></i><span> 进制转换</span></a></li><li><a class="site-page" href="/diff/"><i class="fa-fw fa fa-clone"></i><span> 文本对比</span></a></li><li><a class="site-page" href="/map/"><i class="fa-fw fa fa-globe"></i><span> 地球图层</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-game"></i><span> 小游戏</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><span> 数独</span></a></li><li><a class="site-page" href="/puzzleNumber/"><span> 数字拼图</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/han-suyu/cover/40.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">明天又是周六了</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-institution"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/color/"><i class="fa-fw fa fa-tachometer"></i><span> RGB颜色</span></a></li><li><a class="site-page" href="/colorPick/"><i class="fa-fw fa fa-magic"></i><span> 颜色提取</span></a></li><li><a class="site-page" href="/hexconvert/"><i class="fa-fw fa fa-calculator"></i><span> 进制转换</span></a></li><li><a class="site-page" href="/diff/"><i class="fa-fw fa fa-clone"></i><span> 文本对比</span></a></li><li><a class="site-page" href="/map/"><i class="fa-fw fa fa-globe"></i><span> 地球图层</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-game"></i><span> 小游戏</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><span> 数独</span></a></li><li><a class="site-page" href="/puzzleNumber/"><span> 数字拼图</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">YOLO v4学习总结<a class="post-edit-link" href="https://github.com/han-suyu/hansy.tech/edit/main/source/_posts/YOLO v4学习总结.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-20T03:49:04.000Z" title="发表于 2020-07-20 11:49:04">2020-07-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-07-20T03:49:04.000Z" title="更新于 2020-07-20 11:49:04">2020-07-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2020/07/4258418483.html#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class='spoiler collapsed'>
-    <div class='spoiler-title'>
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><link rel="stylesheet" href="https://at.alicdn.com/t/font_2107761_ythu35kdfcq.css"><meta name="generator" content="Hexo 5.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="明天又是周六了" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/wechat.jpg'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">179</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-institution"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/color/"><i class="fa-fw fa fa-tachometer"></i><span> RGB颜色</span></a></li><li><a class="site-page" href="/colorPick/"><i class="fa-fw fa fa-magic"></i><span> 颜色提取</span></a></li><li><a class="site-page" href="/hexconvert/"><i class="fa-fw fa fa-calculator"></i><span> 进制转换</span></a></li><li><a class="site-page" href="/diff/"><i class="fa-fw fa fa-clone"></i><span> 文本对比</span></a></li><li><a class="site-page" href="/map/"><i class="fa-fw fa fa-globe"></i><span> 地球图层</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-game"></i><span> 小游戏</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><span> 数独</span></a></li><li><a class="site-page" href="/puzzleNumber/"><span> 数字拼图</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/han-suyu/cover/38.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">明天又是周六了</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-institution"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/color/"><i class="fa-fw fa fa-tachometer"></i><span> RGB颜色</span></a></li><li><a class="site-page" href="/colorPick/"><i class="fa-fw fa fa-magic"></i><span> 颜色提取</span></a></li><li><a class="site-page" href="/hexconvert/"><i class="fa-fw fa fa-calculator"></i><span> 进制转换</span></a></li><li><a class="site-page" href="/diff/"><i class="fa-fw fa fa-clone"></i><span> 文本对比</span></a></li><li><a class="site-page" href="/map/"><i class="fa-fw fa fa-globe"></i><span> 地球图层</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-game"></i><span> 小游戏</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><span> 数独</span></a></li><li><a class="site-page" href="/puzzleNumber/"><span> 数字拼图</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">YOLO v4学习总结<a class="post-edit-link" href="https://github.com/han-suyu/hansy.tech/edit/main/source/_posts/YOLO v4学习总结.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-20T03:49:04.000Z" title="发表于 2020-07-20 11:49:04">2020-07-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-07-20T03:49:04.000Z" title="更新于 2020-07-20 11:49:04">2020-07-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">346</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2020/07/4258418483.html#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class="spoiler collapsed">
+    <div class="spoiler-title">
         原论文：《Optimal Speed and Accuracy of Object Detection》
     </div>
-    <div class='spoiler-content'>
-        <p><strong>原论文</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://xxx.itp.ac.cn/abs/2004.10934">http://xxx.itp.ac.cn/abs/2004.10934</a></p>
-<p><strong>下载好的</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://wwa.lanzous.com/iyURFf05ssb">https://wwa.lanzous.com/iyURFf05ssb</a></p>
+    <div class="spoiler-content">
+        <p><strong>原论文</strong>：http://xxx.itp.ac.cn/abs/2004.10934</p>
+<p><strong>下载好的</strong>：https://wwa.lanzous.com/iyURFf05ssb</p>
 
     </div>
 </div>
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>想要继续学习yolo系列算法，就不得不提从v4开始其作者便已不再是 J.R 了。年初大神<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s?__biz=MzUxNjcxMjQxNg==&mid=2247496822&idx=2&sn=89fe4610a3993204c5c21058d9923c5d&chksm=f9a186f9ced60fefd543f86eaa05125b185560e0c6f27598575eaac5045c1b421b86b13421ea&scene=21#wechat_redirect">Joseph Redmon宣布推出CV界，坦言无法忽视自己工作带来的负面影响</a>（AI算法用于军事和隐私窥探），此事在工业界和学术界引起了轩然大波，正当大家担忧yolo算法是否会就此“停更”时，俄罗斯开发者 Alexey Bochkovskiy 和两位中国台湾开发者 Chien-Yao Wang、Hong-Yuan Mark Liao扛过大旗，在4月24日联手推出yolo v4，并且获得了Joseph Redmon的承认。</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
+<h1 id="写在前面">写在前面</h1>
+<p>想要继续学习yolo系列算法，就不得不提从v4开始其作者便已不再是 J.R 了。年初大神<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUxNjcxMjQxNg==&amp;mid=2247496822&amp;idx=2&amp;sn=89fe4610a3993204c5c21058d9923c5d&amp;chksm=f9a186f9ced60fefd543f86eaa05125b185560e0c6f27598575eaac5045c1b421b86b13421ea&amp;scene=21#wechat_redirect">Joseph Redmon宣布推出CV界，坦言无法忽视自己工作带来的负面影响</a>（AI算法用于军事和隐私窥探），此事在工业界和学术界引起了轩然大波，正当大家担忧yolo算法是否会就此“停更”时，俄罗斯开发者 Alexey Bochkovskiy 和两位中国台湾开发者 Chien-Yao Wang、Hong-Yuan Mark Liao扛过大旗，在4月24日联手推出yolo v4，并且获得了Joseph Redmon的承认。</p>
+<p> </p>
 <p>相对于理论创新来说，YOLOv4 更多的是集成许许多多的trick并取得了不错的效果，打造实现了最佳速度与精度平衡的目标检测新基准。我现在的目标就是了解模型运行的流程，然后尽可能地去学习其中的核心trick。</p>
-<p>由于自己水平太低，所以更需要从原论文本身开始学习，了解基本框架后再去寻找一些技术博客加深理解。本文结构参考原论文结构，分析译文并做出一些修改使自己更易于理解。     <font size=2>（just write for myself）</font></p>
-<p>&nbsp;</p>
-<p><font color=brone>译文来源：公众号【计算机视觉联盟】</font><br><font color=brone>主要参考：公众号【机器之心】、【Cver】、【GiantPandaCV】</font></p>
+<p>由于自己水平太低，所以更需要从原论文本身开始学习，了解基本框架后再去寻找一些技术博客加深理解。本文结构参考原论文结构，分析译文并做出一些修改使自己更易于理解。 <font size="2>（just" write="" for="" myself）</font=""></font></p>
+<p> </p>
+<p> 
 <p>可以看出，我整个yolo v4的学习都是基于公众号，这次学习过程除了让我又有了几个”置顶“的公众号外，我还加入几个关于计算机视觉的微信群，群里每天都有大佬发言，群助手会在朋友圈实时发布世界范围内高校或企业的高质量CV论文的相关信息，虽说现在一篇也看不懂，但也很开心，毕竟有那个味儿了！</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><p><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/07/27/aFbY6K.png"></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>许多特征可以提高 CNN 的准确率，然而真正实行起来还需要在大型数据集上对这些特征组合进行实际测试，并且对测试结果进行理论验证。某些特征仅在特定模型上运行，并且局限于特定的问题，或是只能在小型数据集上运行；而另外有些特征（如批归一化和残差连接）则适用于大多数模型、任务和数据集。</p>
+<p> </p>
+<p> </p>
+<h1 id="思维导图">思维导图</h1>
+<p><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/07/27/aFbY6K.png"></p>
+<p> </p>
+<p> </p>
+<h1 id="摘要">摘要</h1>
+<p>许多特征可以提高 CNN 的准确率，然而真正实行起来还需要在大型数据集上对这些特征组合进行实际测试，并且对测试结果进行理论验证。某些特征仅在特定模型上运行，并且局限于特定的问题，或是只能在小型数据集上运行；而另外有些特征（如批归一化和残差连接）则适用于大多数模型、任务和数据集。</p>
 <p>YOLOv4 使用了以下特征组合，实现了新的 SOTA 结果：</p>
 <ul>
 <li>加权残差连接（WRC）</li>
@@ -183,83 +302,89 @@
 <li>DropBlock 正则化</li>
 <li>CIoU 损失</li>
 </ul>
-<p>&nbsp;</p>
+<p> </p>
 <p>据介绍，YOLOv4 在 MS COCO 数据集上获得了 43.5% 的 AP 值 (65.7% AP50)，在 Tesla V100 上实现了 ∼65 FPS 的实时速度。</p>
 <p>作者对比了 YOLOv4 和当前最优目标检测器，发现 YOLOv4 在取得与 EfficientDet 同等性能的情况下，速度是 EfficientDet 的二倍！此外，与 YOLOv3 相比，新版本的 AP 和 FPS 分别提高了 10% 和 12%。</p>
-<img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/07/27/aFb2nS.png" style="zoom:60%;" />
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>对于目标检测而言，高准确度早已不是唯一的目标。我们还希望边缘设备也能流畅地运行这些模型。因此，如何使用低成本硬件实时地处理输入视频也成为了一个重要的研究方向。我们的目标是任何人使用传统的单个GPU进行训练和测试，都可以获得实时、高质量和令人信服的目标检测结果。我们的贡献概括如下：</p>
-<ol>
+<p><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/07/27/aFb2nS.png" style="zoom:60%;"></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h1 id="一介绍">一、介绍</h1>
+<p>对于目标检测而言，高准确度早已不是唯一的目标。我们还希望边缘设备也能流畅地运行这些模型。因此，如何使用低成本硬件实时地处理输入视频也成为了一个重要的研究方向。我们的目标是任何人使用传统的单个GPU进行训练和测试，都可以获得实时、高质量和令人信服的目标检测结果。我们的贡献概括如下：</p>
+<ol type="1">
 <li>建立了一个高效强大的目标检测模型。它使得每个人都可以使用 1080Ti 或 2080Ti 的 GPU 来训练一个快速准确的目标检测器。</li>
 <li>验证了当前最优 Bag-of-Freebies 和 Bag-of-Specials 目标检测方法在检测器训练过程中的影响。</li>
 <li>修改了 SOTA 方法，使之更加高效，更适合单 GPU 训练。这些方法包括 CBN、PAN、SAM 等。</li>
 </ol>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h1 id="二、目标检测算法（Object-detection-models）"><a href="#二、目标检测算法（Object-detection-models）" class="headerlink" title="二、目标检测算法（Object detection models）"></a>二、目标检测算法（Object detection models）</h1><p>目标检测算法一般有两部分组成：一个是在ImageNet预训练的骨架（backbone），另一个是用来预测对象类别和边界框的头部。对于头部，通常分为两类，即一级对象检测器和二级对象检测器。</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h1 id="二目标检测算法object-detection-models">二、目标检测算法（Object detection models）</h1>
+<p>目标检测算法一般有两部分组成：一个是在ImageNet预训练的骨架（backbone），另一个是用来预测对象类别和边界框的头部。对于头部，通常分为两类，即一级对象检测器和二级对象检测器。</p>
 <p>近年来发展起来的目标探测器经常在主干和头部之间插入一些层，这些层通常用来收集不同阶段的特征图。我们可以称它为物体探测器的颈部。通常，颈部由几个自下而上的路径和几个自上而下的路径组成。具有这种机制的网络包括特征金字塔网络(FPN)、路径聚集网络(PAN)、BiFPN和NAS-FPN。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>总而言之，普通的检测器由以下几个部分组成：</p>
 <ul>
 <li>输入：图像，斑块，图像金字塔</li>
 <li>骨架：VGG16，ResNet-50，SpineNet ，EfficientNet-B0 / B7，CSPResNeXt50，CSPDarknet53</li>
-<li>颈部：<ul>
+<li>颈部：
+<ul>
 <li>其他块：SPP，ASPP，RFB，SAM</li>
 <li>路径聚合块：FPN，PAN，NAS-FPN，Fully-connected FPN，BiFPN，ASFF，SFAM</li>
-</ul>
-</li>
-<li>Heads ：<ul>
-<li>密集预测（一阶段）：<ul>
+</ul></li>
+<li>Heads ：
+<ul>
+<li>密集预测（一阶段）：
+<ul>
 <li>RPN，SSD，YOLO， RetinaNet（基于锚）</li>
 <li>CornerNet，CenterNet，MatrixNet，FCOS（无锚）</li>
-</ul>
-</li>
-<li>稀疏预测（两阶段）：<ul>
+</ul></li>
+<li>稀疏预测（两阶段）：
+<ul>
 <li>Faster R-CNN，R-FCN，Mask R-CNN（基于锚）</li>
 <li>RepPoints（无锚）</li>
+</ul></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/07/27/aFbJl6.png" style="zoom:60%;" />
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h1 id="三、YOLO-V4-方法（Methodology）"><a href="#三、YOLO-V4-方法（Methodology）" class="headerlink" title="三、YOLO V4 方法（Methodology）"></a>三、YOLO V4 方法（Methodology）</h1><p>该研究的主要目标是找出输入网络分辨率、卷积层数量、参数量（滤波器大小、滤波器通道/组）和层输入数量（滤波器）四者之间的最优平衡。次要目标则是挑选能够增加感受野的额外块（additional block），以及针对不同级别的检测器从不同骨干层中挑选最佳的参数聚合方法，如 FPN、PAN、ASFF 和 BiFPN 网络。</p>
-<p>&nbsp;</p>
-<h2 id="3-1-Selection-of-architecture"><a href="#3-1-Selection-of-architecture" class="headerlink" title="3.1 Selection of architecture"></a>3.1 Selection of architecture</h2><p>具体而言，YOLOv4 包含以下三部分：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/07/27/aFbJl6.png" style="zoom:60%;"></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h1 id="三yolo-v4-方法methodology">三、YOLO V4 方法（Methodology）</h1>
+<p>该研究的主要目标是找出输入网络分辨率、卷积层数量、参数量（滤波器大小、滤波器通道/组）和层输入数量（滤波器）四者之间的最优平衡。次要目标则是挑选能够增加感受野的额外块（additional block），以及针对不同级别的检测器从不同骨干层中挑选最佳的参数聚合方法，如 FPN、PAN、ASFF 和 BiFPN 网络。</p>
+<p> </p>
+<h2 id="selection-of-architecture">3.1 Selection of architecture</h2>
+<p>具体而言，YOLOv4 包含以下三部分：</p>
 <ul>
 <li>骨干网络：CSPDarknet53</li>
 <li>Neck：SPP、PAN</li>
 <li>Head：YOLOv3</li>
 </ul>
-<p>&nbsp;</p>
+<p> </p>
 <p>相比于基于 ResNet 的设计，CSPDarknet53 模型的目标检测准确度更高，不过 ResNet 的分类性能更好一些。但是，借助后文将讨论的 Mish 和其它技术，CSPDarknet53 的分类准确度可以得到提升。</p>
 <p>SPP 模块，因为它能够极大地增加感受野，分离出最显著的上下文特征，并且几乎没有降低网络运行速度。</p>
 <p>针对不同级别的检测器从不同骨干层中挑选 PANet 作为参数聚合方法。</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h2 id="3-2-Selection-of-BoF-and-BoS"><a href="#3-2-Selection-of-BoF-and-BoS" class="headerlink" title="3.2 Selection of BoF and BoS"></a>3.2 Selection of BoF and BoS</h2><p>为了提升准确度，可以针对训练过程进行一些优化，比如数据增强、类别不平衡、成本函数、软标注等等，这些改进不会影响推理速度，可被称为<code>「Bag of freebies」</code>。另外还有一些改进可称为<code>「bag of specials」</code>，仅需在推理时间方面做少许牺牲，就能获得优良的性能回报。这类改进包括增大感受野、使用注意力机制、集成跳过连接（skip-connection）或 FPN 等特性、使用非极大值抑制等后处理方法。本文将探讨骨架、头部、颈部的设计方式以及好用的 BoF 和 BoS 改进策略。</p>
+<p> </p>
+<p> </p>
+<h2 id="selection-of-bof-and-bos">3.2 Selection of BoF and BoS</h2>
+<p>为了提升准确度，可以针对训练过程进行一些优化，比如数据增强、类别不平衡、成本函数、软标注等等，这些改进不会影响推理速度，可被称为<code>「Bag of freebies」</code>。另外还有一些改进可称为<code>「bag of specials」</code>，仅需在推理时间方面做少许牺牲，就能获得优良的性能回报。这类改进包括增大感受野、使用注意力机制、集成跳过连接（skip-connection）或 FPN 等特性、使用非极大值抑制等后处理方法。本文将探讨骨架、头部、颈部的设计方式以及好用的 BoF 和 BoS 改进策略。</p>
 <p>具体而言，YOLO v4 关于BoF 和 BoS和使用情况如下所述</p>
-<h3 id="1-用于骨干部分的-Bag-of-freebies"><a href="#1-用于骨干部分的-Bag-of-freebies" class="headerlink" title="1. 用于骨干部分的 Bag of freebies"></a>1. 用于骨干部分的 Bag of freebies</h3><ul>
+<h3 id="用于骨干部分的-bag-of-freebies">1. 用于骨干部分的 Bag of freebies</h3>
+<ul>
 <li>CutMix 和 Mosaic 数据增强</li>
 <li>DropBlock 正则化</li>
 <li>类别标签平滑化</li>
 </ul>
-<p>&nbsp;</p>
-<h3 id="2-用于骨干部分的-Bag-of-Specials"><a href="#2-用于骨干部分的-Bag-of-Specials" class="headerlink" title="2. 用于骨干部分的 Bag of Specials"></a>2. 用于骨干部分的 Bag of Specials</h3><ul>
+<p> </p>
+<h3 id="用于骨干部分的-bag-of-specials">2. 用于骨干部分的 Bag of Specials</h3>
+<ul>
 <li>Mish 激活</li>
 <li>交叉阶段部分连接（CSP)</li>
 <li>多输入加权的残差连接（MiWRC）</li>
 </ul>
-<p>&nbsp;</p>
-<h3 id="3-用于检测器的-Bag-of-freebies"><a href="#3-用于检测器的-Bag-of-freebies" class="headerlink" title="3. 用于检测器的 Bag of freebies"></a>3. 用于检测器的 Bag of freebies</h3><ul>
+<p> </p>
+<h3 id="用于检测器的-bag-of-freebies">3. 用于检测器的 Bag of freebies</h3>
+<ul>
 <li>CIoU-loss</li>
 <li>CmBN</li>
 <li>DropBlock 正则化</li>
@@ -271,99 +396,90 @@
 <li>使用遗传算法求最优超参数</li>
 <li>随机训练形状</li>
 </ul>
-<p>&nbsp;</p>
-<h3 id="4-用于检测器的-Bag-of-Specials"><a href="#4-用于检测器的-Bag-of-Specials" class="headerlink" title="4. 用于检测器的 Bag of Specials"></a>4. 用于检测器的 Bag of Specials</h3><ul>
+<p> </p>
+<h3 id="用于检测器的-bag-of-specials">4. 用于检测器的 Bag of Specials</h3>
+<ul>
 <li>Mish 激活</li>
 <li>修改版 SPP 模块</li>
 <li>修改版 SAM 模块</li>
 <li>修改版 PAN 路径聚合模块</li>
 <li>DIoU-NMS</li>
 </ul>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h2 id="3-3-Additional-improvements"><a href="#3-3-Additional-improvements" class="headerlink" title="3.3 Additional improvements"></a>3.3 Additional improvements</h2><p>为了使检测器更适合在单个 GPU 上进行训练，研究者还做出了以下额外的设计与改进：</p>
+<p> </p>
+<p> </p>
+<h2 id="additional-improvements">3.3 Additional improvements</h2>
+<p>为了使检测器更适合在单个 GPU 上进行训练，研究者还做出了以下额外的设计与改进：</p>
 <ul>
 <li>提出新型数据增强方法 Mosaic 和自对抗训练（SAT）</li>
 <li>在应用遗传算法时选择最优超参数</li>
 <li>修改现有方法，使新方法实现高效训练和检测——modified SAM、modified PAN 和 Cross mini-Batch Normalization (CmBN)</li>
 </ul>
-<p>&nbsp;</p>
-<h3 id="1-Mosaic数据增强方法"><a href="#1-Mosaic数据增强方法" class="headerlink" title="1. Mosaic数据增强方法"></a>1. Mosaic数据增强方法</h3><img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727231418746-1914398146.png" style="zoom:40%;" />
-
+<p> </p>
+<h3 id="mosaic数据增强方法">1. Mosaic数据增强方法</h3>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727231418746-1914398146.png" style="zoom:40%;"></p>
 <p>这个方法是将4张不同的图片镶嵌到一张图中，其优点是：</p>
 <ul>
 <li>混合四张具有不同语义信息的图片，可以让检测器检测超出常规语境的目标，增强模型的鲁棒性。</li>
 <li>由于BN是从四张图片计算得到的，所以可以减少对大的mini-batch的依赖。</li>
 </ul>
-<p>&nbsp;</p>
-<h3 id="2-Self-Adversarial-Training"><a href="#2-Self-Adversarial-Training" class="headerlink" title="2. Self-Adversarial Training"></a>2. Self-Adversarial Training</h3><p>自对抗训练也是一种新的数据增强方法，可以一定程度上抵抗对抗攻击。其包括两个阶段，每个阶段进行一次前向传播和一次反向传播。</p>
+<p> </p>
+<h3 id="self-adversarial-training">2. Self-Adversarial Training</h3>
+<p>自对抗训练也是一种新的数据增强方法，可以一定程度上抵抗对抗攻击。其包括两个阶段，每个阶段进行一次前向传播和一次反向传播。</p>
 <ul>
 <li>第一阶段，CNN通过反向传播改变图片信息，而不是改变网络权值。通过这种方式，CNN可以进行对抗性攻击，改变原始图像，造成图像上没有目标的假象。</li>
 <li>第二阶段，对修改后的图像进行正常的目标检测。</li>
 </ul>
-<p>&nbsp;</p>
-<h3 id="3-CmBN"><a href="#3-CmBN" class="headerlink" title="3. CmBN"></a>3. CmBN</h3><p>CmBN 是 CBN 的改进版，它仅收集单个批次内 mini-batch 之间的统计数据。</p>
-<img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224722778-778034819.png" style="zoom:45%;" />
-
+<p> </p>
+<h3 id="cmbn">3. CmBN</h3>
+<p>CmBN 是 CBN 的改进版，它仅收集单个批次内 mini-batch 之间的统计数据。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224722778-778034819.png" style="zoom:45%;"></p>
 <p>上图表达的是三种不同的BN方式，理解的时候应该从左往右看，BN是对当前mini-batch进行归一化。CBN是对当前以及当前往前数3个mini-batch的结果进行归一化。而本文提出的CmBN则是仅仅在这个Batch中进行累积。</p>
-<p>&nbsp;</p>
-<h3 id="4-modified-SAM"><a href="#4-modified-SAM" class="headerlink" title="4. modified SAM"></a>4. modified SAM</h3><p>注意力已经在深度学习设计中得到了广泛的应用。SAM 会为输入特征图分别应用最大池化和平均池化，从而得到两个特征图集合。其结果会被送入一个卷积层，之后再由一个 sigmoid 函数创建出空间注意力。</p>
-<p>​                   <img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224727105-1523051895.png" style="zoom:60%;" /></p>
+<p> </p>
+<h3 id="modified-sam">4. modified SAM</h3>
+<p>注意力已经在深度学习设计中得到了广泛的应用。SAM 会为输入特征图分别应用最大池化和平均池化，从而得到两个特征图集合。其结果会被送入一个卷积层，之后再由一个 sigmoid 函数创建出空间注意力。</p>
+<p>​ <img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224727105-1523051895.png" style="zoom:60%;"></p>
 <p>这个空间注意力掩码再被应用于输入特征，从而输出经过优化的特征图。</p>
-<img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224751040-1557992066.png" style="zoom:50%;" />
-
-
-
+<p><img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224751040-1557992066.png" style="zoom:50%;"></p>
 <p>YOLOv4 使用了一种修改版的 SAM，其中没有使用最大池化和平均池化，还将 SAM 从空间注意力机制（spatial-wise attention）修改为点注意力机制（point-wise attention）如下图 5、6 所示：</p>
-<img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224749636-1584618757.png" style="zoom:48%;" />
-
-
-
+<p><img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224749636-1584618757.png" style="zoom:48%;"></p>
 <p>modified SAM中没有使用pooling, 而是直接用一个卷积得到的特征图直接使用Sigmoid进行激活, 然后对应点相乘, 所以说改进后的模型是Point-wise Attention.</p>
-<p>&nbsp;</p>
-<h3 id="5-modified-PANet"><a href="#5-modified-PANet" class="headerlink" title="5. modified PANet"></a>5. modified PANet</h3><p>早期的深度学习的模型设计相对简单。每一层的输入都来自其上一层。更前面的层会提取局部的纹理和图案信息，并构建出后续层所需的语义信息。但是，随着网络向右侧推进，微调优化预测结果时所需的局部信息可能会丢失。</p>
-<img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224747822-1356389215.png" style="zoom:58%;" />
-
-
-
+<p> </p>
+<h3 id="modified-panet">5. modified PANet</h3>
+<p>早期的深度学习的模型设计相对简单。每一层的输入都来自其上一层。更前面的层会提取局部的纹理和图案信息，并构建出后续层所需的语义信息。但是，随着网络向右侧推进，微调优化预测结果时所需的局部信息可能会丢失。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224747822-1356389215.png" style="zoom:58%;"></p>
 <p>在后来的深度学习开发中，层之间的互连方式变得更加复杂。DenseNet 在这方面达到了极致。其中每一层都连接了其前面的所有层。</p>
-<img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/han-suyu/cdn_others/A%20dense%20block%20with%205%20layers%20and%20growth%20rate%204.jpg"  style="zoom:10%;" />
-
-
-
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/han-suyu/cdn_others/A%20dense%20block%20with%205%20layers%20and%20growth%20rate%204.jpg" style="zoom:10%;"></p>
 <p>在 FPN 中，来自自底向上和自上而下数据流的邻近层的信息会结合到一起。</p>
-<img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224743481-1047478228.png" style="zoom:58%;" />
-
+<p><img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224743481-1047478228.png" style="zoom:58%;"></p>
 <p>层之间信息的流动方式变成了模型设计中需要考虑的又一关键事项。</p>
 <p>下图是用于目标检测的路径聚合网络（PAN）。其中，自底向上的路径得到增强，使得低层信息更容易传播到顶部。在 FPN 中，局部空间信息会向上传播，如红色箭头所示。尽管图中可能没有展示清楚，但这条红色路径穿过了大约 100 多层。PAN 引入了一个捷径路径（绿色路径），其仅需 10 层左右就能抵达顶部的 N₅ 层。这个短回路概念使得顶层也能获取到细粒度的局部信息。</p>
-<img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224737921-562581725.png" style="zoom:58%;" />
-
-
-
+<p><img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224737921-562581725.png" style="zoom:58%;"></p>
 <p>但是，YOLOv4 并没有将邻近层加到一起，而是将特征图连接到一起。</p>
-<img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224732196-853923805.png" style="zoom:45%;" />
-
-<p>&nbsp;</p>
-<h3 id="6-使用遗传算法的超参数选择"><a href="#6-使用遗传算法的超参数选择" class="headerlink" title="6. 使用遗传算法的超参数选择"></a>6. 使用遗传算法的超参数选择</h3><p>进化算法是一种有根据的猜测方法。其遵循「适者生存」的概念。举个例子，如果我们随机选择 100 组超参数。然后使用它们训练 100 个模型。之后，我们从中选出表现最好的 10 个模型。对于每个被选中的模型，都根据原始版本创建 10 个超参数略有不同的变体版本。再使用这些新的超参数重新训练模型，再次选出其中表现最好的。随着我们不断迭代，我们应该可以找到超参数的最佳集合。另外，我们也可以一开始使用默认超参数，然后再执行突变。正如其论文（arXiv: 2004.10934）中写道：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img2020.cnblogs.com/blog/1534055/202007/1534055-20200727224732196-853923805.png" style="zoom:45%;"></p>
+<p> </p>
+<h3 id="使用遗传算法的超参数选择">6. 使用遗传算法的超参数选择</h3>
+<p>进化算法是一种有根据的猜测方法。其遵循「适者生存」的概念。举个例子，如果我们随机选择 100 组超参数。然后使用它们训练 100 个模型。之后，我们从中选出表现最好的 10 个模型。对于每个被选中的模型，都根据原始版本创建 10 个超参数略有不同的变体版本。再使用这些新的超参数重新训练模型，再次选出其中表现最好的。随着我们不断迭代，我们应该可以找到超参数的最佳集合。另外，我们也可以一开始使用默认超参数，然后再执行突变。正如其论文（arXiv: 2004.10934）中写道：</p>
 <blockquote>
 <p>遗传算法使用 YOLOv3-SPP，根据 GIoU 损失进行训练，并为 min-val 5k 数据集搜索 300 epoch。我们为遗传算法实验采用了搜索得到的学习率 0.00261、动量 0.949、用于分配基本真值的 IoU 阈值 0.213 以及损失归一化算子 0.07。</p>
 </blockquote>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h1 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h1><p>与其他最先进的物体探测器获得的结果比较如图8所示。YOLOv4在速度和准确性方面均优于最快，为最准确的探测器。</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h1 id="四实验结果">四、实验结果</h1>
+<p>与其他最先进的物体探测器获得的结果比较如图8所示。YOLOv4在速度和准确性方面均优于最快，为最准确的探测器。</p>
 <p><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/07/27/aFb66f.png"></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h1 id="五、-总结"><a href="#五、-总结" class="headerlink" title="五、 总结"></a>五、 总结</h1><p>总体来说，yolo v4的内容非常繁杂，涉及到非常非常多的trick，文章提到的Bag of freebies和Bag of specials需要好好整理，系统学习一下。最后放一张参考网上然后自己画出来的更详细的思维导图，留以  后用。</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<h1 id="五-总结">五、 总结</h1>
+<p>总体来说，yolo v4的内容非常繁杂，涉及到非常非常多的trick，文章提到的Bag of freebies和Bag of specials需要好好整理，系统学习一下。最后放一张参考网上然后自己画出来的更详细的思维导图，留以 后用。</p>
 <p><img src= "/img/loading.gif" data-lazy-src="https://s1.ax1x.com/2020/07/27/aFbUmD.png"></p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
 <blockquote>
-<p>参考<br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://arxiv.org/pdf/2004.10934.pdf">https://arxiv.org/pdf/2004.10934.pdf</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://my.oschina.net/u/4410124/blog/4334685">https://my.oschina.net/u/4410124/blog/4334685</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/Ia1ZhAeTgt8anXVd4qxE3A">https://mp.weixin.qq.com/s/Ia1ZhAeTgt8anXVd4qxE3A</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/XEPhK81Ms-wdDnoz5oPZgA">https://mp.weixin.qq.com/s/XEPhK81Ms-wdDnoz5oPZgA</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/azMLqnqySOqugW941dS1HQ">https://mp.weixin.qq.com/s/azMLqnqySOqugW941dS1HQ</a></p>
+<p>参考 https://arxiv.org/pdf/2004.10934.pdf https://my.oschina.net/u/4410124/blog/4334685 https://mp.weixin.qq.com/s/Ia1ZhAeTgt8anXVd4qxE3A https://mp.weixin.qq.com/s/XEPhK81Ms-wdDnoz5oPZgA https://mp.weixin.qq.com/s/azMLqnqySOqugW941dS1HQ</p>
 </blockquote>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script></article><div class="tag_share"><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/han-suyu/cover/40.jpg" data-sites="wechat,weibo,qq,facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/07/2158053739.html"><img class="prev-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/han-suyu/cover/27.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">YOLO v3学习总结</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/4262056254.html"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/han-suyu/cover/38.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">粒子群算法</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/wechat.jpg'" alt="avatar"/><div class="author-info__name">Seven</div><div class="author-info__description">谦虚受益，满盈招损</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">179</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/han-suyu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1121687782&amp;site=qq&amp;menu=yes" rel="external nofollow noreferrer" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/WeChat.jpg" rel="external nofollow noreferrer" target="_blank" title="WeChat"><i class="iconfont icon-wechat"></i></a><a class="social-icon" href="mailto:han-suyu@foxmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-EMAILMARKETING"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><span class="toc-text">思维导图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%8B%E7%BB%8D"><span class="toc-text">一、介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%EF%BC%88Object-detection-models%EF%BC%89"><span class="toc-text">二、目标检测算法（Object detection models）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81YOLO-V4-%E6%96%B9%E6%B3%95%EF%BC%88Methodology%EF%BC%89"><span class="toc-text">三、YOLO V4 方法（Methodology）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-Selection-of-architecture"><span class="toc-text">3.1 Selection of architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Selection-of-BoF-and-BoS"><span class="toc-text">3.2 Selection of BoF and BoS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%A8%E4%BA%8E%E9%AA%A8%E5%B9%B2%E9%83%A8%E5%88%86%E7%9A%84-Bag-of-freebies"><span class="toc-text">1. 用于骨干部分的 Bag of freebies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%94%A8%E4%BA%8E%E9%AA%A8%E5%B9%B2%E9%83%A8%E5%88%86%E7%9A%84-Bag-of-Specials"><span class="toc-text">2. 用于骨干部分的 Bag of Specials</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%94%A8%E4%BA%8E%E6%A3%80%E6%B5%8B%E5%99%A8%E7%9A%84-Bag-of-freebies"><span class="toc-text">3. 用于检测器的 Bag of freebies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%94%A8%E4%BA%8E%E6%A3%80%E6%B5%8B%E5%99%A8%E7%9A%84-Bag-of-Specials"><span class="toc-text">4. 用于检测器的 Bag of Specials</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-Additional-improvements"><span class="toc-text">3.3 Additional improvements</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Mosaic%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95"><span class="toc-text">1. Mosaic数据增强方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Self-Adversarial-Training"><span class="toc-text">2. Self-Adversarial Training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-CmBN"><span class="toc-text">3. CmBN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-modified-SAM"><span class="toc-text">4. modified SAM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-modified-PANet"><span class="toc-text">5. modified PANet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%BD%BF%E7%94%A8%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84%E8%B6%85%E5%8F%82%E6%95%B0%E9%80%89%E6%8B%A9"><span class="toc-text">6. 使用遗传算法的超参数选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-text">四、实验结果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81-%E6%80%BB%E7%BB%93"><span class="toc-text">五、 总结</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Seven</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+</p><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script></article><div class="tag_share"><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/han-suyu/cover/38.jpg" data-sites="wechat,weibo,qq,facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/07/2158053739.html"><img class="prev-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/han-suyu/cover/21.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">YOLO v3学习总结</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/4262056254.html"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/han-suyu/cover/14.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">粒子群算法</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/wechat.jpg'" alt="avatar"/><div class="author-info__name">Seven</div><div class="author-info__description">谦虚受益，满盈招损</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">179</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/han-suyu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1121687782&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/WeChat.jpg" target="_blank" title="WeChat"><i class="iconfont icon-wechat"></i></a><a class="social-icon" href="mailto:han-suyu@foxmail.com" target="_blank" title="Email"><i class="iconfont icon-EMAILMARKETING"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><span class="toc-text">思维导图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E4%BB%8B%E7%BB%8D"><span class="toc-text">一、介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95object-detection-models"><span class="toc-text">二、目标检测算法（Object detection models）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89yolo-v4-%E6%96%B9%E6%B3%95methodology"><span class="toc-text">三、YOLO V4 方法（Methodology）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#selection-of-architecture"><span class="toc-text">3.1 Selection of architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#selection-of-bof-and-bos"><span class="toc-text">3.2 Selection of BoF and BoS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BA%8E%E9%AA%A8%E5%B9%B2%E9%83%A8%E5%88%86%E7%9A%84-bag-of-freebies"><span class="toc-text">1. 用于骨干部分的 Bag of freebies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BA%8E%E9%AA%A8%E5%B9%B2%E9%83%A8%E5%88%86%E7%9A%84-bag-of-specials"><span class="toc-text">2. 用于骨干部分的 Bag of Specials</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BA%8E%E6%A3%80%E6%B5%8B%E5%99%A8%E7%9A%84-bag-of-freebies"><span class="toc-text">3. 用于检测器的 Bag of freebies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BA%8E%E6%A3%80%E6%B5%8B%E5%99%A8%E7%9A%84-bag-of-specials"><span class="toc-text">4. 用于检测器的 Bag of Specials</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#additional-improvements"><span class="toc-text">3.3 Additional improvements</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mosaic%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95"><span class="toc-text">1. Mosaic数据增强方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#self-adversarial-training"><span class="toc-text">2. Self-Adversarial Training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cmbn"><span class="toc-text">3. CmBN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#modified-sam"><span class="toc-text">4. modified SAM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#modified-panet"><span class="toc-text">5. modified PANet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84%E8%B6%85%E5%8F%82%E6%95%B0%E9%80%89%E6%8B%A9"><span class="toc-text">6. 使用遗传算法的超参数选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-text">四、实验结果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94-%E6%80%BB%E7%BB%93"><span class="toc-text">五、 总结</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Seven</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
   if (typeof pangu === 'object') pangu.autoSpacingPage()
   else {
     getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
@@ -381,7 +497,52 @@ function panguInit () {
   }
 }
 
-document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(()=>{
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(()=>{
   const $countDom = document.getElementById('twikoo-count')
   const init = () => {
     let initData = {

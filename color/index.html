@@ -1,14 +1,13 @@
 <link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><html>
-<head>  
-    <meta charset="utf-8">
-     <!--取色器和颜色表模块所需要的设置-->
-    <script type="text/javascript" src='https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js'></script>
-    <script type="text/javascript" src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/jquery.cookies.2.2.0.min.js'></script>
-    <script type="text/javascript" src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/bootstrap.min.js'></script>
-    <script type="text/javascript" src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/farbtastic.js'></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/basic.css" type="text/css" />
-    <link rel="stylesheet" href='https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/farbtastic.css' type="text/css" />
-    <script>
+<head>
+<meta charset="utf-8">
+<!--取色器和颜色表模块所需要的设置-->
+<script type="text/javascript" src='https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js'></script>
+<script type="text/javascript" src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/jquery.cookies.2.2.0.min.js'></script>
+<script type="text/javascript" src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/bootstrap.min.js'></script>
+<script type="text/javascript" src='https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/farbtastic.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/basic.css" type="text/css" /> <link rel="stylesheet" href='https://cdn.jsdelivr.net/gh/han-suyu/cdn/color/farbtastic.css' type="text/css" />
+<script>
         $(document).ready(function () {
             $(".toolTable tr:gt(0)").each(function () {
                 var td = $(this).find("td");
@@ -18,13 +17,13 @@
             $('#picker').farbtastic('#color');
         });
     </script>
-    <!--RGB与十六进制颜色码转换所需要的设置-->
-    <script>
+<!--RGB与十六进制颜色码转换所需要的设置-->
+<script>
         function showRGB() { hexcode = "#"; for (x = 0; x < 3; x++) { ; var n = document.getElementsByName("r1e")[x].value; if (n == "") n = "0"; if (parseInt(n) != n) return alert("请输入数字！"); if (n > 255) return alert("数字在0-255之间！"); var c = "0123456789ABCDEF", b = "", a = n % 16; b = c.substr(a, 1); a = (n - a) / 16; hexcode += c.substr(a, 1) + b } document.getElementById("color1").bgColor = a_mo2.innerHTML = hexcode }
         function showRGB2() { var a = document.getElementsByName("rgb2")[0].value; if (a.substr(0, 1) == "#") a = a.substring(1); var len = a.length; if (len != 6 && len != 3) return alert("十六进制颜色码为六位或三位！"); else if (/[^0-9a-f]/i.test(a)) return alert("请输入正确的十六进制颜色码！"); document.getElementById("color2").bgColor = "#" + a; a = a.toLowerCase(); b = new Array(); for (x = 0; x < 3; x++) { b[0] = len == 6 ? a.substr(x * 2, 2) : a.substr(x * 1, 1) + a.substr(x * 1, 1); b[3] = "0123456789abcdef"; b[1] = b[0].substr(0, 1); b[2] = b[0].substr(1, 1); b[20 + x] = b[3].indexOf(b[1]) * 16 + b[3].indexOf(b[2]) } a_mo3.innerHTML = b[20] + "," + b[21] + "," + b[22]; }
         function getkey(e, n) { var keynum; if (window.event) keynum = e.keyCode; else if (e.which) keynum = e.which; if (keynum == 13) { if (n == 0) showRGB(); else showRGB2(); } }
     </script>
-    <style>
+<style>
         .rle {
             width: 3em;
         }
@@ -42,2355 +41,2360 @@
     </style>
 </head>
 <body>
-    <!--RGB与十六进制颜色码转换（不需要css和js外部文件）-->
-  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content" > 
-    <tr>
-      <td valign="top" class="area"><table style="border-collapse: collapse" bordercolor=#d9d9d9 cellspacing=0 cellpadding=8 width=100% bgcolor=#fcfcfc border=1>
-          <tbody>
-            <tr>
-              <td><div>RGB颜色值转换成十六进制颜色码：</div>
-                <table border="0" cellpadding="0" cellspacing="4">
-                  <tbody>
-                    <tr>
-                      <td width="200">
-                        <input name="r1e" value="255" class="rle" maxlength="3" onKeyDown="getkey(event,0);">
-                        <input name="r1e" value="180" class="rle" maxlength="3" onKeyDown="getkey(event,0);">
-                        <input name="r1e" value="0" class="rle" maxlength="3" onKeyDown="getkey(event,0);">
-                        <input onclick="showRGB()" type="button" value="转换" name="button">
-                      </td>
-                      <td id="color1" width="50"></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div id="a_mo2">　</div></td>
-            </tr>
-            <tr>
-              <td><div>十六进制颜色码转换成RGB颜色值：</div>
-                <table border="0" cellpadding="0" cellspacing="4">
-                  <tbody>
-                    <tr>
-                      <td width="200">
-                        <input name="rgb2" value="#CC00FF" size="8" maxlength="7" onKeyDown="getkey(event,1);">
-                        <input onclick="showRGB2()" type="button" value="转换" name="button">
-                      </td>
-                      <td id="color2" width="50"></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div id="a_mo3">　</div></td>
-            </tr>
-          </tbody>
-      </table>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <!--取色器模块（需要css和js外部文件）-->
-    <div id="picker"></div>
-    <div class="form-item">
-        <div class="input-prepend">
-            <span class="add-on">颜色值：</span><input class="span2" type="text" id="color" name="color" value="#123456" /></span>
-        </div>
-    </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <!--颜色表（需要css和js外部文件）-->
-    <table class="toolTable table" width="100%" cellspacing="0" cellpadding="0">
-        <tr>
-            <th>实色效果</th>
-            <th>英文名称</th>
-            <th>R.G.B</th>
-            <th>16色</th>
-            <th>实色效果</th>
-            <th>英文名称</th>
-            <th>R.G.B</th>
-            <th>16色</th>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Snow</td>
-            <td>255 250 250</td>
-            <td>#FFFAFA</td>
-            <td></td>
-            <td>PaleTurquoise1</td>
-            <td>187 255 255</td>
-            <td>#BBFFFF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>GhostWhite</td>
-            <td>248 248 255</td>
-            <td>#F8F8FF</td>
-            <td></td>
-            <td>PaleTurquoise2</td>
-            <td>174 238 238</td>
-            <td>#AEEEEE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>WhiteSmoke</td>
-            <td>245 245 245</td>
-            <td>#F5F5F5</td>
-            <td></td>
-            <td>PaleTurquoise3</td>
-            <td>150 205 205</td>
-            <td>#96CDCD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Gainsboro</td>
-            <td>220 220 220</td>
-            <td>#DCDCDC</td>
-            <td></td>
-            <td>PaleTurquoise4</td>
-            <td>102 139 139</td>
-            <td>#668B8B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>FloralWhite</td>
-            <td>255 250 240</td>
-            <td>#FFFAF0</td>
-            <td></td>
-            <td>CadetBlue1</td>
-            <td>152 245 255</td>
-            <td>#98F5FF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>OldLace</td>
-            <td>253 245 230</td>
-            <td>#FDF5E6</td>
-            <td></td>
-            <td>CadetBlue2</td>
-            <td>142 229 238</td>
-            <td>#8EE5EE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Linen</td>
-            <td>250 240 230</td>
-            <td>#FAF0E6</td>
-            <td></td>
-            <td>CadetBlue3</td>
-            <td>122 197 205</td>
-            <td>#7AC5CD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>AntiqueWhite</td>
-            <td>250 235 215</td>
-            <td>#FAEBD7</td>
-            <td></td>
-            <td>CadetBlue4</td>
-            <td>83 134 139</td>
-            <td>#53868B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PapayaWhip</td>
-            <td>255 239 213</td>
-            <td>#FFEFD5</td>
-            <td></td>
-            <td>Turquoise1</td>
-            <td>0 245 255</td>
-            <td>#00F5FF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>BlanchedAlmond</td>
-            <td>255 235 205</td>
-            <td>#FFEBCD</td>
-            <td></td>
-            <td>Turquoise2</td>
-            <td>0 229 238</td>
-            <td>#00E5EE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Bisque</td>
-            <td>255 228 196</td>
-            <td>#FFE4C4</td>
-            <td></td>
-            <td>Turquoise3</td>
-            <td>0 197 205</td>
-            <td>#00C5CD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PeachPuff</td>
-            <td>255 218 185</td>
-            <td>#FFDAB9</td>
-            <td></td>
-            <td>Turquoise4</td>
-            <td>0 134 139</td>
-            <td>#00868B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>NavajoWhite</td>
-            <td>255 222 173</td>
-            <td>#FFDEAD</td>
-            <td></td>
-            <td>Cyan1</td>
-            <td>0 255 255</td>
-            <td>#00FFFF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Moccasin</td>
-            <td>255 228 181</td>
-            <td>#FFE4B5</td>
-            <td></td>
-            <td>Cyan2</td>
-            <td>0 238 238</td>
-            <td>#00EEEE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Cornsilk</td>
-            <td>255 248 220</td>
-            <td>#FFF8DC</td>
-            <td></td>
-            <td>Cyan3</td>
-            <td>0 205 205</td>
-            <td>#00CDCD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Ivory</td>
-            <td>255 255 240</td>
-            <td>#FFFFF0</td>
-            <td></td>
-            <td>Cyan4</td>
-            <td>0 139 139</td>
-            <td>#008B8B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LemonChiffon</td>
-            <td>255 250 205</td>
-            <td>#FFFACD</td>
-            <td></td>
-            <td>DarkSlateGray1</td>
-            <td>151 255 255</td>
-            <td>#97FFFF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Seashell</td>
-            <td>255 245 238</td>
-            <td>#FFF5EE</td>
-            <td></td>
-            <td>DarkSlateGray2</td>
-            <td>141 238 238</td>
-            <td>#8DEEEE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Honeydew</td>
-            <td>240 255 240</td>
-            <td>#F0FFF0</td>
-            <td></td>
-            <td>DarkSlateGray3</td>
-            <td>121 205 205</td>
-            <td>#79CDCD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MintCream</td>
-            <td>245 255 250</td>
-            <td>#F5FFFA</td>
-            <td></td>
-            <td>DarkSlateGray4</td>
-            <td>82 139 139</td>
-            <td>#528B8B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Azure</td>
-            <td>240 255 255</td>
-            <td>#F0FFFF</td>
-            <td></td>
-            <td>Aquamarine1</td>
-            <td>127 255 212</td>
-            <td>#7FFFD4</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>AliceBlue</td>
-            <td>240 248 255</td>
-            <td>#F0F8FF</td>
-            <td></td>
-            <td>Aquamarine2</td>
-            <td>118 238 198</td>
-            <td>#76EEC6</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>lavender</td>
-            <td>230 230 250</td>
-            <td>#E6E6FA</td>
-            <td></td>
-            <td>Aquamarine3</td>
-            <td>102 205 170</td>
-            <td>#66CDAA</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LavenderBlush</td>
-            <td>255 240 245</td>
-            <td>#FFF0F5</td>
-            <td></td>
-            <td>Aquamarine4</td>
-            <td>69 139 116</td>
-            <td>#458B74</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MistyRose</td>
-            <td>255 228 225</td>
-            <td>#FFE4E1</td>
-            <td></td>
-            <td>DarkSeaGreen1</td>
-            <td>193 255 193</td>
-            <td>#C1FFC1</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>White</td>
-            <td>255 255 255</td>
-            <td>#FFFFFF</td>
-            <td></td>
-            <td>DarkSeaGreen2</td>
-            <td>180 238 180</td>
-            <td>#B4EEB4</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Black</td>
-            <td>0 0 0</td>
-            <td>#000000</td>
-            <td></td>
-            <td>DarkSeaGreen3</td>
-            <td>155 205 155</td>
-            <td>#9BCD9B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkSlateGray</td>
-            <td>47 79 79</td>
-            <td>#2F4F4F</td>
-            <td></td>
-            <td>DarkSeaGreen4</td>
-            <td>105 139 105</td>
-            <td>#698B69</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DimGrey</td>
-            <td>105 105 105</td>
-            <td>#696969</td>
-            <td></td>
-            <td>SeaGreen1</td>
-            <td>84 255 159</td>
-            <td>#54FF9F</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SlateGrey</td>
-            <td>112 128 144</td>
-            <td>#708090</td>
-            <td></td>
-            <td>SeaGreen2</td>
-            <td>78 238 148</td>
-            <td>#4EEE94</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSlateGray</td>
-            <td>119 136 153</td>
-            <td>#778899</td>
-            <td></td>
-            <td>SeaGreen3</td>
-            <td>67 205 128</td>
-            <td>#43CD80</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Grey</td>
-            <td>190 190 190</td>
-            <td>#BEBEBE</td>
-            <td></td>
-            <td>SeaGreen4</td>
-            <td>46 139 87</td>
-            <td>#2E8B57</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightGray</td>
-            <td>211 211 211</td>
-            <td>#D3D3D3</td>
-            <td></td>
-            <td>PaleGreen1</td>
-            <td>154 255 154</td>
-            <td>#9AFF9A</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MidnightBlue</td>
-            <td>25 25 112</td>
-            <td>#191970</td>
-            <td></td>
-            <td>PaleGreen2</td>
-            <td>144 238 144</td>
-            <td>#90EE90</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>NavyBlue</td>
-            <td>0 0 128</td>
-            <td>#000080</td>
-            <td></td>
-            <td>PaleGreen3</td>
-            <td>124 205 124</td>
-            <td>#7CCD7C</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>CornflowerBlue</td>
-            <td>100 149 237</td>
-            <td>#6495ED</td>
-            <td></td>
-            <td>PaleGreen4</td>
-            <td>84 139 84</td>
-            <td>#548B54</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkSlateBlue</td>
-            <td>72 61 139</td>
-            <td>#483D8B</td>
-            <td></td>
-            <td>SpringGreen1</td>
-            <td>0 255 127</td>
-            <td>#00FF7F</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SlateBlue</td>
-            <td>106 90 205</td>
-            <td>#6A5ACD</td>
-            <td></td>
-            <td>SpringGreen2</td>
-            <td>0 238 118</td>
-            <td>#00EE76</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MediumSlateBlue</td>
-            <td>123 104 238</td>
-            <td>#7B68EE</td>
-            <td></td>
-            <td>SpringGreen3</td>
-            <td>0 205 102</td>
-            <td>#00CD66</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSlateBlue</td>
-            <td>132 112 255</td>
-            <td>#8470FF</td>
-            <td></td>
-            <td>SpringGreen4</td>
-            <td>0 139 69</td>
-            <td>#008B45</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MediumBlue</td>
-            <td>0 0 205</td>
-            <td>#0000CD</td>
-            <td></td>
-            <td>Green1</td>
-            <td>0 255 0</td>
-            <td>#00FF00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>RoyalBlue</td>
-            <td>65 105 225</td>
-            <td>#4169E1</td>
-            <td></td>
-            <td>Green2</td>
-            <td>0 238 0</td>
-            <td>#00EE00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Blue</td>
-            <td>0 0 255</td>
-            <td>#0000FF</td>
-            <td></td>
-            <td>Green3</td>
-            <td>0 205 0</td>
-            <td>#00CD00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DodgerBlue</td>
-            <td>30 144 255</td>
-            <td>#1E90FF</td>
-            <td></td>
-            <td>Green4</td>
-            <td>0 139 0</td>
-            <td>#008B00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DeepSkyBlue</td>
-            <td>0 191 255</td>
-            <td>#00BFFF</td>
-            <td></td>
-            <td>Chartreuse1</td>
-            <td>127 255 0</td>
-            <td>#7FFF00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SkyBlue</td>
-            <td>135 206 235</td>
-            <td>#87CEEB</td>
-            <td></td>
-            <td>Chartreuse2</td>
-            <td>118 238 0</td>
-            <td>#76EE00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSkyBlue</td>
-            <td>135 206 250</td>
-            <td>#87CEFA</td>
-            <td></td>
-            <td>Chartreuse3</td>
-            <td>102 205 0</td>
-            <td>#66CD00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SteelBlue</td>
-            <td>70 130 180</td>
-            <td>#4682B4</td>
-            <td></td>
-            <td>Chartreuse4</td>
-            <td>69 139 0</td>
-            <td>#458B00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSteelBlue</td>
-            <td>176 196 222</td>
-            <td>#B0C4DE</td>
-            <td></td>
-            <td>OliveDrab1</td>
-            <td>192 255 62</td>
-            <td>#C0FF3E</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightBlue</td>
-            <td>173 216 230</td>
-            <td>#ADD8E6</td>
-            <td></td>
-            <td>OliveDrab2</td>
-            <td>179 238 58</td>
-            <td>#B3EE3A</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PowderBlue</td>
-            <td>176 224 230</td>
-            <td>#B0E0E6</td>
-            <td></td>
-            <td>OliveDrab3</td>
-            <td>154 205 50</td>
-            <td>#9ACD32</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PaleTurquoise</td>
-            <td>175 238 238</td>
-            <td>#AFEEEE</td>
-            <td></td>
-            <td>OliveDrab4</td>
-            <td>105 139 34</td>
-            <td>#698B22</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkTurquoise</td>
-            <td>0 206 209</td>
-            <td>#00CED1</td>
-            <td></td>
-            <td>DarkOliveGreen1</td>
-            <td>202 255 112</td>
-            <td>#CAFF70</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MediumTurquoise</td>
-            <td>72 209 204</td>
-            <td>#48D1CC</td>
-            <td></td>
-            <td>DarkOliveGreen2</td>
-            <td>188 238 104</td>
-            <td>#BCEE68</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Turquoise</td>
-            <td>64 224 208</td>
-            <td>#40E0D0</td>
-            <td></td>
-            <td>DarkOliveGreen3</td>
-            <td>162 205 90</td>
-            <td>#A2CD5A</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Cyan</td>
-            <td>0 255 255</td>
-            <td>#00FFFF</td>
-            <td></td>
-            <td>DarkOliveGreen4</td>
-            <td>110 139 61</td>
-            <td>#6E8B3D</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightCyan</td>
-            <td>224 255 255</td>
-            <td>#E0FFFF</td>
-            <td></td>
-            <td>Khaki1</td>
-            <td>255 246 143</td>
-            <td>#FFF68F</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>CadetBlue</td>
-            <td>95 158 160</td>
-            <td>#5F9EA0</td>
-            <td></td>
-            <td>Khaki2</td>
-            <td>238 230 133</td>
-            <td>#EEE685</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MediumAquamarine</td>
-            <td>102 205 170</td>
-            <td>#66CDAA</td>
-            <td></td>
-            <td>Khaki3</td>
-            <td>205 198 115</td>
-            <td>#CDC673</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Aquamarine</td>
-            <td>127 255 212</td>
-            <td>#7FFFD4</td>
-            <td></td>
-            <td>Khaki4</td>
-            <td>139 134 78</td>
-            <td>#8B864E</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkGreen</td>
-            <td>0 100 0</td>
-            <td>#006400</td>
-            <td></td>
-            <td>LightGoldenrod1</td>
-            <td>255 236 139</td>
-            <td>#FFEC8B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkOliveGreen</td>
-            <td>85 107 47</td>
-            <td>#556B2F</td>
-            <td></td>
-            <td>LightGoldenrod2</td>
-            <td>238 220 130</td>
-            <td>#EEDC82</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkSeaGreen</td>
-            <td>143 188 143</td>
-            <td>#8FBC8F</td>
-            <td></td>
-            <td>LightGoldenrod3</td>
-            <td>205 190 112</td>
-            <td>#CDBE70</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SeaGreen</td>
-            <td>46 139 87</td>
-            <td>#2E8B57</td>
-            <td></td>
-            <td>LightGoldenrod4</td>
-            <td>139 129 76</td>
-            <td>#8B814C</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MediumSeaGreen</td>
-            <td>60 179 113</td>
-            <td>#3CB371</td>
-            <td></td>
-            <td>LightYellow1</td>
-            <td>255 255 224</td>
-            <td>#FFFFE0</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSeaGreen</td>
-            <td>32 178 170</td>
-            <td>#20B2AA</td>
-            <td></td>
-            <td>LightYellow2</td>
-            <td>238 238 209</td>
-            <td>#EEEED1</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PaleGreen</td>
-            <td>152 251 152</td>
-            <td>#98FB98</td>
-            <td></td>
-            <td>LightYellow3</td>
-            <td>205 205 180</td>
-            <td>#CDCDB4</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SpringGreen</td>
-            <td>0 255 127</td>
-            <td>#00FF7F</td>
-            <td></td>
-            <td>LightYellow4</td>
-            <td>139 139 122</td>
-            <td>#8B8B7A</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LawnGreen</td>
-            <td>124 252 0</td>
-            <td>#7CFC00</td>
-            <td></td>
-            <td>Yellow1</td>
-            <td>255 255 0</td>
-            <td>#FFFF00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Green</td>
-            <td>0 255 0</td>
-            <td>#00FF00</td>
-            <td></td>
-            <td>Yellow2</td>
-            <td>238 238 0</td>
-            <td>#EEEE00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Chartreuse</td>
-            <td>127 255 0</td>
-            <td>#7FFF00</td>
-            <td></td>
-            <td>Yellow3</td>
-            <td>205 205 0</td>
-            <td>#CDCD00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MedSpringGreen</td>
-            <td>0 250 154</td>
-            <td>#00FA9A</td>
-            <td></td>
-            <td>Yellow4</td>
-            <td>139 139 0</td>
-            <td>#8B8B00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>GreenYellow</td>
-            <td>173 255 47</td>
-            <td>#ADFF2F</td>
-            <td></td>
-            <td>Gold1</td>
-            <td>255 215 0</td>
-            <td>#FFD700</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LimeGreen</td>
-            <td>50 205 50</td>
-            <td>#32CD32</td>
-            <td></td>
-            <td>Gold2</td>
-            <td>238 201 0</td>
-            <td>#EEC900</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>YellowGreen</td>
-            <td>154 205 50</td>
-            <td>#9ACD32</td>
-            <td></td>
-            <td>Gold3</td>
-            <td>205 173 0</td>
-            <td>#CDAD00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>ForestGreen</td>
-            <td>34 139 34</td>
-            <td>#228B22</td>
-            <td></td>
-            <td>Gold4</td>
-            <td>139 117 0</td>
-            <td>#8B7500</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>OliveDrab</td>
-            <td>107 142 35</td>
-            <td>#6B8E23</td>
-            <td></td>
-            <td>Goldenrod1</td>
-            <td>255 193 37</td>
-            <td>#FFC125</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkKhaki</td>
-            <td>189 183 107</td>
-            <td>#BDB76B</td>
-            <td></td>
-            <td>Goldenrod2</td>
-            <td>238 180 34</td>
-            <td>#EEB422</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PaleGoldenrod</td>
-            <td>238 232 170</td>
-            <td>#EEE8AA</td>
-            <td></td>
-            <td>Goldenrod3</td>
-            <td>205 155 29</td>
-            <td>#CD9B1D</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LtGoldenrodYello</td>
-            <td>250 250 210</td>
-            <td>#FAFAD2</td>
-            <td></td>
-            <td>Goldenrod4</td>
-            <td>139 105 20</td>
-            <td>#8B6914</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightYellow</td>
-            <td>255 255 224</td>
-            <td>#FFFFE0</td>
-            <td></td>
-            <td>DarkGoldenrod1</td>
-            <td>255 185 15</td>
-            <td>#FFB90F</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Yellow</td>
-            <td>255 255 0</td>
-            <td>#FFFF00</td>
-            <td></td>
-            <td>DarkGoldenrod2</td>
-            <td>238 173 14</td>
-            <td>#EEAD0E</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Gold</td>
-            <td>255 215 0</td>
-            <td>#FFD700</td>
-            <td></td>
-            <td>DarkGoldenrod3</td>
-            <td>205 149 12</td>
-            <td>#CD950C</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightGoldenrod</td>
-            <td>238 221 130</td>
-            <td>#EEDD82</td>
-            <td></td>
-            <td>DarkGoldenrod4</td>
-            <td>139 101 8</td>
-            <td>#8B658B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>goldenrod</td>
-            <td>218 165 32</td>
-            <td>#DAA520</td>
-            <td></td>
-            <td>RosyBrown1</td>
-            <td>255 193 193</td>
-            <td>#FFC1C1</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkGoldenrod</td>
-            <td>184 134 11</td>
-            <td>#B8860B</td>
-            <td></td>
-            <td>RosyBrown2</td>
-            <td>238 180 180</td>
-            <td>#EEB4B4</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>RosyBrown</td>
-            <td>188 143 143</td>
-            <td>#BC8F8F</td>
-            <td></td>
-            <td>RosyBrown3</td>
-            <td>205 155 155</td>
-            <td>#CD9B9B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>IndianRed</td>
-            <td>205 92 92</td>
-            <td>#CD5C5C</td>
-            <td></td>
-            <td>RosyBrown4</td>
-            <td>139 105 105</td>
-            <td>#8B6969</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SaddleBrown</td>
-            <td>139 69 19</td>
-            <td>#8B4513</td>
-            <td></td>
-            <td>IndianRed1</td>
-            <td>255 106 106</td>
-            <td>#FF6A6A</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Sienna</td>
-            <td>160 82 45</td>
-            <td>#A0522D</td>
-            <td></td>
-            <td>IndianRed2</td>
-            <td>238 99 99</td>
-            <td>#EE6363</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Peru</td>
-            <td>205 133 63</td>
-            <td>#CD853F</td>
-            <td></td>
-            <td>IndianRed3</td>
-            <td>205 85 85</td>
-            <td>#CD5555</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Burlywood</td>
-            <td>222 184 135</td>
-            <td>#DEB887</td>
-            <td></td>
-            <td>IndianRed4</td>
-            <td>139 58 58</td>
-            <td>#8B3A3A</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Beige</td>
-            <td>245 245 220</td>
-            <td>#F5F5DC</td>
-            <td></td>
-            <td>Sienna1</td>
-            <td>255 130 71</td>
-            <td>#FF8247</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Wheat</td>
-            <td>245 222 179</td>
-            <td>#F5DEB3</td>
-            <td></td>
-            <td>Sienna2</td>
-            <td>238 121 66</td>
-            <td>#EE7942</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SandyBrown</td>
-            <td>244 164 96</td>
-            <td>#F4A460</td>
-            <td></td>
-            <td>Sienna3</td>
-            <td>205 104 57</td>
-            <td>#CD6839</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Tan</td>
-            <td>210 180 140</td>
-            <td>#D2B48C</td>
-            <td></td>
-            <td>Sienna4</td>
-            <td>139 71 38</td>
-            <td>#8B4726</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Chocolate</td>
-            <td>210 105 30</td>
-            <td>#D2691E</td>
-            <td></td>
-            <td>Burlywood1</td>
-            <td>255 211 155</td>
-            <td>#FFD39B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Firebrick</td>
-            <td>178 34 34</td>
-            <td>#B22222</td>
-            <td></td>
-            <td>Burlywood2</td>
-            <td>238 197 145</td>
-            <td>#EEC591</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Brown</td>
-            <td>165 42 42</td>
-            <td>#A52A2A</td>
-            <td></td>
-            <td>Burlywood3</td>
-            <td>205 170 125</td>
-            <td>#CDAA7D</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkSalmon</td>
-            <td>233 150 122</td>
-            <td>#E9967A</td>
-            <td></td>
-            <td>Burlywood4</td>
-            <td>139 115 85</td>
-            <td>#8B7355</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Salmon</td>
-            <td>250 128 114</td>
-            <td>#FA8072</td>
-            <td></td>
-            <td>Wheat1</td>
-            <td>255 231 186</td>
-            <td>#FFE7BA</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSalmon</td>
-            <td>255 160 122</td>
-            <td>#FFA07A</td>
-            <td></td>
-            <td>Wheat2</td>
-            <td>238 216 174</td>
-            <td>#EED8AE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Orange</td>
-            <td>255 165 0</td>
-            <td>#FFA500</td>
-            <td></td>
-            <td>Wheat3</td>
-            <td>205 186 150</td>
-            <td>#CDBA96</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkOrange</td>
-            <td>255 140 0</td>
-            <td>#FF8C00</td>
-            <td></td>
-            <td>Wheat4</td>
-            <td>139 126 102</td>
-            <td>#8B7E66</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Coral</td>
-            <td>255 127 80</td>
-            <td>#FF7F50</td>
-            <td></td>
-            <td>Tan1</td>
-            <td>255 165 79</td>
-            <td>#FFA54F</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightCoral</td>
-            <td>240 128 128</td>
-            <td>#F08080</td>
-            <td></td>
-            <td>Tan2</td>
-            <td>238 154 73</td>
-            <td>#EE9A49</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Tomato</td>
-            <td>255 99 71</td>
-            <td>#FF6347</td>
-            <td></td>
-            <td>Tan3</td>
-            <td>205 133 63</td>
-            <td>#CD853F</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>OrangeRed</td>
-            <td>255 69 0</td>
-            <td>#FF4500</td>
-            <td></td>
-            <td>Tan4</td>
-            <td>139 90 43</td>
-            <td>#8B5A2B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Red</td>
-            <td>255 0 0</td>
-            <td>#FF0000</td>
-            <td></td>
-            <td>Chocolate1</td>
-            <td>255 127 36</td>
-            <td>#FF7F24</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>HotPink</td>
-            <td>255 105 180</td>
-            <td>#FF69B4</td>
-            <td></td>
-            <td>Chocolate2</td>
-            <td>238 118 33</td>
-            <td>#EE7621</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DeepPink</td>
-            <td>255 20 147</td>
-            <td>#FF1493</td>
-            <td></td>
-            <td>Chocolate3</td>
-            <td>205 102 29</td>
-            <td>#CD661D</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Pink</td>
-            <td>255 192 203</td>
-            <td>#FFC0CB</td>
-            <td></td>
-            <td>Chocolate4</td>
-            <td>139 69 19</td>
-            <td>#8B4513</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightPink</td>
-            <td>255 182 193</td>
-            <td>#FFB6C1</td>
-            <td></td>
-            <td>Firebrick1</td>
-            <td>255 48 48</td>
-            <td>#FF3030</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PaleVioletRed</td>
-            <td>219 112 147</td>
-            <td>#DB7093</td>
-            <td></td>
-            <td>Firebrick2</td>
-            <td>238 44 44</td>
-            <td>#EE2C2C</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Maroon</td>
-            <td>176 48 96</td>
-            <td>#B03060</td>
-            <td></td>
-            <td>Firebrick3</td>
-            <td>205 38 38</td>
-            <td>#CD2626</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MediumVioletRed</td>
-            <td>199 21 133</td>
-            <td>#C71585</td>
-            <td></td>
-            <td>Firebrick4</td>
-            <td>139 26 26</td>
-            <td>#8B1A1A</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>VioletRed</td>
-            <td>208 32 144</td>
-            <td>#D02090</td>
-            <td></td>
-            <td>Brown1</td>
-            <td>255 64 64</td>
-            <td>#FF4040</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Magenta</td>
-            <td>255 0 255</td>
-            <td>#FF00FF</td>
-            <td></td>
-            <td>Brown2</td>
-            <td>238 59 59</td>
-            <td>#EE3B3B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Violet</td>
-            <td>238 130 238</td>
-            <td>#EE82EE</td>
-            <td></td>
-            <td>Brown3</td>
-            <td>205 51 51</td>
-            <td>#CD3333</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Plum</td>
-            <td>221 160 221</td>
-            <td>#DDA0DD</td>
-            <td></td>
-            <td>Brown4</td>
-            <td>139 35 35</td>
-            <td>#8B2323</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Orchid</td>
-            <td>218 112 214</td>
-            <td>#DA70D6</td>
-            <td></td>
-            <td>Salmon1</td>
-            <td>255 140 105</td>
-            <td>#FF8C69</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MediumOrchid</td>
-            <td>186 85 211</td>
-            <td>#BA55D3</td>
-            <td></td>
-            <td>Salmon2</td>
-            <td>238 130 98</td>
-            <td>#EE8262</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkOrchid</td>
-            <td>153 50 204</td>
-            <td>#9932CC</td>
-            <td></td>
-            <td>Salmon3</td>
-            <td>205 112 84</td>
-            <td>#CD7054</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DarkViolet</td>
-            <td>148 0 211</td>
-            <td>#9400D3</td>
-            <td></td>
-            <td>Salmon4</td>
-            <td>139 76 57</td>
-            <td>#8B4C39</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>BlueViolet</td>
-            <td>138 43 226</td>
-            <td>#8A2BE2</td>
-            <td></td>
-            <td>LightSalmon1</td>
-            <td>255 160 122</td>
-            <td>#FFA07A</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Purple</td>
-            <td>160 32 240</td>
-            <td>#A020F0</td>
-            <td></td>
-            <td>LightSalmon2</td>
-            <td>238 149 114</td>
-            <td>#EE9572</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MediumPurple</td>
-            <td>147 112 219</td>
-            <td>#9370DB</td>
-            <td></td>
-            <td>LightSalmon3</td>
-            <td>205 129 98</td>
-            <td>#CD8162</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Thistle</td>
-            <td>216 191 216</td>
-            <td>#D8BFD8</td>
-            <td></td>
-            <td>LightSalmon4</td>
-            <td>139 87 66</td>
-            <td>#8B5742</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Snow1</td>
-            <td>255 250 250</td>
-            <td>#FFFAFA</td>
-            <td></td>
-            <td>Orange1</td>
-            <td>255 165 0</td>
-            <td>#FFA500</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Snow2</td>
-            <td>238 233 233</td>
-            <td>#EEE9E9</td>
-            <td></td>
-            <td>Orange2</td>
-            <td>238 154 0</td>
-            <td>#EE9A00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Snow3</td>
-            <td>205 201 201</td>
-            <td>#CDC9C9</td>
-            <td></td>
-            <td>Orange3</td>
-            <td>205 133 0</td>
-            <td>#CD8500</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Snow4</td>
-            <td>139 137 137</td>
-            <td>#8B8989</td>
-            <td></td>
-            <td>Orange4</td>
-            <td>139 90 0</td>
-            <td>#8B5A00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Seashell1</td>
-            <td>255 245 238</td>
-            <td>#FFF5EE</td>
-            <td></td>
-            <td>DarkOrange1</td>
-            <td>255 127 0</td>
-            <td>#FF7F00</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Seashell2</td>
-            <td>238 229 222</td>
-            <td>#EEE5DE</td>
-            <td></td>
-            <td>DarkOrange2</td>
-            <td>238 118 0</td>
-            <td>#EE7600</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Seashell3</td>
-            <td>205 197 191</td>
-            <td>#CDC5BF</td>
-            <td></td>
-            <td>DarkOrange3</td>
-            <td>205 102 0</td>
-            <td>#CD6600</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Seashell4</td>
-            <td>139 134 130</td>
-            <td>#8B8682</td>
-            <td></td>
-            <td>DarkOrange4</td>
-            <td>139 69 0</td>
-            <td>#8B4500</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>AntiqueWhite1</td>
-            <td>255 239 219</td>
-            <td>#FFEFDB</td>
-            <td></td>
-            <td>Coral1</td>
-            <td>255 114 86</td>
-            <td>#FF7256</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>AntiqueWhite2</td>
-            <td>238 223 204</td>
-            <td>#EEDFCC</td>
-            <td></td>
-            <td>Coral2</td>
-            <td>238 106 80</td>
-            <td>#EE6A50</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>AntiqueWhite3</td>
-            <td>205 192 176</td>
-            <td>#CDC0B0</td>
-            <td></td>
-            <td>Coral3</td>
-            <td>205 91 69</td>
-            <td>#CD5B45</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>AntiqueWhite4</td>
-            <td>139 131 120</td>
-            <td>#8B8378</td>
-            <td></td>
-            <td>Coral4</td>
-            <td>139 62 47</td>
-            <td>#8B3E2F</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Bisque1</td>
-            <td>255 228 196</td>
-            <td>#FFE4C4</td>
-            <td></td>
-            <td>Tomato1</td>
-            <td>255 99 71</td>
-            <td>#FF6347</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Bisque2</td>
-            <td>238 213 183</td>
-            <td>#EED5B7</td>
-            <td></td>
-            <td>Tomato2</td>
-            <td>238 92 66</td>
-            <td>#EE5C42</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Bisque3</td>
-            <td>205 183 158</td>
-            <td>#CDB79E</td>
-            <td></td>
-            <td>Tomato3</td>
-            <td>205 79 57</td>
-            <td>#CD4F39</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Bisque4</td>
-            <td>139 125 107</td>
-            <td>#8B7D6B</td>
-            <td></td>
-            <td>Tomato4</td>
-            <td>139 54 38</td>
-            <td>#8B3626</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PeachPuff1</td>
-            <td>255 218 185</td>
-            <td>#FFDAB9</td>
-            <td></td>
-            <td>OrangeRed1</td>
-            <td>255 69 0</td>
-            <td>#FF4500</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PeachPuff2</td>
-            <td>238 203 173</td>
-            <td>#EECBAD</td>
-            <td></td>
-            <td>OrangeRed2</td>
-            <td>238 64 0</td>
-            <td>#EE4000</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PeachPuff3</td>
-            <td>205 175 149</td>
-            <td>#CDAF95</td>
-            <td></td>
-            <td>OrangeRed3</td>
-            <td>205 55 0</td>
-            <td>#CD3700</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>PeachPuff4</td>
-            <td>139 119 101</td>
-            <td>#8B7765</td>
-            <td></td>
-            <td>OrangeRed4</td>
-            <td>139 37 0</td>
-            <td>#8B2500</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>NavajoWhite1</td>
-            <td>255 222 173</td>
-            <td>#FFDEAD</td>
-            <td></td>
-            <td>Red1</td>
-            <td>255 0 0</td>
-            <td>#FF0000</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>NavajoWhite2</td>
-            <td>238 207 161</td>
-            <td>#EECFA1</td>
-            <td></td>
-            <td>Red2</td>
-            <td>238 0 0</td>
-            <td>#EE0000</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>NavajoWhite3</td>
-            <td>205 179 139</td>
-            <td>#CDB38B</td>
-            <td></td>
-            <td>Red3</td>
-            <td>205 0 0</td>
-            <td>#CD0000</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>NavajoWhite4</td>
-            <td>139 121 94</td>
-            <td>#8B795E</td>
-            <td></td>
-            <td>Red4</td>
-            <td>139 0 0</td>
-            <td>#8B0000</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LemonChiffon1</td>
-            <td>255 250 205</td>
-            <td>#FFFACD</td>
-            <td></td>
-            <td>DeepPink1</td>
-            <td>255 20 147</td>
-            <td>#FF1493</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LemonChiffon2</td>
-            <td>238 233 191</td>
-            <td>#EEE9BF</td>
-            <td></td>
-            <td>DeepPink2</td>
-            <td>238 18 137</td>
-            <td>#EE1289</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LemonChiffon3</td>
-            <td>205 201 165</td>
-            <td>#CDC9A5</td>
-            <td></td>
-            <td>DeepPink3</td>
-            <td>205 16 118</td>
-            <td>#CD1076</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LemonChiffon4</td>
-            <td>139 137 112</td>
-            <td>#8B8970</td>
-            <td></td>
-            <td>DeepPink4</td>
-            <td>139 10 80</td>
-            <td>#8B0A50</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Cornsilk1</td>
-            <td>255 248 220</td>
-            <td>#FFF8DC</td>
-            <td></td>
-            <td>HotPink1</td>
-            <td>255 110 180</td>
-            <td>#FF6EB4</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Cornsilk2</td>
-            <td>238 232 205</td>
-            <td>#EEE8CD</td>
-            <td></td>
-            <td>HotPink2</td>
-            <td>238 106 167</td>
-            <td>#EE6AA7</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Cornsilk3</td>
-            <td>205 200 177</td>
-            <td>#CDC8B1</td>
-            <td></td>
-            <td>HotPink3</td>
-            <td>205 96 144</td>
-            <td>#CD6090</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Cornsilk4</td>
-            <td>139 136 120</td>
-            <td>#8B8878</td>
-            <td></td>
-            <td>HotPink4</td>
-            <td>139 58 98</td>
-            <td>#8B3A62</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Ivory1</td>
-            <td>255 255 240</td>
-            <td>#FFFFF0</td>
-            <td></td>
-            <td>Pink1</td>
-            <td>255 181 197</td>
-            <td>#FFB5C5</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Ivory2</td>
-            <td>238 238 224</td>
-            <td>#EEEEE0</td>
-            <td></td>
-            <td>Pink2</td>
-            <td>238 169 184</td>
-            <td>#EEA9B8</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Ivory3</td>
-            <td>205 205 193</td>
-            <td>#CDCDC1</td>
-            <td></td>
-            <td>Pink3</td>
-            <td>205 145 158</td>
-            <td>#CD919E</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Ivory4</td>
-            <td>139 139 131</td>
-            <td>#8B8B83</td>
-            <td></td>
-            <td>Pink4</td>
-            <td>139 99 108</td>
-            <td>#8B636C</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Honeydew1</td>
-            <td>240 255 240</td>
-            <td>#F0FFF0</td>
-            <td></td>
-            <td>LightPink1</td>
-            <td>255 174 185</td>
-            <td>#FFAEB9</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Honeydew2</td>
-            <td>224 238 224</td>
-            <td>#E0EEE0</td>
-            <td></td>
-            <td>LightPink2</td>
-            <td>238 162 173</td>
-            <td>#EEA2AD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Honeydew3</td>
-            <td>193 205 193</td>
-            <td>#C1CDC1</td>
-            <td></td>
-            <td>LightPink3</td>
-            <td>205 140 149</td>
-            <td>#CD8C95</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Honeydew4</td>
-            <td>131 139 131</td>
-            <td>#838B83</td>
-            <td></td>
-            <td>LightPink4</td>
-            <td>139 95 101</td>
-            <td>#8B5F65</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LavenderBlush1</td>
-            <td>255 240 245</td>
-            <td>#FFF0F5</td>
-            <td></td>
-            <td>PaleVioletRed1</td>
-            <td>255 130 171</td>
-            <td>#FF82AB</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LavenderBlush2</td>
-            <td>238 224 229</td>
-            <td>#EEE0E5</td>
-            <td></td>
-            <td>PaleVioletRed2</td>
-            <td>238 121 159</td>
-            <td>#EE799F</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LavenderBlush3</td>
-            <td>205 193 197</td>
-            <td>#CDC1C5</td>
-            <td></td>
-            <td>PaleVioletRed3</td>
-            <td>205 104 137</td>
-            <td>#CD6889</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LavenderBlush4</td>
-            <td>139 131 134</td>
-            <td>#8B8386</td>
-            <td></td>
-            <td>PaleVioletRed4</td>
-            <td>139 71 93</td>
-            <td>#8B475D</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MistyRose1</td>
-            <td>255 228 225</td>
-            <td>#FFE4E1</td>
-            <td></td>
-            <td>Maroon1</td>
-            <td>255 52 179</td>
-            <td>#FF34B3</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MistyRose2</td>
-            <td>238 213 210</td>
-            <td>#EED5D2</td>
-            <td></td>
-            <td>Maroon2</td>
-            <td>238 48 167</td>
-            <td>#EE30A7</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MistyRose3</td>
-            <td>205 183 181</td>
-            <td>#CDB7B5</td>
-            <td></td>
-            <td>Maroon3</td>
-            <td>205 41 144</td>
-            <td>#CD2990</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>MistyRose4</td>
-            <td>139 125 123</td>
-            <td>#8B7D7B</td>
-            <td></td>
-            <td>Maroon4</td>
-            <td>139 28 98</td>
-            <td>#8B1C62</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Azure1</td>
-            <td>240 255 255</td>
-            <td>#F0FFFF</td>
-            <td></td>
-            <td>VioletRed1</td>
-            <td>255 62 150</td>
-            <td>#FF3E96</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Azure2</td>
-            <td>224 238 238</td>
-            <td>#E0EEEE</td>
-            <td></td>
-            <td>VioletRed2</td>
-            <td>238 58 140</td>
-            <td>#EE3A8C</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Azure3</td>
-            <td>193 205 205</td>
-            <td>#C1CDCD</td>
-            <td></td>
-            <td>VioletRed3</td>
-            <td>205 50 120</td>
-            <td>#CD3278</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Azure4</td>
-            <td>131 139 139</td>
-            <td>#838B8B</td>
-            <td></td>
-            <td>VioletRed4</td>
-            <td>139 34 82</td>
-            <td>#8B2252</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SlateBlue1</td>
-            <td>131 111 255</td>
-            <td>#836FFF</td>
-            <td></td>
-            <td>Magenta1</td>
-            <td>255 0 255</td>
-            <td>#FF00FF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SlateBlue2</td>
-            <td>122 103 238</td>
-            <td>#7A67EE</td>
-            <td></td>
-            <td>Magenta2</td>
-            <td>238 0 238</td>
-            <td>#EE00EE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SlateBlue3</td>
-            <td>105 89 205</td>
-            <td>#6959CD</td>
-            <td></td>
-            <td>Magenta3</td>
-            <td>205 0 205</td>
-            <td>#CD00CD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SlateBlue4</td>
-            <td>71 60 139</td>
-            <td>#473C8B</td>
-            <td></td>
-            <td>Magenta4</td>
-            <td>139 0 139</td>
-            <td>#8B008B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>RoyalBlue1</td>
-            <td>72 118 255</td>
-            <td>#4876FF</td>
-            <td></td>
-            <td>Orchid1</td>
-            <td>255 131 250</td>
-            <td>#FF83FA</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>RoyalBlue2</td>
-            <td>67 110 238</td>
-            <td>#436EEE</td>
-            <td></td>
-            <td>Orchid2</td>
-            <td>238 122 233</td>
-            <td>#EE7AE9</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>RoyalBlue3</td>
-            <td>58 95 205</td>
-            <td>#3A5FCD</td>
-            <td></td>
-            <td>Orchid3</td>
-            <td>205 105 201</td>
-            <td>#CD69C9</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>RoyalBlue4</td>
-            <td>39 64 139</td>
-            <td>#27408B</td>
-            <td></td>
-            <td>Orchid4</td>
-            <td>139 71 137</td>
-            <td>#8B4789</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Blue1</td>
-            <td>0 0 255</td>
-            <td>#0000FF</td>
-            <td></td>
-            <td>Plum1</td>
-            <td>255 187 255</td>
-            <td>#FFBBFF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Blue2</td>
-            <td>0 0 238</td>
-            <td>#0000EE</td>
-            <td></td>
-            <td>Plum2</td>
-            <td>238 174 238</td>
-            <td>#EEAEEE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Blue3</td>
-            <td>0 0 205</td>
-            <td>#0000CD</td>
-            <td></td>
-            <td>Plum3</td>
-            <td>205 150 205</td>
-            <td>#CD96CD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Blue4</td>
-            <td>0 0 139</td>
-            <td>#00008B</td>
-            <td></td>
-            <td>Plum4</td>
-            <td>139 102 139</td>
-            <td>#8B668B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DodgerBlue1</td>
-            <td>30 144 255</td>
-            <td>#1E90FF</td>
-            <td></td>
-            <td>MediumOrchid1</td>
-            <td>224 102 255</td>
-            <td>#E066FF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DodgerBlue2</td>
-            <td>28 134 238</td>
-            <td>#1C86EE</td>
-            <td></td>
-            <td>MediumOrchid2</td>
-            <td>209 95 238</td>
-            <td>#D15FEE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DodgerBlue3</td>
-            <td>24 116 205</td>
-            <td>#1874CD</td>
-            <td></td>
-            <td>MediumOrchid3</td>
-            <td>180 82 205</td>
-            <td>#B452CD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DodgerBlue4</td>
-            <td>16 78 139</td>
-            <td>#104E8B</td>
-            <td></td>
-            <td>MediumOrchid4</td>
-            <td>122 55 139</td>
-            <td>#7A378B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SteelBlue1</td>
-            <td>99 184 255</td>
-            <td>#63B8FF</td>
-            <td></td>
-            <td>DarkOrchid1</td>
-            <td>191 62 255</td>
-            <td>#BF3EFF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SteelBlue2</td>
-            <td>92 172 238</td>
-            <td>#5CACEE</td>
-            <td></td>
-            <td>DarkOrchid2</td>
-            <td>178 58 238</td>
-            <td>#B23AEE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SteelBlue3</td>
-            <td>79 148 205</td>
-            <td>#4F94CD</td>
-            <td></td>
-            <td>DarkOrchid3</td>
-            <td>154 50 205</td>
-            <td>#9A32CD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SteelBlue4</td>
-            <td>54 100 139</td>
-            <td>#36648B</td>
-            <td></td>
-            <td>DarkOrchid4</td>
-            <td>104 34 139</td>
-            <td>#68228B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DeepSkyBlue1</td>
-            <td>0 191 255</td>
-            <td>#00BFFF</td>
-            <td></td>
-            <td>Purple1</td>
-            <td>155 48 255</td>
-            <td>#9B30FF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DeepSkyBlue2</td>
-            <td>0 178 238</td>
-            <td>#00B2EE</td>
-            <td></td>
-            <td>Purple2</td>
-            <td>145 44 238</td>
-            <td>#912CEE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DeepSkyBlue3</td>
-            <td>0 154 205</td>
-            <td>#009ACD</td>
-            <td></td>
-            <td>Purple3</td>
-            <td>125 38 205</td>
-            <td>#7D26CD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>DeepSkyBlue4</td>
-            <td>0 104 139</td>
-            <td>#00688B</td>
-            <td></td>
-            <td>Purple4</td>
-            <td>85 26 139</td>
-            <td>#551A8B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SkyBlue1</td>
-            <td>135 206 255</td>
-            <td>#87CEFF</td>
-            <td></td>
-            <td>MediumPurple1</td>
-            <td>171 130 255</td>
-            <td>#AB82FF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SkyBlue2</td>
-            <td>126 192 238</td>
-            <td>#7EC0EE</td>
-            <td></td>
-            <td>MediumPurple2</td>
-            <td>159 121 238</td>
-            <td>#9F79EE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SkyBlue3</td>
-            <td>108 166 205</td>
-            <td>#6CA6CD</td>
-            <td></td>
-            <td>MediumPurple3</td>
-            <td>137 104 205</td>
-            <td>#8968CD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SkyBlue4</td>
-            <td>74 112 139</td>
-            <td>#4A708B</td>
-            <td></td>
-            <td>MediumPurple4</td>
-            <td>93 71 139</td>
-            <td>#5D478B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSkyBlue1</td>
-            <td>176 226 255</td>
-            <td>#B0E2FF</td>
-            <td></td>
-            <td>Thistle1</td>
-            <td>255 225 255</td>
-            <td>#FFE1FF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSkyBlue2</td>
-            <td>164 211 238</td>
-            <td>#A4D3EE</td>
-            <td></td>
-            <td>Thistle2</td>
-            <td>238 210 238</td>
-            <td>#EED2EE</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSkyBlue3</td>
-            <td>141 182 205</td>
-            <td>#8DB6CD</td>
-            <td></td>
-            <td>Thistle3</td>
-            <td>205 181 205</td>
-            <td>#CDB5CD</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSkyBlue4</td>
-            <td>96 123 139</td>
-            <td>#607B8B</td>
-            <td></td>
-            <td>Thistle4</td>
-            <td>139 123 139</td>
-            <td>#8B7B8B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SlateGray1</td>
-            <td>198 226 255</td>
-            <td>#C6E2FF</td>
-            <td></td>
-            <td>grey11</td>
-            <td>28 28 28</td>
-            <td>#1C1C1C</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SlateGray2</td>
-            <td>185 211 238</td>
-            <td>#B9D3EE</td>
-            <td></td>
-            <td>grey21</td>
-            <td>54 54 54</td>
-            <td>#363636</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SlateGray3</td>
-            <td>159 182 205</td>
-            <td>#9FB6CD</td>
-            <td></td>
-            <td>grey31</td>
-            <td>79 79 79</td>
-            <td>#4F4F4F</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>SlateGray4</td>
-            <td>108 123 139</td>
-            <td>#6C7B8B</td>
-            <td></td>
-            <td>grey41</td>
-            <td>105 105 105</td>
-            <td>#696969</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSteelBlue1</td>
-            <td>202 225 255</td>
-            <td>#CAE1FF</td>
-            <td></td>
-            <td>grey51</td>
-            <td>130 130 130</td>
-            <td>#828282</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSteelBlue2</td>
-            <td>188 210 238</td>
-            <td>#BCD2EE</td>
-            <td></td>
-            <td>grey61</td>
-            <td>156 156 156</td>
-            <td>#9C9C9C</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSteelBlue3</td>
-            <td>162 181 205</td>
-            <td>#A2B5CD</td>
-            <td></td>
-            <td>grey71</td>
-            <td>181 181 181</td>
-            <td>#B5B5B5</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightSteelBlue4</td>
-            <td>110 123 139</td>
-            <td>#6E7B8B</td>
-            <td></td>
-            <td>gray81</td>
-            <td>207 207 207</td>
-            <td>#CFCFCF</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightBlue1</td>
-            <td>191 239 255</td>
-            <td>#BFEFFF</td>
-            <td></td>
-            <td>gray91</td>
-            <td>232 232 232</td>
-            <td>#E8E8E8</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightBlue2</td>
-            <td>178 223 238</td>
-            <td>#B2DFEE</td>
-            <td></td>
-            <td>DarkGrey</td>
-            <td>169 169 169</td>
-            <td>#A9A9A9</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightBlue3</td>
-            <td>154 192 205</td>
-            <td>#9AC0CD</td>
-            <td></td>
-            <td>DarkBlue</td>
-            <td>0 0 139</td>
-            <td>#00008B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightBlue4</td>
-            <td>104 131 139</td>
-            <td>#68838B</td>
-            <td></td>
-            <td>DarkCyan</td>
-            <td>0 139 139</td>
-            <td>#008B8B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightCyan1</td>
-            <td>224 255 255</td>
-            <td>#E0FFFF</td>
-            <td></td>
-            <td>DarkMagenta</td>
-            <td>139 0 139</td>
-            <td>#8B008B</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightCyan2</td>
-            <td>209 238 238</td>
-            <td>#D1EEEE</td>
-            <td></td>
-            <td>DarkRed</td>
-            <td>139 0 0</td>
-            <td>#8B0000</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightCyan3</td>
-            <td>180 205 205</td>
-            <td>#B4CDCD</td>
-            <td></td>
-            <td>LightGreen</td>
-            <td>144 238 144</td>
-            <td>#90EE90</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>LightCyan4</td>
-            <td>122 139 139</td>
-            <td>#7A8B8B</td>
-        </tr>
-    </table>
-    <div style="color:#C00;">
-        <h3>引用：https://tool.oschina.net/commons?type=3 & https://www.sioe.cn/yingyong/yanse-rgb-16/</h3>
-    </div>
+<!--RGB与十六进制颜色码转换（不需要css和js外部文件）-->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="content" >
+<tr>
+<td valign="top" class="area">
+<table style="border-collapse: collapse" bordercolor=#d9d9d9 cellspacing=0 cellpadding=8 width=100% bgcolor=#fcfcfc border=1>
+<tbody>
+<tr>
+<td>
+<div>
+RGB颜色值转换成十六进制颜色码：
+</div>
+<pre><code>            &lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;4&quot;&gt;
+              &lt;tbody&gt;
+                &lt;tr&gt;
+                  &lt;td width=&quot;200&quot;&gt;
+                    &lt;input name=&quot;r1e&quot; value=&quot;255&quot; class=&quot;rle&quot; maxlength=&quot;3&quot; onKeyDown=&quot;getkey(event,0);&quot;&gt;
+                    &lt;input name=&quot;r1e&quot; value=&quot;180&quot; class=&quot;rle&quot; maxlength=&quot;3&quot; onKeyDown=&quot;getkey(event,0);&quot;&gt;
+                    &lt;input name=&quot;r1e&quot; value=&quot;0&quot; class=&quot;rle&quot; maxlength=&quot;3&quot; onKeyDown=&quot;getkey(event,0);&quot;&gt;
+                    &lt;input onclick=&quot;showRGB()&quot; type=&quot;button&quot; value=&quot;转换&quot; name=&quot;button&quot;&gt;
+                  &lt;/td&gt;
+                  &lt;td id=&quot;color1&quot; width=&quot;50&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+            &lt;div id=&quot;a_mo2&quot;&gt;　&lt;/div&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;div&gt;十六进制颜色码转换成RGB颜色值：&lt;/div&gt;
+            &lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;4&quot;&gt;
+              &lt;tbody&gt;
+                &lt;tr&gt;
+                  &lt;td width=&quot;200&quot;&gt;
+                    &lt;input name=&quot;rgb2&quot; value=&quot;#CC00FF&quot; size=&quot;8&quot; maxlength=&quot;7&quot; onKeyDown=&quot;getkey(event,1);&quot;&gt;
+                    &lt;input onclick=&quot;showRGB2()&quot; type=&quot;button&quot; value=&quot;转换&quot; name=&quot;button&quot;&gt;
+                  &lt;/td&gt;
+                  &lt;td id=&quot;color2&quot; width=&quot;50&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+            &lt;div id=&quot;a_mo3&quot;&gt;　&lt;/div&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;!--取色器模块（需要css和js外部文件）--&gt;
+&lt;div id=&quot;picker&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;form-item&quot;&gt;
+    &lt;div class=&quot;input-prepend&quot;&gt;
+        &lt;span class=&quot;add-on&quot;&gt;颜色值：&lt;/span&gt;&lt;input class=&quot;span2&quot; type=&quot;text&quot; id=&quot;color&quot; name=&quot;color&quot; value=&quot;#123456&quot; /&gt;&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;!--颜色表（需要css和js外部文件）--&gt;
+&lt;table class=&quot;toolTable table&quot; width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
+    &lt;tr&gt;
+        &lt;th&gt;实色效果&lt;/th&gt;
+        &lt;th&gt;英文名称&lt;/th&gt;
+        &lt;th&gt;R.G.B&lt;/th&gt;
+        &lt;th&gt;16色&lt;/th&gt;
+        &lt;th&gt;实色效果&lt;/th&gt;
+        &lt;th&gt;英文名称&lt;/th&gt;
+        &lt;th&gt;R.G.B&lt;/th&gt;
+        &lt;th&gt;16色&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Snow&lt;/td&gt;
+        &lt;td&gt;255 250 250&lt;/td&gt;
+        &lt;td&gt;#FFFAFA&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleTurquoise1&lt;/td&gt;
+        &lt;td&gt;187 255 255&lt;/td&gt;
+        &lt;td&gt;#BBFFFF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;GhostWhite&lt;/td&gt;
+        &lt;td&gt;248 248 255&lt;/td&gt;
+        &lt;td&gt;#F8F8FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleTurquoise2&lt;/td&gt;
+        &lt;td&gt;174 238 238&lt;/td&gt;
+        &lt;td&gt;#AEEEEE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;WhiteSmoke&lt;/td&gt;
+        &lt;td&gt;245 245 245&lt;/td&gt;
+        &lt;td&gt;#F5F5F5&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleTurquoise3&lt;/td&gt;
+        &lt;td&gt;150 205 205&lt;/td&gt;
+        &lt;td&gt;#96CDCD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Gainsboro&lt;/td&gt;
+        &lt;td&gt;220 220 220&lt;/td&gt;
+        &lt;td&gt;#DCDCDC&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleTurquoise4&lt;/td&gt;
+        &lt;td&gt;102 139 139&lt;/td&gt;
+        &lt;td&gt;#668B8B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;FloralWhite&lt;/td&gt;
+        &lt;td&gt;255 250 240&lt;/td&gt;
+        &lt;td&gt;#FFFAF0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;CadetBlue1&lt;/td&gt;
+        &lt;td&gt;152 245 255&lt;/td&gt;
+        &lt;td&gt;#98F5FF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OldLace&lt;/td&gt;
+        &lt;td&gt;253 245 230&lt;/td&gt;
+        &lt;td&gt;#FDF5E6&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;CadetBlue2&lt;/td&gt;
+        &lt;td&gt;142 229 238&lt;/td&gt;
+        &lt;td&gt;#8EE5EE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Linen&lt;/td&gt;
+        &lt;td&gt;250 240 230&lt;/td&gt;
+        &lt;td&gt;#FAF0E6&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;CadetBlue3&lt;/td&gt;
+        &lt;td&gt;122 197 205&lt;/td&gt;
+        &lt;td&gt;#7AC5CD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;AntiqueWhite&lt;/td&gt;
+        &lt;td&gt;250 235 215&lt;/td&gt;
+        &lt;td&gt;#FAEBD7&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;CadetBlue4&lt;/td&gt;
+        &lt;td&gt;83 134 139&lt;/td&gt;
+        &lt;td&gt;#53868B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PapayaWhip&lt;/td&gt;
+        &lt;td&gt;255 239 213&lt;/td&gt;
+        &lt;td&gt;#FFEFD5&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Turquoise1&lt;/td&gt;
+        &lt;td&gt;0 245 255&lt;/td&gt;
+        &lt;td&gt;#00F5FF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;BlanchedAlmond&lt;/td&gt;
+        &lt;td&gt;255 235 205&lt;/td&gt;
+        &lt;td&gt;#FFEBCD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Turquoise2&lt;/td&gt;
+        &lt;td&gt;0 229 238&lt;/td&gt;
+        &lt;td&gt;#00E5EE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Bisque&lt;/td&gt;
+        &lt;td&gt;255 228 196&lt;/td&gt;
+        &lt;td&gt;#FFE4C4&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Turquoise3&lt;/td&gt;
+        &lt;td&gt;0 197 205&lt;/td&gt;
+        &lt;td&gt;#00C5CD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PeachPuff&lt;/td&gt;
+        &lt;td&gt;255 218 185&lt;/td&gt;
+        &lt;td&gt;#FFDAB9&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Turquoise4&lt;/td&gt;
+        &lt;td&gt;0 134 139&lt;/td&gt;
+        &lt;td&gt;#00868B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;NavajoWhite&lt;/td&gt;
+        &lt;td&gt;255 222 173&lt;/td&gt;
+        &lt;td&gt;#FFDEAD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Cyan1&lt;/td&gt;
+        &lt;td&gt;0 255 255&lt;/td&gt;
+        &lt;td&gt;#00FFFF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Moccasin&lt;/td&gt;
+        &lt;td&gt;255 228 181&lt;/td&gt;
+        &lt;td&gt;#FFE4B5&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Cyan2&lt;/td&gt;
+        &lt;td&gt;0 238 238&lt;/td&gt;
+        &lt;td&gt;#00EEEE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Cornsilk&lt;/td&gt;
+        &lt;td&gt;255 248 220&lt;/td&gt;
+        &lt;td&gt;#FFF8DC&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Cyan3&lt;/td&gt;
+        &lt;td&gt;0 205 205&lt;/td&gt;
+        &lt;td&gt;#00CDCD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Ivory&lt;/td&gt;
+        &lt;td&gt;255 255 240&lt;/td&gt;
+        &lt;td&gt;#FFFFF0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Cyan4&lt;/td&gt;
+        &lt;td&gt;0 139 139&lt;/td&gt;
+        &lt;td&gt;#008B8B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LemonChiffon&lt;/td&gt;
+        &lt;td&gt;255 250 205&lt;/td&gt;
+        &lt;td&gt;#FFFACD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSlateGray1&lt;/td&gt;
+        &lt;td&gt;151 255 255&lt;/td&gt;
+        &lt;td&gt;#97FFFF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Seashell&lt;/td&gt;
+        &lt;td&gt;255 245 238&lt;/td&gt;
+        &lt;td&gt;#FFF5EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSlateGray2&lt;/td&gt;
+        &lt;td&gt;141 238 238&lt;/td&gt;
+        &lt;td&gt;#8DEEEE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Honeydew&lt;/td&gt;
+        &lt;td&gt;240 255 240&lt;/td&gt;
+        &lt;td&gt;#F0FFF0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSlateGray3&lt;/td&gt;
+        &lt;td&gt;121 205 205&lt;/td&gt;
+        &lt;td&gt;#79CDCD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MintCream&lt;/td&gt;
+        &lt;td&gt;245 255 250&lt;/td&gt;
+        &lt;td&gt;#F5FFFA&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSlateGray4&lt;/td&gt;
+        &lt;td&gt;82 139 139&lt;/td&gt;
+        &lt;td&gt;#528B8B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Azure&lt;/td&gt;
+        &lt;td&gt;240 255 255&lt;/td&gt;
+        &lt;td&gt;#F0FFFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Aquamarine1&lt;/td&gt;
+        &lt;td&gt;127 255 212&lt;/td&gt;
+        &lt;td&gt;#7FFFD4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;AliceBlue&lt;/td&gt;
+        &lt;td&gt;240 248 255&lt;/td&gt;
+        &lt;td&gt;#F0F8FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Aquamarine2&lt;/td&gt;
+        &lt;td&gt;118 238 198&lt;/td&gt;
+        &lt;td&gt;#76EEC6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;lavender&lt;/td&gt;
+        &lt;td&gt;230 230 250&lt;/td&gt;
+        &lt;td&gt;#E6E6FA&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Aquamarine3&lt;/td&gt;
+        &lt;td&gt;102 205 170&lt;/td&gt;
+        &lt;td&gt;#66CDAA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LavenderBlush&lt;/td&gt;
+        &lt;td&gt;255 240 245&lt;/td&gt;
+        &lt;td&gt;#FFF0F5&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Aquamarine4&lt;/td&gt;
+        &lt;td&gt;69 139 116&lt;/td&gt;
+        &lt;td&gt;#458B74&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MistyRose&lt;/td&gt;
+        &lt;td&gt;255 228 225&lt;/td&gt;
+        &lt;td&gt;#FFE4E1&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSeaGreen1&lt;/td&gt;
+        &lt;td&gt;193 255 193&lt;/td&gt;
+        &lt;td&gt;#C1FFC1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;White&lt;/td&gt;
+        &lt;td&gt;255 255 255&lt;/td&gt;
+        &lt;td&gt;#FFFFFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSeaGreen2&lt;/td&gt;
+        &lt;td&gt;180 238 180&lt;/td&gt;
+        &lt;td&gt;#B4EEB4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Black&lt;/td&gt;
+        &lt;td&gt;0 0 0&lt;/td&gt;
+        &lt;td&gt;#000000&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSeaGreen3&lt;/td&gt;
+        &lt;td&gt;155 205 155&lt;/td&gt;
+        &lt;td&gt;#9BCD9B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSlateGray&lt;/td&gt;
+        &lt;td&gt;47 79 79&lt;/td&gt;
+        &lt;td&gt;#2F4F4F&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSeaGreen4&lt;/td&gt;
+        &lt;td&gt;105 139 105&lt;/td&gt;
+        &lt;td&gt;#698B69&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DimGrey&lt;/td&gt;
+        &lt;td&gt;105 105 105&lt;/td&gt;
+        &lt;td&gt;#696969&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SeaGreen1&lt;/td&gt;
+        &lt;td&gt;84 255 159&lt;/td&gt;
+        &lt;td&gt;#54FF9F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SlateGrey&lt;/td&gt;
+        &lt;td&gt;112 128 144&lt;/td&gt;
+        &lt;td&gt;#708090&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SeaGreen2&lt;/td&gt;
+        &lt;td&gt;78 238 148&lt;/td&gt;
+        &lt;td&gt;#4EEE94&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSlateGray&lt;/td&gt;
+        &lt;td&gt;119 136 153&lt;/td&gt;
+        &lt;td&gt;#778899&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SeaGreen3&lt;/td&gt;
+        &lt;td&gt;67 205 128&lt;/td&gt;
+        &lt;td&gt;#43CD80&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Grey&lt;/td&gt;
+        &lt;td&gt;190 190 190&lt;/td&gt;
+        &lt;td&gt;#BEBEBE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SeaGreen4&lt;/td&gt;
+        &lt;td&gt;46 139 87&lt;/td&gt;
+        &lt;td&gt;#2E8B57&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightGray&lt;/td&gt;
+        &lt;td&gt;211 211 211&lt;/td&gt;
+        &lt;td&gt;#D3D3D3&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleGreen1&lt;/td&gt;
+        &lt;td&gt;154 255 154&lt;/td&gt;
+        &lt;td&gt;#9AFF9A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MidnightBlue&lt;/td&gt;
+        &lt;td&gt;25 25 112&lt;/td&gt;
+        &lt;td&gt;#191970&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleGreen2&lt;/td&gt;
+        &lt;td&gt;144 238 144&lt;/td&gt;
+        &lt;td&gt;#90EE90&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;NavyBlue&lt;/td&gt;
+        &lt;td&gt;0 0 128&lt;/td&gt;
+        &lt;td&gt;#000080&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleGreen3&lt;/td&gt;
+        &lt;td&gt;124 205 124&lt;/td&gt;
+        &lt;td&gt;#7CCD7C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;CornflowerBlue&lt;/td&gt;
+        &lt;td&gt;100 149 237&lt;/td&gt;
+        &lt;td&gt;#6495ED&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleGreen4&lt;/td&gt;
+        &lt;td&gt;84 139 84&lt;/td&gt;
+        &lt;td&gt;#548B54&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSlateBlue&lt;/td&gt;
+        &lt;td&gt;72 61 139&lt;/td&gt;
+        &lt;td&gt;#483D8B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SpringGreen1&lt;/td&gt;
+        &lt;td&gt;0 255 127&lt;/td&gt;
+        &lt;td&gt;#00FF7F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SlateBlue&lt;/td&gt;
+        &lt;td&gt;106 90 205&lt;/td&gt;
+        &lt;td&gt;#6A5ACD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SpringGreen2&lt;/td&gt;
+        &lt;td&gt;0 238 118&lt;/td&gt;
+        &lt;td&gt;#00EE76&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumSlateBlue&lt;/td&gt;
+        &lt;td&gt;123 104 238&lt;/td&gt;
+        &lt;td&gt;#7B68EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SpringGreen3&lt;/td&gt;
+        &lt;td&gt;0 205 102&lt;/td&gt;
+        &lt;td&gt;#00CD66&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSlateBlue&lt;/td&gt;
+        &lt;td&gt;132 112 255&lt;/td&gt;
+        &lt;td&gt;#8470FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SpringGreen4&lt;/td&gt;
+        &lt;td&gt;0 139 69&lt;/td&gt;
+        &lt;td&gt;#008B45&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumBlue&lt;/td&gt;
+        &lt;td&gt;0 0 205&lt;/td&gt;
+        &lt;td&gt;#0000CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Green1&lt;/td&gt;
+        &lt;td&gt;0 255 0&lt;/td&gt;
+        &lt;td&gt;#00FF00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;RoyalBlue&lt;/td&gt;
+        &lt;td&gt;65 105 225&lt;/td&gt;
+        &lt;td&gt;#4169E1&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Green2&lt;/td&gt;
+        &lt;td&gt;0 238 0&lt;/td&gt;
+        &lt;td&gt;#00EE00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Blue&lt;/td&gt;
+        &lt;td&gt;0 0 255&lt;/td&gt;
+        &lt;td&gt;#0000FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Green3&lt;/td&gt;
+        &lt;td&gt;0 205 0&lt;/td&gt;
+        &lt;td&gt;#00CD00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DodgerBlue&lt;/td&gt;
+        &lt;td&gt;30 144 255&lt;/td&gt;
+        &lt;td&gt;#1E90FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Green4&lt;/td&gt;
+        &lt;td&gt;0 139 0&lt;/td&gt;
+        &lt;td&gt;#008B00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DeepSkyBlue&lt;/td&gt;
+        &lt;td&gt;0 191 255&lt;/td&gt;
+        &lt;td&gt;#00BFFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Chartreuse1&lt;/td&gt;
+        &lt;td&gt;127 255 0&lt;/td&gt;
+        &lt;td&gt;#7FFF00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SkyBlue&lt;/td&gt;
+        &lt;td&gt;135 206 235&lt;/td&gt;
+        &lt;td&gt;#87CEEB&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Chartreuse2&lt;/td&gt;
+        &lt;td&gt;118 238 0&lt;/td&gt;
+        &lt;td&gt;#76EE00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSkyBlue&lt;/td&gt;
+        &lt;td&gt;135 206 250&lt;/td&gt;
+        &lt;td&gt;#87CEFA&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Chartreuse3&lt;/td&gt;
+        &lt;td&gt;102 205 0&lt;/td&gt;
+        &lt;td&gt;#66CD00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SteelBlue&lt;/td&gt;
+        &lt;td&gt;70 130 180&lt;/td&gt;
+        &lt;td&gt;#4682B4&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Chartreuse4&lt;/td&gt;
+        &lt;td&gt;69 139 0&lt;/td&gt;
+        &lt;td&gt;#458B00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSteelBlue&lt;/td&gt;
+        &lt;td&gt;176 196 222&lt;/td&gt;
+        &lt;td&gt;#B0C4DE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OliveDrab1&lt;/td&gt;
+        &lt;td&gt;192 255 62&lt;/td&gt;
+        &lt;td&gt;#C0FF3E&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightBlue&lt;/td&gt;
+        &lt;td&gt;173 216 230&lt;/td&gt;
+        &lt;td&gt;#ADD8E6&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OliveDrab2&lt;/td&gt;
+        &lt;td&gt;179 238 58&lt;/td&gt;
+        &lt;td&gt;#B3EE3A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PowderBlue&lt;/td&gt;
+        &lt;td&gt;176 224 230&lt;/td&gt;
+        &lt;td&gt;#B0E0E6&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OliveDrab3&lt;/td&gt;
+        &lt;td&gt;154 205 50&lt;/td&gt;
+        &lt;td&gt;#9ACD32&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleTurquoise&lt;/td&gt;
+        &lt;td&gt;175 238 238&lt;/td&gt;
+        &lt;td&gt;#AFEEEE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OliveDrab4&lt;/td&gt;
+        &lt;td&gt;105 139 34&lt;/td&gt;
+        &lt;td&gt;#698B22&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkTurquoise&lt;/td&gt;
+        &lt;td&gt;0 206 209&lt;/td&gt;
+        &lt;td&gt;#00CED1&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOliveGreen1&lt;/td&gt;
+        &lt;td&gt;202 255 112&lt;/td&gt;
+        &lt;td&gt;#CAFF70&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumTurquoise&lt;/td&gt;
+        &lt;td&gt;72 209 204&lt;/td&gt;
+        &lt;td&gt;#48D1CC&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOliveGreen2&lt;/td&gt;
+        &lt;td&gt;188 238 104&lt;/td&gt;
+        &lt;td&gt;#BCEE68&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Turquoise&lt;/td&gt;
+        &lt;td&gt;64 224 208&lt;/td&gt;
+        &lt;td&gt;#40E0D0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOliveGreen3&lt;/td&gt;
+        &lt;td&gt;162 205 90&lt;/td&gt;
+        &lt;td&gt;#A2CD5A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Cyan&lt;/td&gt;
+        &lt;td&gt;0 255 255&lt;/td&gt;
+        &lt;td&gt;#00FFFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOliveGreen4&lt;/td&gt;
+        &lt;td&gt;110 139 61&lt;/td&gt;
+        &lt;td&gt;#6E8B3D&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightCyan&lt;/td&gt;
+        &lt;td&gt;224 255 255&lt;/td&gt;
+        &lt;td&gt;#E0FFFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Khaki1&lt;/td&gt;
+        &lt;td&gt;255 246 143&lt;/td&gt;
+        &lt;td&gt;#FFF68F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;CadetBlue&lt;/td&gt;
+        &lt;td&gt;95 158 160&lt;/td&gt;
+        &lt;td&gt;#5F9EA0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Khaki2&lt;/td&gt;
+        &lt;td&gt;238 230 133&lt;/td&gt;
+        &lt;td&gt;#EEE685&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumAquamarine&lt;/td&gt;
+        &lt;td&gt;102 205 170&lt;/td&gt;
+        &lt;td&gt;#66CDAA&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Khaki3&lt;/td&gt;
+        &lt;td&gt;205 198 115&lt;/td&gt;
+        &lt;td&gt;#CDC673&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Aquamarine&lt;/td&gt;
+        &lt;td&gt;127 255 212&lt;/td&gt;
+        &lt;td&gt;#7FFFD4&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Khaki4&lt;/td&gt;
+        &lt;td&gt;139 134 78&lt;/td&gt;
+        &lt;td&gt;#8B864E&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkGreen&lt;/td&gt;
+        &lt;td&gt;0 100 0&lt;/td&gt;
+        &lt;td&gt;#006400&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightGoldenrod1&lt;/td&gt;
+        &lt;td&gt;255 236 139&lt;/td&gt;
+        &lt;td&gt;#FFEC8B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOliveGreen&lt;/td&gt;
+        &lt;td&gt;85 107 47&lt;/td&gt;
+        &lt;td&gt;#556B2F&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightGoldenrod2&lt;/td&gt;
+        &lt;td&gt;238 220 130&lt;/td&gt;
+        &lt;td&gt;#EEDC82&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSeaGreen&lt;/td&gt;
+        &lt;td&gt;143 188 143&lt;/td&gt;
+        &lt;td&gt;#8FBC8F&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightGoldenrod3&lt;/td&gt;
+        &lt;td&gt;205 190 112&lt;/td&gt;
+        &lt;td&gt;#CDBE70&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SeaGreen&lt;/td&gt;
+        &lt;td&gt;46 139 87&lt;/td&gt;
+        &lt;td&gt;#2E8B57&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightGoldenrod4&lt;/td&gt;
+        &lt;td&gt;139 129 76&lt;/td&gt;
+        &lt;td&gt;#8B814C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumSeaGreen&lt;/td&gt;
+        &lt;td&gt;60 179 113&lt;/td&gt;
+        &lt;td&gt;#3CB371&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightYellow1&lt;/td&gt;
+        &lt;td&gt;255 255 224&lt;/td&gt;
+        &lt;td&gt;#FFFFE0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSeaGreen&lt;/td&gt;
+        &lt;td&gt;32 178 170&lt;/td&gt;
+        &lt;td&gt;#20B2AA&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightYellow2&lt;/td&gt;
+        &lt;td&gt;238 238 209&lt;/td&gt;
+        &lt;td&gt;#EEEED1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleGreen&lt;/td&gt;
+        &lt;td&gt;152 251 152&lt;/td&gt;
+        &lt;td&gt;#98FB98&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightYellow3&lt;/td&gt;
+        &lt;td&gt;205 205 180&lt;/td&gt;
+        &lt;td&gt;#CDCDB4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SpringGreen&lt;/td&gt;
+        &lt;td&gt;0 255 127&lt;/td&gt;
+        &lt;td&gt;#00FF7F&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightYellow4&lt;/td&gt;
+        &lt;td&gt;139 139 122&lt;/td&gt;
+        &lt;td&gt;#8B8B7A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LawnGreen&lt;/td&gt;
+        &lt;td&gt;124 252 0&lt;/td&gt;
+        &lt;td&gt;#7CFC00&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Yellow1&lt;/td&gt;
+        &lt;td&gt;255 255 0&lt;/td&gt;
+        &lt;td&gt;#FFFF00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Green&lt;/td&gt;
+        &lt;td&gt;0 255 0&lt;/td&gt;
+        &lt;td&gt;#00FF00&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Yellow2&lt;/td&gt;
+        &lt;td&gt;238 238 0&lt;/td&gt;
+        &lt;td&gt;#EEEE00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Chartreuse&lt;/td&gt;
+        &lt;td&gt;127 255 0&lt;/td&gt;
+        &lt;td&gt;#7FFF00&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Yellow3&lt;/td&gt;
+        &lt;td&gt;205 205 0&lt;/td&gt;
+        &lt;td&gt;#CDCD00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MedSpringGreen&lt;/td&gt;
+        &lt;td&gt;0 250 154&lt;/td&gt;
+        &lt;td&gt;#00FA9A&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Yellow4&lt;/td&gt;
+        &lt;td&gt;139 139 0&lt;/td&gt;
+        &lt;td&gt;#8B8B00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;GreenYellow&lt;/td&gt;
+        &lt;td&gt;173 255 47&lt;/td&gt;
+        &lt;td&gt;#ADFF2F&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Gold1&lt;/td&gt;
+        &lt;td&gt;255 215 0&lt;/td&gt;
+        &lt;td&gt;#FFD700&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LimeGreen&lt;/td&gt;
+        &lt;td&gt;50 205 50&lt;/td&gt;
+        &lt;td&gt;#32CD32&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Gold2&lt;/td&gt;
+        &lt;td&gt;238 201 0&lt;/td&gt;
+        &lt;td&gt;#EEC900&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;YellowGreen&lt;/td&gt;
+        &lt;td&gt;154 205 50&lt;/td&gt;
+        &lt;td&gt;#9ACD32&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Gold3&lt;/td&gt;
+        &lt;td&gt;205 173 0&lt;/td&gt;
+        &lt;td&gt;#CDAD00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;ForestGreen&lt;/td&gt;
+        &lt;td&gt;34 139 34&lt;/td&gt;
+        &lt;td&gt;#228B22&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Gold4&lt;/td&gt;
+        &lt;td&gt;139 117 0&lt;/td&gt;
+        &lt;td&gt;#8B7500&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OliveDrab&lt;/td&gt;
+        &lt;td&gt;107 142 35&lt;/td&gt;
+        &lt;td&gt;#6B8E23&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Goldenrod1&lt;/td&gt;
+        &lt;td&gt;255 193 37&lt;/td&gt;
+        &lt;td&gt;#FFC125&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkKhaki&lt;/td&gt;
+        &lt;td&gt;189 183 107&lt;/td&gt;
+        &lt;td&gt;#BDB76B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Goldenrod2&lt;/td&gt;
+        &lt;td&gt;238 180 34&lt;/td&gt;
+        &lt;td&gt;#EEB422&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleGoldenrod&lt;/td&gt;
+        &lt;td&gt;238 232 170&lt;/td&gt;
+        &lt;td&gt;#EEE8AA&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Goldenrod3&lt;/td&gt;
+        &lt;td&gt;205 155 29&lt;/td&gt;
+        &lt;td&gt;#CD9B1D&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LtGoldenrodYello&lt;/td&gt;
+        &lt;td&gt;250 250 210&lt;/td&gt;
+        &lt;td&gt;#FAFAD2&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Goldenrod4&lt;/td&gt;
+        &lt;td&gt;139 105 20&lt;/td&gt;
+        &lt;td&gt;#8B6914&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightYellow&lt;/td&gt;
+        &lt;td&gt;255 255 224&lt;/td&gt;
+        &lt;td&gt;#FFFFE0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkGoldenrod1&lt;/td&gt;
+        &lt;td&gt;255 185 15&lt;/td&gt;
+        &lt;td&gt;#FFB90F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Yellow&lt;/td&gt;
+        &lt;td&gt;255 255 0&lt;/td&gt;
+        &lt;td&gt;#FFFF00&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkGoldenrod2&lt;/td&gt;
+        &lt;td&gt;238 173 14&lt;/td&gt;
+        &lt;td&gt;#EEAD0E&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Gold&lt;/td&gt;
+        &lt;td&gt;255 215 0&lt;/td&gt;
+        &lt;td&gt;#FFD700&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkGoldenrod3&lt;/td&gt;
+        &lt;td&gt;205 149 12&lt;/td&gt;
+        &lt;td&gt;#CD950C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightGoldenrod&lt;/td&gt;
+        &lt;td&gt;238 221 130&lt;/td&gt;
+        &lt;td&gt;#EEDD82&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkGoldenrod4&lt;/td&gt;
+        &lt;td&gt;139 101 8&lt;/td&gt;
+        &lt;td&gt;#8B658B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;goldenrod&lt;/td&gt;
+        &lt;td&gt;218 165 32&lt;/td&gt;
+        &lt;td&gt;#DAA520&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;RosyBrown1&lt;/td&gt;
+        &lt;td&gt;255 193 193&lt;/td&gt;
+        &lt;td&gt;#FFC1C1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkGoldenrod&lt;/td&gt;
+        &lt;td&gt;184 134 11&lt;/td&gt;
+        &lt;td&gt;#B8860B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;RosyBrown2&lt;/td&gt;
+        &lt;td&gt;238 180 180&lt;/td&gt;
+        &lt;td&gt;#EEB4B4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;RosyBrown&lt;/td&gt;
+        &lt;td&gt;188 143 143&lt;/td&gt;
+        &lt;td&gt;#BC8F8F&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;RosyBrown3&lt;/td&gt;
+        &lt;td&gt;205 155 155&lt;/td&gt;
+        &lt;td&gt;#CD9B9B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;IndianRed&lt;/td&gt;
+        &lt;td&gt;205 92 92&lt;/td&gt;
+        &lt;td&gt;#CD5C5C&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;RosyBrown4&lt;/td&gt;
+        &lt;td&gt;139 105 105&lt;/td&gt;
+        &lt;td&gt;#8B6969&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SaddleBrown&lt;/td&gt;
+        &lt;td&gt;139 69 19&lt;/td&gt;
+        &lt;td&gt;#8B4513&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;IndianRed1&lt;/td&gt;
+        &lt;td&gt;255 106 106&lt;/td&gt;
+        &lt;td&gt;#FF6A6A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Sienna&lt;/td&gt;
+        &lt;td&gt;160 82 45&lt;/td&gt;
+        &lt;td&gt;#A0522D&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;IndianRed2&lt;/td&gt;
+        &lt;td&gt;238 99 99&lt;/td&gt;
+        &lt;td&gt;#EE6363&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Peru&lt;/td&gt;
+        &lt;td&gt;205 133 63&lt;/td&gt;
+        &lt;td&gt;#CD853F&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;IndianRed3&lt;/td&gt;
+        &lt;td&gt;205 85 85&lt;/td&gt;
+        &lt;td&gt;#CD5555&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Burlywood&lt;/td&gt;
+        &lt;td&gt;222 184 135&lt;/td&gt;
+        &lt;td&gt;#DEB887&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;IndianRed4&lt;/td&gt;
+        &lt;td&gt;139 58 58&lt;/td&gt;
+        &lt;td&gt;#8B3A3A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Beige&lt;/td&gt;
+        &lt;td&gt;245 245 220&lt;/td&gt;
+        &lt;td&gt;#F5F5DC&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Sienna1&lt;/td&gt;
+        &lt;td&gt;255 130 71&lt;/td&gt;
+        &lt;td&gt;#FF8247&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Wheat&lt;/td&gt;
+        &lt;td&gt;245 222 179&lt;/td&gt;
+        &lt;td&gt;#F5DEB3&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Sienna2&lt;/td&gt;
+        &lt;td&gt;238 121 66&lt;/td&gt;
+        &lt;td&gt;#EE7942&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SandyBrown&lt;/td&gt;
+        &lt;td&gt;244 164 96&lt;/td&gt;
+        &lt;td&gt;#F4A460&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Sienna3&lt;/td&gt;
+        &lt;td&gt;205 104 57&lt;/td&gt;
+        &lt;td&gt;#CD6839&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Tan&lt;/td&gt;
+        &lt;td&gt;210 180 140&lt;/td&gt;
+        &lt;td&gt;#D2B48C&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Sienna4&lt;/td&gt;
+        &lt;td&gt;139 71 38&lt;/td&gt;
+        &lt;td&gt;#8B4726&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Chocolate&lt;/td&gt;
+        &lt;td&gt;210 105 30&lt;/td&gt;
+        &lt;td&gt;#D2691E&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Burlywood1&lt;/td&gt;
+        &lt;td&gt;255 211 155&lt;/td&gt;
+        &lt;td&gt;#FFD39B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Firebrick&lt;/td&gt;
+        &lt;td&gt;178 34 34&lt;/td&gt;
+        &lt;td&gt;#B22222&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Burlywood2&lt;/td&gt;
+        &lt;td&gt;238 197 145&lt;/td&gt;
+        &lt;td&gt;#EEC591&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Brown&lt;/td&gt;
+        &lt;td&gt;165 42 42&lt;/td&gt;
+        &lt;td&gt;#A52A2A&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Burlywood3&lt;/td&gt;
+        &lt;td&gt;205 170 125&lt;/td&gt;
+        &lt;td&gt;#CDAA7D&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkSalmon&lt;/td&gt;
+        &lt;td&gt;233 150 122&lt;/td&gt;
+        &lt;td&gt;#E9967A&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Burlywood4&lt;/td&gt;
+        &lt;td&gt;139 115 85&lt;/td&gt;
+        &lt;td&gt;#8B7355&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Salmon&lt;/td&gt;
+        &lt;td&gt;250 128 114&lt;/td&gt;
+        &lt;td&gt;#FA8072&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Wheat1&lt;/td&gt;
+        &lt;td&gt;255 231 186&lt;/td&gt;
+        &lt;td&gt;#FFE7BA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSalmon&lt;/td&gt;
+        &lt;td&gt;255 160 122&lt;/td&gt;
+        &lt;td&gt;#FFA07A&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Wheat2&lt;/td&gt;
+        &lt;td&gt;238 216 174&lt;/td&gt;
+        &lt;td&gt;#EED8AE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Orange&lt;/td&gt;
+        &lt;td&gt;255 165 0&lt;/td&gt;
+        &lt;td&gt;#FFA500&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Wheat3&lt;/td&gt;
+        &lt;td&gt;205 186 150&lt;/td&gt;
+        &lt;td&gt;#CDBA96&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOrange&lt;/td&gt;
+        &lt;td&gt;255 140 0&lt;/td&gt;
+        &lt;td&gt;#FF8C00&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Wheat4&lt;/td&gt;
+        &lt;td&gt;139 126 102&lt;/td&gt;
+        &lt;td&gt;#8B7E66&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Coral&lt;/td&gt;
+        &lt;td&gt;255 127 80&lt;/td&gt;
+        &lt;td&gt;#FF7F50&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Tan1&lt;/td&gt;
+        &lt;td&gt;255 165 79&lt;/td&gt;
+        &lt;td&gt;#FFA54F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightCoral&lt;/td&gt;
+        &lt;td&gt;240 128 128&lt;/td&gt;
+        &lt;td&gt;#F08080&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Tan2&lt;/td&gt;
+        &lt;td&gt;238 154 73&lt;/td&gt;
+        &lt;td&gt;#EE9A49&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Tomato&lt;/td&gt;
+        &lt;td&gt;255 99 71&lt;/td&gt;
+        &lt;td&gt;#FF6347&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Tan3&lt;/td&gt;
+        &lt;td&gt;205 133 63&lt;/td&gt;
+        &lt;td&gt;#CD853F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OrangeRed&lt;/td&gt;
+        &lt;td&gt;255 69 0&lt;/td&gt;
+        &lt;td&gt;#FF4500&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Tan4&lt;/td&gt;
+        &lt;td&gt;139 90 43&lt;/td&gt;
+        &lt;td&gt;#8B5A2B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Red&lt;/td&gt;
+        &lt;td&gt;255 0 0&lt;/td&gt;
+        &lt;td&gt;#FF0000&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Chocolate1&lt;/td&gt;
+        &lt;td&gt;255 127 36&lt;/td&gt;
+        &lt;td&gt;#FF7F24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;HotPink&lt;/td&gt;
+        &lt;td&gt;255 105 180&lt;/td&gt;
+        &lt;td&gt;#FF69B4&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Chocolate2&lt;/td&gt;
+        &lt;td&gt;238 118 33&lt;/td&gt;
+        &lt;td&gt;#EE7621&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DeepPink&lt;/td&gt;
+        &lt;td&gt;255 20 147&lt;/td&gt;
+        &lt;td&gt;#FF1493&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Chocolate3&lt;/td&gt;
+        &lt;td&gt;205 102 29&lt;/td&gt;
+        &lt;td&gt;#CD661D&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Pink&lt;/td&gt;
+        &lt;td&gt;255 192 203&lt;/td&gt;
+        &lt;td&gt;#FFC0CB&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Chocolate4&lt;/td&gt;
+        &lt;td&gt;139 69 19&lt;/td&gt;
+        &lt;td&gt;#8B4513&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightPink&lt;/td&gt;
+        &lt;td&gt;255 182 193&lt;/td&gt;
+        &lt;td&gt;#FFB6C1&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Firebrick1&lt;/td&gt;
+        &lt;td&gt;255 48 48&lt;/td&gt;
+        &lt;td&gt;#FF3030&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleVioletRed&lt;/td&gt;
+        &lt;td&gt;219 112 147&lt;/td&gt;
+        &lt;td&gt;#DB7093&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Firebrick2&lt;/td&gt;
+        &lt;td&gt;238 44 44&lt;/td&gt;
+        &lt;td&gt;#EE2C2C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Maroon&lt;/td&gt;
+        &lt;td&gt;176 48 96&lt;/td&gt;
+        &lt;td&gt;#B03060&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Firebrick3&lt;/td&gt;
+        &lt;td&gt;205 38 38&lt;/td&gt;
+        &lt;td&gt;#CD2626&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumVioletRed&lt;/td&gt;
+        &lt;td&gt;199 21 133&lt;/td&gt;
+        &lt;td&gt;#C71585&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Firebrick4&lt;/td&gt;
+        &lt;td&gt;139 26 26&lt;/td&gt;
+        &lt;td&gt;#8B1A1A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;VioletRed&lt;/td&gt;
+        &lt;td&gt;208 32 144&lt;/td&gt;
+        &lt;td&gt;#D02090&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Brown1&lt;/td&gt;
+        &lt;td&gt;255 64 64&lt;/td&gt;
+        &lt;td&gt;#FF4040&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Magenta&lt;/td&gt;
+        &lt;td&gt;255 0 255&lt;/td&gt;
+        &lt;td&gt;#FF00FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Brown2&lt;/td&gt;
+        &lt;td&gt;238 59 59&lt;/td&gt;
+        &lt;td&gt;#EE3B3B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Violet&lt;/td&gt;
+        &lt;td&gt;238 130 238&lt;/td&gt;
+        &lt;td&gt;#EE82EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Brown3&lt;/td&gt;
+        &lt;td&gt;205 51 51&lt;/td&gt;
+        &lt;td&gt;#CD3333&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Plum&lt;/td&gt;
+        &lt;td&gt;221 160 221&lt;/td&gt;
+        &lt;td&gt;#DDA0DD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Brown4&lt;/td&gt;
+        &lt;td&gt;139 35 35&lt;/td&gt;
+        &lt;td&gt;#8B2323&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Orchid&lt;/td&gt;
+        &lt;td&gt;218 112 214&lt;/td&gt;
+        &lt;td&gt;#DA70D6&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Salmon1&lt;/td&gt;
+        &lt;td&gt;255 140 105&lt;/td&gt;
+        &lt;td&gt;#FF8C69&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumOrchid&lt;/td&gt;
+        &lt;td&gt;186 85 211&lt;/td&gt;
+        &lt;td&gt;#BA55D3&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Salmon2&lt;/td&gt;
+        &lt;td&gt;238 130 98&lt;/td&gt;
+        &lt;td&gt;#EE8262&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOrchid&lt;/td&gt;
+        &lt;td&gt;153 50 204&lt;/td&gt;
+        &lt;td&gt;#9932CC&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Salmon3&lt;/td&gt;
+        &lt;td&gt;205 112 84&lt;/td&gt;
+        &lt;td&gt;#CD7054&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkViolet&lt;/td&gt;
+        &lt;td&gt;148 0 211&lt;/td&gt;
+        &lt;td&gt;#9400D3&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Salmon4&lt;/td&gt;
+        &lt;td&gt;139 76 57&lt;/td&gt;
+        &lt;td&gt;#8B4C39&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;BlueViolet&lt;/td&gt;
+        &lt;td&gt;138 43 226&lt;/td&gt;
+        &lt;td&gt;#8A2BE2&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSalmon1&lt;/td&gt;
+        &lt;td&gt;255 160 122&lt;/td&gt;
+        &lt;td&gt;#FFA07A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Purple&lt;/td&gt;
+        &lt;td&gt;160 32 240&lt;/td&gt;
+        &lt;td&gt;#A020F0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSalmon2&lt;/td&gt;
+        &lt;td&gt;238 149 114&lt;/td&gt;
+        &lt;td&gt;#EE9572&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumPurple&lt;/td&gt;
+        &lt;td&gt;147 112 219&lt;/td&gt;
+        &lt;td&gt;#9370DB&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSalmon3&lt;/td&gt;
+        &lt;td&gt;205 129 98&lt;/td&gt;
+        &lt;td&gt;#CD8162&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Thistle&lt;/td&gt;
+        &lt;td&gt;216 191 216&lt;/td&gt;
+        &lt;td&gt;#D8BFD8&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSalmon4&lt;/td&gt;
+        &lt;td&gt;139 87 66&lt;/td&gt;
+        &lt;td&gt;#8B5742&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Snow1&lt;/td&gt;
+        &lt;td&gt;255 250 250&lt;/td&gt;
+        &lt;td&gt;#FFFAFA&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Orange1&lt;/td&gt;
+        &lt;td&gt;255 165 0&lt;/td&gt;
+        &lt;td&gt;#FFA500&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Snow2&lt;/td&gt;
+        &lt;td&gt;238 233 233&lt;/td&gt;
+        &lt;td&gt;#EEE9E9&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Orange2&lt;/td&gt;
+        &lt;td&gt;238 154 0&lt;/td&gt;
+        &lt;td&gt;#EE9A00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Snow3&lt;/td&gt;
+        &lt;td&gt;205 201 201&lt;/td&gt;
+        &lt;td&gt;#CDC9C9&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Orange3&lt;/td&gt;
+        &lt;td&gt;205 133 0&lt;/td&gt;
+        &lt;td&gt;#CD8500&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Snow4&lt;/td&gt;
+        &lt;td&gt;139 137 137&lt;/td&gt;
+        &lt;td&gt;#8B8989&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Orange4&lt;/td&gt;
+        &lt;td&gt;139 90 0&lt;/td&gt;
+        &lt;td&gt;#8B5A00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Seashell1&lt;/td&gt;
+        &lt;td&gt;255 245 238&lt;/td&gt;
+        &lt;td&gt;#FFF5EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOrange1&lt;/td&gt;
+        &lt;td&gt;255 127 0&lt;/td&gt;
+        &lt;td&gt;#FF7F00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Seashell2&lt;/td&gt;
+        &lt;td&gt;238 229 222&lt;/td&gt;
+        &lt;td&gt;#EEE5DE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOrange2&lt;/td&gt;
+        &lt;td&gt;238 118 0&lt;/td&gt;
+        &lt;td&gt;#EE7600&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Seashell3&lt;/td&gt;
+        &lt;td&gt;205 197 191&lt;/td&gt;
+        &lt;td&gt;#CDC5BF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOrange3&lt;/td&gt;
+        &lt;td&gt;205 102 0&lt;/td&gt;
+        &lt;td&gt;#CD6600&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Seashell4&lt;/td&gt;
+        &lt;td&gt;139 134 130&lt;/td&gt;
+        &lt;td&gt;#8B8682&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOrange4&lt;/td&gt;
+        &lt;td&gt;139 69 0&lt;/td&gt;
+        &lt;td&gt;#8B4500&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;AntiqueWhite1&lt;/td&gt;
+        &lt;td&gt;255 239 219&lt;/td&gt;
+        &lt;td&gt;#FFEFDB&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Coral1&lt;/td&gt;
+        &lt;td&gt;255 114 86&lt;/td&gt;
+        &lt;td&gt;#FF7256&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;AntiqueWhite2&lt;/td&gt;
+        &lt;td&gt;238 223 204&lt;/td&gt;
+        &lt;td&gt;#EEDFCC&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Coral2&lt;/td&gt;
+        &lt;td&gt;238 106 80&lt;/td&gt;
+        &lt;td&gt;#EE6A50&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;AntiqueWhite3&lt;/td&gt;
+        &lt;td&gt;205 192 176&lt;/td&gt;
+        &lt;td&gt;#CDC0B0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Coral3&lt;/td&gt;
+        &lt;td&gt;205 91 69&lt;/td&gt;
+        &lt;td&gt;#CD5B45&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;AntiqueWhite4&lt;/td&gt;
+        &lt;td&gt;139 131 120&lt;/td&gt;
+        &lt;td&gt;#8B8378&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Coral4&lt;/td&gt;
+        &lt;td&gt;139 62 47&lt;/td&gt;
+        &lt;td&gt;#8B3E2F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Bisque1&lt;/td&gt;
+        &lt;td&gt;255 228 196&lt;/td&gt;
+        &lt;td&gt;#FFE4C4&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Tomato1&lt;/td&gt;
+        &lt;td&gt;255 99 71&lt;/td&gt;
+        &lt;td&gt;#FF6347&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Bisque2&lt;/td&gt;
+        &lt;td&gt;238 213 183&lt;/td&gt;
+        &lt;td&gt;#EED5B7&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Tomato2&lt;/td&gt;
+        &lt;td&gt;238 92 66&lt;/td&gt;
+        &lt;td&gt;#EE5C42&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Bisque3&lt;/td&gt;
+        &lt;td&gt;205 183 158&lt;/td&gt;
+        &lt;td&gt;#CDB79E&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Tomato3&lt;/td&gt;
+        &lt;td&gt;205 79 57&lt;/td&gt;
+        &lt;td&gt;#CD4F39&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Bisque4&lt;/td&gt;
+        &lt;td&gt;139 125 107&lt;/td&gt;
+        &lt;td&gt;#8B7D6B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Tomato4&lt;/td&gt;
+        &lt;td&gt;139 54 38&lt;/td&gt;
+        &lt;td&gt;#8B3626&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PeachPuff1&lt;/td&gt;
+        &lt;td&gt;255 218 185&lt;/td&gt;
+        &lt;td&gt;#FFDAB9&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OrangeRed1&lt;/td&gt;
+        &lt;td&gt;255 69 0&lt;/td&gt;
+        &lt;td&gt;#FF4500&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PeachPuff2&lt;/td&gt;
+        &lt;td&gt;238 203 173&lt;/td&gt;
+        &lt;td&gt;#EECBAD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OrangeRed2&lt;/td&gt;
+        &lt;td&gt;238 64 0&lt;/td&gt;
+        &lt;td&gt;#EE4000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PeachPuff3&lt;/td&gt;
+        &lt;td&gt;205 175 149&lt;/td&gt;
+        &lt;td&gt;#CDAF95&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OrangeRed3&lt;/td&gt;
+        &lt;td&gt;205 55 0&lt;/td&gt;
+        &lt;td&gt;#CD3700&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PeachPuff4&lt;/td&gt;
+        &lt;td&gt;139 119 101&lt;/td&gt;
+        &lt;td&gt;#8B7765&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;OrangeRed4&lt;/td&gt;
+        &lt;td&gt;139 37 0&lt;/td&gt;
+        &lt;td&gt;#8B2500&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;NavajoWhite1&lt;/td&gt;
+        &lt;td&gt;255 222 173&lt;/td&gt;
+        &lt;td&gt;#FFDEAD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Red1&lt;/td&gt;
+        &lt;td&gt;255 0 0&lt;/td&gt;
+        &lt;td&gt;#FF0000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;NavajoWhite2&lt;/td&gt;
+        &lt;td&gt;238 207 161&lt;/td&gt;
+        &lt;td&gt;#EECFA1&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Red2&lt;/td&gt;
+        &lt;td&gt;238 0 0&lt;/td&gt;
+        &lt;td&gt;#EE0000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;NavajoWhite3&lt;/td&gt;
+        &lt;td&gt;205 179 139&lt;/td&gt;
+        &lt;td&gt;#CDB38B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Red3&lt;/td&gt;
+        &lt;td&gt;205 0 0&lt;/td&gt;
+        &lt;td&gt;#CD0000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;NavajoWhite4&lt;/td&gt;
+        &lt;td&gt;139 121 94&lt;/td&gt;
+        &lt;td&gt;#8B795E&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Red4&lt;/td&gt;
+        &lt;td&gt;139 0 0&lt;/td&gt;
+        &lt;td&gt;#8B0000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LemonChiffon1&lt;/td&gt;
+        &lt;td&gt;255 250 205&lt;/td&gt;
+        &lt;td&gt;#FFFACD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DeepPink1&lt;/td&gt;
+        &lt;td&gt;255 20 147&lt;/td&gt;
+        &lt;td&gt;#FF1493&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LemonChiffon2&lt;/td&gt;
+        &lt;td&gt;238 233 191&lt;/td&gt;
+        &lt;td&gt;#EEE9BF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DeepPink2&lt;/td&gt;
+        &lt;td&gt;238 18 137&lt;/td&gt;
+        &lt;td&gt;#EE1289&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LemonChiffon3&lt;/td&gt;
+        &lt;td&gt;205 201 165&lt;/td&gt;
+        &lt;td&gt;#CDC9A5&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DeepPink3&lt;/td&gt;
+        &lt;td&gt;205 16 118&lt;/td&gt;
+        &lt;td&gt;#CD1076&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LemonChiffon4&lt;/td&gt;
+        &lt;td&gt;139 137 112&lt;/td&gt;
+        &lt;td&gt;#8B8970&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DeepPink4&lt;/td&gt;
+        &lt;td&gt;139 10 80&lt;/td&gt;
+        &lt;td&gt;#8B0A50&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Cornsilk1&lt;/td&gt;
+        &lt;td&gt;255 248 220&lt;/td&gt;
+        &lt;td&gt;#FFF8DC&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;HotPink1&lt;/td&gt;
+        &lt;td&gt;255 110 180&lt;/td&gt;
+        &lt;td&gt;#FF6EB4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Cornsilk2&lt;/td&gt;
+        &lt;td&gt;238 232 205&lt;/td&gt;
+        &lt;td&gt;#EEE8CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;HotPink2&lt;/td&gt;
+        &lt;td&gt;238 106 167&lt;/td&gt;
+        &lt;td&gt;#EE6AA7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Cornsilk3&lt;/td&gt;
+        &lt;td&gt;205 200 177&lt;/td&gt;
+        &lt;td&gt;#CDC8B1&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;HotPink3&lt;/td&gt;
+        &lt;td&gt;205 96 144&lt;/td&gt;
+        &lt;td&gt;#CD6090&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Cornsilk4&lt;/td&gt;
+        &lt;td&gt;139 136 120&lt;/td&gt;
+        &lt;td&gt;#8B8878&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;HotPink4&lt;/td&gt;
+        &lt;td&gt;139 58 98&lt;/td&gt;
+        &lt;td&gt;#8B3A62&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Ivory1&lt;/td&gt;
+        &lt;td&gt;255 255 240&lt;/td&gt;
+        &lt;td&gt;#FFFFF0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Pink1&lt;/td&gt;
+        &lt;td&gt;255 181 197&lt;/td&gt;
+        &lt;td&gt;#FFB5C5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Ivory2&lt;/td&gt;
+        &lt;td&gt;238 238 224&lt;/td&gt;
+        &lt;td&gt;#EEEEE0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Pink2&lt;/td&gt;
+        &lt;td&gt;238 169 184&lt;/td&gt;
+        &lt;td&gt;#EEA9B8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Ivory3&lt;/td&gt;
+        &lt;td&gt;205 205 193&lt;/td&gt;
+        &lt;td&gt;#CDCDC1&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Pink3&lt;/td&gt;
+        &lt;td&gt;205 145 158&lt;/td&gt;
+        &lt;td&gt;#CD919E&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Ivory4&lt;/td&gt;
+        &lt;td&gt;139 139 131&lt;/td&gt;
+        &lt;td&gt;#8B8B83&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Pink4&lt;/td&gt;
+        &lt;td&gt;139 99 108&lt;/td&gt;
+        &lt;td&gt;#8B636C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Honeydew1&lt;/td&gt;
+        &lt;td&gt;240 255 240&lt;/td&gt;
+        &lt;td&gt;#F0FFF0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightPink1&lt;/td&gt;
+        &lt;td&gt;255 174 185&lt;/td&gt;
+        &lt;td&gt;#FFAEB9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Honeydew2&lt;/td&gt;
+        &lt;td&gt;224 238 224&lt;/td&gt;
+        &lt;td&gt;#E0EEE0&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightPink2&lt;/td&gt;
+        &lt;td&gt;238 162 173&lt;/td&gt;
+        &lt;td&gt;#EEA2AD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Honeydew3&lt;/td&gt;
+        &lt;td&gt;193 205 193&lt;/td&gt;
+        &lt;td&gt;#C1CDC1&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightPink3&lt;/td&gt;
+        &lt;td&gt;205 140 149&lt;/td&gt;
+        &lt;td&gt;#CD8C95&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Honeydew4&lt;/td&gt;
+        &lt;td&gt;131 139 131&lt;/td&gt;
+        &lt;td&gt;#838B83&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightPink4&lt;/td&gt;
+        &lt;td&gt;139 95 101&lt;/td&gt;
+        &lt;td&gt;#8B5F65&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LavenderBlush1&lt;/td&gt;
+        &lt;td&gt;255 240 245&lt;/td&gt;
+        &lt;td&gt;#FFF0F5&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleVioletRed1&lt;/td&gt;
+        &lt;td&gt;255 130 171&lt;/td&gt;
+        &lt;td&gt;#FF82AB&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LavenderBlush2&lt;/td&gt;
+        &lt;td&gt;238 224 229&lt;/td&gt;
+        &lt;td&gt;#EEE0E5&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleVioletRed2&lt;/td&gt;
+        &lt;td&gt;238 121 159&lt;/td&gt;
+        &lt;td&gt;#EE799F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LavenderBlush3&lt;/td&gt;
+        &lt;td&gt;205 193 197&lt;/td&gt;
+        &lt;td&gt;#CDC1C5&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleVioletRed3&lt;/td&gt;
+        &lt;td&gt;205 104 137&lt;/td&gt;
+        &lt;td&gt;#CD6889&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LavenderBlush4&lt;/td&gt;
+        &lt;td&gt;139 131 134&lt;/td&gt;
+        &lt;td&gt;#8B8386&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;PaleVioletRed4&lt;/td&gt;
+        &lt;td&gt;139 71 93&lt;/td&gt;
+        &lt;td&gt;#8B475D&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MistyRose1&lt;/td&gt;
+        &lt;td&gt;255 228 225&lt;/td&gt;
+        &lt;td&gt;#FFE4E1&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Maroon1&lt;/td&gt;
+        &lt;td&gt;255 52 179&lt;/td&gt;
+        &lt;td&gt;#FF34B3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MistyRose2&lt;/td&gt;
+        &lt;td&gt;238 213 210&lt;/td&gt;
+        &lt;td&gt;#EED5D2&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Maroon2&lt;/td&gt;
+        &lt;td&gt;238 48 167&lt;/td&gt;
+        &lt;td&gt;#EE30A7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MistyRose3&lt;/td&gt;
+        &lt;td&gt;205 183 181&lt;/td&gt;
+        &lt;td&gt;#CDB7B5&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Maroon3&lt;/td&gt;
+        &lt;td&gt;205 41 144&lt;/td&gt;
+        &lt;td&gt;#CD2990&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MistyRose4&lt;/td&gt;
+        &lt;td&gt;139 125 123&lt;/td&gt;
+        &lt;td&gt;#8B7D7B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Maroon4&lt;/td&gt;
+        &lt;td&gt;139 28 98&lt;/td&gt;
+        &lt;td&gt;#8B1C62&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Azure1&lt;/td&gt;
+        &lt;td&gt;240 255 255&lt;/td&gt;
+        &lt;td&gt;#F0FFFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;VioletRed1&lt;/td&gt;
+        &lt;td&gt;255 62 150&lt;/td&gt;
+        &lt;td&gt;#FF3E96&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Azure2&lt;/td&gt;
+        &lt;td&gt;224 238 238&lt;/td&gt;
+        &lt;td&gt;#E0EEEE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;VioletRed2&lt;/td&gt;
+        &lt;td&gt;238 58 140&lt;/td&gt;
+        &lt;td&gt;#EE3A8C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Azure3&lt;/td&gt;
+        &lt;td&gt;193 205 205&lt;/td&gt;
+        &lt;td&gt;#C1CDCD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;VioletRed3&lt;/td&gt;
+        &lt;td&gt;205 50 120&lt;/td&gt;
+        &lt;td&gt;#CD3278&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Azure4&lt;/td&gt;
+        &lt;td&gt;131 139 139&lt;/td&gt;
+        &lt;td&gt;#838B8B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;VioletRed4&lt;/td&gt;
+        &lt;td&gt;139 34 82&lt;/td&gt;
+        &lt;td&gt;#8B2252&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SlateBlue1&lt;/td&gt;
+        &lt;td&gt;131 111 255&lt;/td&gt;
+        &lt;td&gt;#836FFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Magenta1&lt;/td&gt;
+        &lt;td&gt;255 0 255&lt;/td&gt;
+        &lt;td&gt;#FF00FF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SlateBlue2&lt;/td&gt;
+        &lt;td&gt;122 103 238&lt;/td&gt;
+        &lt;td&gt;#7A67EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Magenta2&lt;/td&gt;
+        &lt;td&gt;238 0 238&lt;/td&gt;
+        &lt;td&gt;#EE00EE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SlateBlue3&lt;/td&gt;
+        &lt;td&gt;105 89 205&lt;/td&gt;
+        &lt;td&gt;#6959CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Magenta3&lt;/td&gt;
+        &lt;td&gt;205 0 205&lt;/td&gt;
+        &lt;td&gt;#CD00CD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SlateBlue4&lt;/td&gt;
+        &lt;td&gt;71 60 139&lt;/td&gt;
+        &lt;td&gt;#473C8B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Magenta4&lt;/td&gt;
+        &lt;td&gt;139 0 139&lt;/td&gt;
+        &lt;td&gt;#8B008B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;RoyalBlue1&lt;/td&gt;
+        &lt;td&gt;72 118 255&lt;/td&gt;
+        &lt;td&gt;#4876FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Orchid1&lt;/td&gt;
+        &lt;td&gt;255 131 250&lt;/td&gt;
+        &lt;td&gt;#FF83FA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;RoyalBlue2&lt;/td&gt;
+        &lt;td&gt;67 110 238&lt;/td&gt;
+        &lt;td&gt;#436EEE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Orchid2&lt;/td&gt;
+        &lt;td&gt;238 122 233&lt;/td&gt;
+        &lt;td&gt;#EE7AE9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;RoyalBlue3&lt;/td&gt;
+        &lt;td&gt;58 95 205&lt;/td&gt;
+        &lt;td&gt;#3A5FCD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Orchid3&lt;/td&gt;
+        &lt;td&gt;205 105 201&lt;/td&gt;
+        &lt;td&gt;#CD69C9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;RoyalBlue4&lt;/td&gt;
+        &lt;td&gt;39 64 139&lt;/td&gt;
+        &lt;td&gt;#27408B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Orchid4&lt;/td&gt;
+        &lt;td&gt;139 71 137&lt;/td&gt;
+        &lt;td&gt;#8B4789&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Blue1&lt;/td&gt;
+        &lt;td&gt;0 0 255&lt;/td&gt;
+        &lt;td&gt;#0000FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Plum1&lt;/td&gt;
+        &lt;td&gt;255 187 255&lt;/td&gt;
+        &lt;td&gt;#FFBBFF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Blue2&lt;/td&gt;
+        &lt;td&gt;0 0 238&lt;/td&gt;
+        &lt;td&gt;#0000EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Plum2&lt;/td&gt;
+        &lt;td&gt;238 174 238&lt;/td&gt;
+        &lt;td&gt;#EEAEEE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Blue3&lt;/td&gt;
+        &lt;td&gt;0 0 205&lt;/td&gt;
+        &lt;td&gt;#0000CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Plum3&lt;/td&gt;
+        &lt;td&gt;205 150 205&lt;/td&gt;
+        &lt;td&gt;#CD96CD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Blue4&lt;/td&gt;
+        &lt;td&gt;0 0 139&lt;/td&gt;
+        &lt;td&gt;#00008B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Plum4&lt;/td&gt;
+        &lt;td&gt;139 102 139&lt;/td&gt;
+        &lt;td&gt;#8B668B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DodgerBlue1&lt;/td&gt;
+        &lt;td&gt;30 144 255&lt;/td&gt;
+        &lt;td&gt;#1E90FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumOrchid1&lt;/td&gt;
+        &lt;td&gt;224 102 255&lt;/td&gt;
+        &lt;td&gt;#E066FF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DodgerBlue2&lt;/td&gt;
+        &lt;td&gt;28 134 238&lt;/td&gt;
+        &lt;td&gt;#1C86EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumOrchid2&lt;/td&gt;
+        &lt;td&gt;209 95 238&lt;/td&gt;
+        &lt;td&gt;#D15FEE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DodgerBlue3&lt;/td&gt;
+        &lt;td&gt;24 116 205&lt;/td&gt;
+        &lt;td&gt;#1874CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumOrchid3&lt;/td&gt;
+        &lt;td&gt;180 82 205&lt;/td&gt;
+        &lt;td&gt;#B452CD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DodgerBlue4&lt;/td&gt;
+        &lt;td&gt;16 78 139&lt;/td&gt;
+        &lt;td&gt;#104E8B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumOrchid4&lt;/td&gt;
+        &lt;td&gt;122 55 139&lt;/td&gt;
+        &lt;td&gt;#7A378B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SteelBlue1&lt;/td&gt;
+        &lt;td&gt;99 184 255&lt;/td&gt;
+        &lt;td&gt;#63B8FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOrchid1&lt;/td&gt;
+        &lt;td&gt;191 62 255&lt;/td&gt;
+        &lt;td&gt;#BF3EFF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SteelBlue2&lt;/td&gt;
+        &lt;td&gt;92 172 238&lt;/td&gt;
+        &lt;td&gt;#5CACEE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOrchid2&lt;/td&gt;
+        &lt;td&gt;178 58 238&lt;/td&gt;
+        &lt;td&gt;#B23AEE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SteelBlue3&lt;/td&gt;
+        &lt;td&gt;79 148 205&lt;/td&gt;
+        &lt;td&gt;#4F94CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOrchid3&lt;/td&gt;
+        &lt;td&gt;154 50 205&lt;/td&gt;
+        &lt;td&gt;#9A32CD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SteelBlue4&lt;/td&gt;
+        &lt;td&gt;54 100 139&lt;/td&gt;
+        &lt;td&gt;#36648B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkOrchid4&lt;/td&gt;
+        &lt;td&gt;104 34 139&lt;/td&gt;
+        &lt;td&gt;#68228B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DeepSkyBlue1&lt;/td&gt;
+        &lt;td&gt;0 191 255&lt;/td&gt;
+        &lt;td&gt;#00BFFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Purple1&lt;/td&gt;
+        &lt;td&gt;155 48 255&lt;/td&gt;
+        &lt;td&gt;#9B30FF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DeepSkyBlue2&lt;/td&gt;
+        &lt;td&gt;0 178 238&lt;/td&gt;
+        &lt;td&gt;#00B2EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Purple2&lt;/td&gt;
+        &lt;td&gt;145 44 238&lt;/td&gt;
+        &lt;td&gt;#912CEE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DeepSkyBlue3&lt;/td&gt;
+        &lt;td&gt;0 154 205&lt;/td&gt;
+        &lt;td&gt;#009ACD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Purple3&lt;/td&gt;
+        &lt;td&gt;125 38 205&lt;/td&gt;
+        &lt;td&gt;#7D26CD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DeepSkyBlue4&lt;/td&gt;
+        &lt;td&gt;0 104 139&lt;/td&gt;
+        &lt;td&gt;#00688B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Purple4&lt;/td&gt;
+        &lt;td&gt;85 26 139&lt;/td&gt;
+        &lt;td&gt;#551A8B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SkyBlue1&lt;/td&gt;
+        &lt;td&gt;135 206 255&lt;/td&gt;
+        &lt;td&gt;#87CEFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumPurple1&lt;/td&gt;
+        &lt;td&gt;171 130 255&lt;/td&gt;
+        &lt;td&gt;#AB82FF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SkyBlue2&lt;/td&gt;
+        &lt;td&gt;126 192 238&lt;/td&gt;
+        &lt;td&gt;#7EC0EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumPurple2&lt;/td&gt;
+        &lt;td&gt;159 121 238&lt;/td&gt;
+        &lt;td&gt;#9F79EE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SkyBlue3&lt;/td&gt;
+        &lt;td&gt;108 166 205&lt;/td&gt;
+        &lt;td&gt;#6CA6CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumPurple3&lt;/td&gt;
+        &lt;td&gt;137 104 205&lt;/td&gt;
+        &lt;td&gt;#8968CD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SkyBlue4&lt;/td&gt;
+        &lt;td&gt;74 112 139&lt;/td&gt;
+        &lt;td&gt;#4A708B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;MediumPurple4&lt;/td&gt;
+        &lt;td&gt;93 71 139&lt;/td&gt;
+        &lt;td&gt;#5D478B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSkyBlue1&lt;/td&gt;
+        &lt;td&gt;176 226 255&lt;/td&gt;
+        &lt;td&gt;#B0E2FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Thistle1&lt;/td&gt;
+        &lt;td&gt;255 225 255&lt;/td&gt;
+        &lt;td&gt;#FFE1FF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSkyBlue2&lt;/td&gt;
+        &lt;td&gt;164 211 238&lt;/td&gt;
+        &lt;td&gt;#A4D3EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Thistle2&lt;/td&gt;
+        &lt;td&gt;238 210 238&lt;/td&gt;
+        &lt;td&gt;#EED2EE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSkyBlue3&lt;/td&gt;
+        &lt;td&gt;141 182 205&lt;/td&gt;
+        &lt;td&gt;#8DB6CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Thistle3&lt;/td&gt;
+        &lt;td&gt;205 181 205&lt;/td&gt;
+        &lt;td&gt;#CDB5CD&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSkyBlue4&lt;/td&gt;
+        &lt;td&gt;96 123 139&lt;/td&gt;
+        &lt;td&gt;#607B8B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Thistle4&lt;/td&gt;
+        &lt;td&gt;139 123 139&lt;/td&gt;
+        &lt;td&gt;#8B7B8B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SlateGray1&lt;/td&gt;
+        &lt;td&gt;198 226 255&lt;/td&gt;
+        &lt;td&gt;#C6E2FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;grey11&lt;/td&gt;
+        &lt;td&gt;28 28 28&lt;/td&gt;
+        &lt;td&gt;#1C1C1C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SlateGray2&lt;/td&gt;
+        &lt;td&gt;185 211 238&lt;/td&gt;
+        &lt;td&gt;#B9D3EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;grey21&lt;/td&gt;
+        &lt;td&gt;54 54 54&lt;/td&gt;
+        &lt;td&gt;#363636&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SlateGray3&lt;/td&gt;
+        &lt;td&gt;159 182 205&lt;/td&gt;
+        &lt;td&gt;#9FB6CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;grey31&lt;/td&gt;
+        &lt;td&gt;79 79 79&lt;/td&gt;
+        &lt;td&gt;#4F4F4F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;SlateGray4&lt;/td&gt;
+        &lt;td&gt;108 123 139&lt;/td&gt;
+        &lt;td&gt;#6C7B8B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;grey41&lt;/td&gt;
+        &lt;td&gt;105 105 105&lt;/td&gt;
+        &lt;td&gt;#696969&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSteelBlue1&lt;/td&gt;
+        &lt;td&gt;202 225 255&lt;/td&gt;
+        &lt;td&gt;#CAE1FF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;grey51&lt;/td&gt;
+        &lt;td&gt;130 130 130&lt;/td&gt;
+        &lt;td&gt;#828282&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSteelBlue2&lt;/td&gt;
+        &lt;td&gt;188 210 238&lt;/td&gt;
+        &lt;td&gt;#BCD2EE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;grey61&lt;/td&gt;
+        &lt;td&gt;156 156 156&lt;/td&gt;
+        &lt;td&gt;#9C9C9C&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSteelBlue3&lt;/td&gt;
+        &lt;td&gt;162 181 205&lt;/td&gt;
+        &lt;td&gt;#A2B5CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;grey71&lt;/td&gt;
+        &lt;td&gt;181 181 181&lt;/td&gt;
+        &lt;td&gt;#B5B5B5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightSteelBlue4&lt;/td&gt;
+        &lt;td&gt;110 123 139&lt;/td&gt;
+        &lt;td&gt;#6E7B8B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;gray81&lt;/td&gt;
+        &lt;td&gt;207 207 207&lt;/td&gt;
+        &lt;td&gt;#CFCFCF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightBlue1&lt;/td&gt;
+        &lt;td&gt;191 239 255&lt;/td&gt;
+        &lt;td&gt;#BFEFFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;gray91&lt;/td&gt;
+        &lt;td&gt;232 232 232&lt;/td&gt;
+        &lt;td&gt;#E8E8E8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightBlue2&lt;/td&gt;
+        &lt;td&gt;178 223 238&lt;/td&gt;
+        &lt;td&gt;#B2DFEE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkGrey&lt;/td&gt;
+        &lt;td&gt;169 169 169&lt;/td&gt;
+        &lt;td&gt;#A9A9A9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightBlue3&lt;/td&gt;
+        &lt;td&gt;154 192 205&lt;/td&gt;
+        &lt;td&gt;#9AC0CD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkBlue&lt;/td&gt;
+        &lt;td&gt;0 0 139&lt;/td&gt;
+        &lt;td&gt;#00008B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightBlue4&lt;/td&gt;
+        &lt;td&gt;104 131 139&lt;/td&gt;
+        &lt;td&gt;#68838B&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkCyan&lt;/td&gt;
+        &lt;td&gt;0 139 139&lt;/td&gt;
+        &lt;td&gt;#008B8B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightCyan1&lt;/td&gt;
+        &lt;td&gt;224 255 255&lt;/td&gt;
+        &lt;td&gt;#E0FFFF&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkMagenta&lt;/td&gt;
+        &lt;td&gt;139 0 139&lt;/td&gt;
+        &lt;td&gt;#8B008B&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightCyan2&lt;/td&gt;
+        &lt;td&gt;209 238 238&lt;/td&gt;
+        &lt;td&gt;#D1EEEE&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;DarkRed&lt;/td&gt;
+        &lt;td&gt;139 0 0&lt;/td&gt;
+        &lt;td&gt;#8B0000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightCyan3&lt;/td&gt;
+        &lt;td&gt;180 205 205&lt;/td&gt;
+        &lt;td&gt;#B4CDCD&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightGreen&lt;/td&gt;
+        &lt;td&gt;144 238 144&lt;/td&gt;
+        &lt;td&gt;#90EE90&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;LightCyan4&lt;/td&gt;
+        &lt;td&gt;122 139 139&lt;/td&gt;
+        &lt;td&gt;#7A8B8B&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+&lt;div style=&quot;color:#C00;&quot;&gt;
+    &lt;h3&gt;引用：https://tool.oschina.net/commons?type=3 &amp; https://www.sioe.cn/yingyong/yanse-rgb-16/&lt;/h3&gt;
+&lt;/div&gt;</code></pre>
 </body>
-</html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+</html>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

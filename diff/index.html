@@ -1,13 +1,12 @@
-<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><!DOCTYPE html >
-<html > 
-<head> 
-<title>代码对比/归并</title>
-<meta charset="utf-8"> 
+<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>&lt;!DOCTYPE html &gt;
+<html >
+<head>
+<title>
+代码对比/归并
+</title>
+<meta charset="utf-8">
 <script type="text/javascript" src='https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js'></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/basic.css" type="text/css"> 
-<link rel="stylesheet" href='https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/bootstrap.min.css'>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/mergely.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/codemirror.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/basic.css" type="text/css"> <link rel="stylesheet" href='https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/bootstrap.min.css'> <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/mergely.css"> <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/diff/codemirror.css">
 </head>
 <body>
 <!--     头部header结束    -->
@@ -57,28 +56,28 @@ function setLeft(files){
             break;
         case ".css":
             setRender("css/css.js");        
-            break;        
+            break;      
         case ".go":
-            setRender("go/go.js");        
-            break;        
+            setRender("go/go.js");      
+            break;      
         case ".groovy":
-            setRender("groovy/groovy.js");        
-            break;        
+            setRender("groovy/groovy.js");      
+            break;      
         case ".c",".cpp":
             setRender("clike/clike.js");        
-            break;    
+            break;  
         case ".php":
             setRender("php/php.js");        
-            break;        
+            break;      
         case ".xml":
             setRender("xml/xml.js");        
-            break;    
+            break;  
         case ".html":
-            setRender("htmlembedded/htmlembedded.js");        
-            break;    
+            setRender("htmlembedded/htmlembedded.js");      
+            break;  
         case ".less":
-            setRender("less/less.js");        
-            break;    
+            setRender("less/less.js");      
+            break;  
         case ".lua":
             setRender("lua/lua.js");
             break;
@@ -136,39 +135,39 @@ function setRender(type){
 }
 </script>
 <div id="mainContent" class="wrapper">
-    <div class="toolName">代码对比/归并</div>
-    <div>
-        <form class="form-inline well" style="margin:10px 0 0 0;">
-            <div style="float:left;">
-            <label>选择第一个文件：</label>
-            <input type="file" id="file" onchange="leftFileSelect(this.files)" single/>
-            <label>编码：</label>
-            <select id="l_encode" value="UTF-8" class="span1" onchange="setLeftCode();">
-                <option value="UTF-8">UTF-8</option>
-                <option value="GBK">GBK</option>
-                <option value="GB2312">GB2312</option>
-                <option value="GB18030">GB18030</option>
-                <option value="ISO-8859-2">ISO-8859-2</option>
-            </select>
-            </div>
-            <div style="float:right;">
-            <label>选择第二个文件：</label>
-            <input type="file" id="file" onchange="rightFileSelect(this.files)" single/>
-            <label>编码：</label>
-            <select id="r_encode" value="UTF-8" class="span1" onchange="setRightCode();">
-                <option value="UTF-8">UTF-8</option>
-                <option value="GBK">GBK</option>
-                <option value="GB2312">GB2312</option>
-                <option value="GB18030">GB18030</option>
-                <option value="ISO-8859-2">ISO-8859-2</option>
-            </select>
-            </div>
-        </form>
-    </div>
-    <div id="diff" class="toolUsing"></div>
-    <div style="color:#C00;">
-        <h3>引用：https://tool.oschina.net/diff</h3>
-    </div>
+<pre><code>&lt;div class=&quot;toolName&quot;&gt;代码对比/归并&lt;/div&gt;
+&lt;div&gt;
+    &lt;form class=&quot;form-inline well&quot; style=&quot;margin:10px 0 0 0;&quot;&gt;
+        &lt;div style=&quot;float:left;&quot;&gt;
+        &lt;label&gt;选择第一个文件：&lt;/label&gt;
+        &lt;input type=&quot;file&quot; id=&quot;file&quot; onchange=&quot;leftFileSelect(this.files)&quot; single/&gt;
+        &lt;label&gt;编码：&lt;/label&gt;
+        &lt;select id=&quot;l_encode&quot; value=&quot;UTF-8&quot; class=&quot;span1&quot; onchange=&quot;setLeftCode();&quot;&gt;
+            &lt;option value=&quot;UTF-8&quot;&gt;UTF-8&lt;/option&gt;
+            &lt;option value=&quot;GBK&quot;&gt;GBK&lt;/option&gt;
+            &lt;option value=&quot;GB2312&quot;&gt;GB2312&lt;/option&gt;
+            &lt;option value=&quot;GB18030&quot;&gt;GB18030&lt;/option&gt;
+            &lt;option value=&quot;ISO-8859-2&quot;&gt;ISO-8859-2&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div style=&quot;float:right;&quot;&gt;
+        &lt;label&gt;选择第二个文件：&lt;/label&gt;
+        &lt;input type=&quot;file&quot; id=&quot;file&quot; onchange=&quot;rightFileSelect(this.files)&quot; single/&gt;
+        &lt;label&gt;编码：&lt;/label&gt;
+        &lt;select id=&quot;r_encode&quot; value=&quot;UTF-8&quot; class=&quot;span1&quot; onchange=&quot;setRightCode();&quot;&gt;
+            &lt;option value=&quot;UTF-8&quot;&gt;UTF-8&lt;/option&gt;
+            &lt;option value=&quot;GBK&quot;&gt;GBK&lt;/option&gt;
+            &lt;option value=&quot;GB2312&quot;&gt;GB2312&lt;/option&gt;
+            &lt;option value=&quot;GB18030&quot;&gt;GB18030&lt;/option&gt;
+            &lt;option value=&quot;ISO-8859-2&quot;&gt;ISO-8859-2&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+&lt;div id=&quot;diff&quot; class=&quot;toolUsing&quot;&gt;&lt;/div&gt;
+&lt;div style=&quot;color:#C00;&quot;&gt;
+    &lt;h3&gt;引用：https://tool.oschina.net/diff&lt;/h3&gt;
+&lt;/div&gt;</code></pre>
 </div>
 <style>
 .CodeMirror {
@@ -181,5 +180,4 @@ function setRender(type){
 </style>
 </body>
 </html>
-
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

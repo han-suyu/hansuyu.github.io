@@ -1,38 +1,38 @@
 <link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><html>
-
- <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/puzzle_Number/puzzle.css">
-  <script src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/puzzle_Number/_puzzle.js"></script>
- </head>
- <body>
-    <!--最外面的div，用来包含里面的结构-->
-    <div id="container">
-        <!--游戏区-->
-        <div id="game">
-            <!--小div,8个方块，当点击执行move()函数，参数是显示编号-->
-            <div id="d1" onclick="move(1)">1</div>
-            <div id="d2" onclick="move(2)">2</div>
-            <div id="d3" onclick="move(3)">3</div>
-            <div id="d4" onclick="move(4)">4</div>
-            <div id="d5" onclick="move(5)">5</div>
-            <div id="d6" onclick="move(6)">6</div>
-            <div id="d7" onclick="move(7)">7</div>
-            <div id="d8" onclick="move(8)">8</div>
-        </div>
-        <!--游戏控制区-->
-        <div id="control">
-            <!--显示游戏时间区域-->
-            <p>
-                <span id="timeText">已用时</span>
-                <span id="timer"></span>
-            </p>
-            <!--显示控制按钮区域-->
-            <p>
-                <span id="start" onclick="start()">开始</span>
-                <span id="reset" onclick="reset()">重来</span>
-            </p>
-        </div>
-    </div>
- </body>
-</html><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/puzzle_Number/puzzle.css">
+<script src="https://cdn.jsdelivr.net/gh/han-suyu/cdn/puzzle_Number/_puzzle.js"></script>
+</head>
+<body>
+<!--最外面的div，用来包含里面的结构-->
+<div id="container">
+<pre><code>    &lt;!--游戏区--&gt;
+    &lt;div id=&quot;game&quot;&gt;
+        &lt;!--小div,8个方块，当点击执行move()函数，参数是显示编号--&gt;
+        &lt;div id=&quot;d1&quot; onclick=&quot;move(1)&quot;&gt;1&lt;/div&gt;
+        &lt;div id=&quot;d2&quot; onclick=&quot;move(2)&quot;&gt;2&lt;/div&gt;
+        &lt;div id=&quot;d3&quot; onclick=&quot;move(3)&quot;&gt;3&lt;/div&gt;
+        &lt;div id=&quot;d4&quot; onclick=&quot;move(4)&quot;&gt;4&lt;/div&gt;
+        &lt;div id=&quot;d5&quot; onclick=&quot;move(5)&quot;&gt;5&lt;/div&gt;
+        &lt;div id=&quot;d6&quot; onclick=&quot;move(6)&quot;&gt;6&lt;/div&gt;
+        &lt;div id=&quot;d7&quot; onclick=&quot;move(7)&quot;&gt;7&lt;/div&gt;
+        &lt;div id=&quot;d8&quot; onclick=&quot;move(8)&quot;&gt;8&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!--游戏控制区--&gt;
+    &lt;div id=&quot;control&quot;&gt;
+        &lt;!--显示游戏时间区域--&gt;
+        &lt;p&gt;
+            &lt;span id=&quot;timeText&quot;&gt;已用时&lt;/span&gt;
+            &lt;span id=&quot;timer&quot;&gt;&lt;/span&gt;
+        &lt;/p&gt;
+        &lt;!--显示控制按钮区域--&gt;
+        &lt;p&gt;
+            &lt;span id=&quot;start&quot; onclick=&quot;start()&quot;&gt;开始&lt;/span&gt;
+            &lt;span id=&quot;reset&quot; onclick=&quot;reset()&quot;&gt;重来&lt;/span&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</body>
+</html>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>

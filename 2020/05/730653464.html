@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>向量范数和矩阵范数及其相容性 | 明天又是周六了</title><meta name="keywords" content="学习总结"><meta name="author" content="Seven"><meta name="copyright" content="Seven"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="范数（norm）是数学中一种基本的函数，又可以称为模。向量范数和矩阵范数用于描述向量和矩阵的大小。 范数的本质是距离，是具有 “长度” 概念的函数。存在的意义是为了实现比较，把不能比较的向量转换成可以比较的实数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="向量范数和矩阵范数及其相容性">
+<meta property="og:url" content="https://hansy.tech/2020/05/730653464.html">
+<meta property="og:site_name" content="明天又是周六了">
+<meta property="og:description" content="范数（norm）是数学中一种基本的函数，又可以称为模。向量范数和矩阵范数用于描述向量和矩阵的大小。 范数的本质是距离，是具有 “长度” 概念的函数。存在的意义是为了实现比较，把不能比较的向量转换成可以比较的实数。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/han-suyu/cover/22.png">
+<meta property="article:published_time" content="2020-05-16T14:34:04.000Z">
+<meta property="article:modified_time" content="2020-05-16T14:34:04.000Z">
+<meta property="article:author" content="Seven">
+<meta property="article:tag" content="学习总结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/han-suyu/cover/22.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hansy.tech/2020/05/730653464"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="u9AaJlYHNmU4dpUtiWPMA9_vQRU4zjcERKUymU8aEao"/><meta name="baidu-site-verification" content="m7BzC4y6nU"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-05-16 22:34:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><link rel="stylesheet" href="https://at.alicdn.com/t/font_2107761_ythu35kdfcq.css"><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="明天又是周六了" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/wechat.jpg'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">179</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-institution"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/color/"><i class="fa-fw fa fa-tachometer"></i><span> RGB颜色</span></a></li><li><a class="site-page" href="/colorPick/"><i class="fa-fw fa fa-magic"></i><span> 颜色提取</span></a></li><li><a class="site-page" href="/hexconvert/"><i class="fa-fw fa fa-calculator"></i><span> 进制转换</span></a></li><li><a class="site-page" href="/diff/"><i class="fa-fw fa fa-clone"></i><span> 文本对比</span></a></li><li><a class="site-page" href="/map/"><i class="fa-fw fa fa-globe"></i><span> 地球图层</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-game"></i><span> 小游戏</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><span> 数独</span></a></li><li><a class="site-page" href="/puzzleNumber/"><span> 数字拼图</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/han-suyu/cover/22.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">明天又是周六了</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-institution"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/color/"><i class="fa-fw fa fa-tachometer"></i><span> RGB颜色</span></a></li><li><a class="site-page" href="/colorPick/"><i class="fa-fw fa fa-magic"></i><span> 颜色提取</span></a></li><li><a class="site-page" href="/hexconvert/"><i class="fa-fw fa fa-calculator"></i><span> 进制转换</span></a></li><li><a class="site-page" href="/diff/"><i class="fa-fw fa fa-clone"></i><span> 文本对比</span></a></li><li><a class="site-page" href="/map/"><i class="fa-fw fa fa-globe"></i><span> 地球图层</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-game"></i><span> 小游戏</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><span> 数独</span></a></li><li><a class="site-page" href="/puzzleNumber/"><span> 数字拼图</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">向量范数和矩阵范数及其相容性<a class="post-edit-link" href="https://github.com/han-suyu/hansy.tech/edit/main/source/_posts/向量范数和矩阵范数.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-05-16T14:34:04.000Z" title="发表于 2020-05-16 22:34:04">2020-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-05-16T14:34:04.000Z" title="更新于 2020-05-16 22:34:04">2020-05-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2020/05/730653464.html#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>范数（norm）</strong>是数学中一种基本的函数，又可以称为<strong>模</strong>。向量范数和矩阵范数用于描述向量和矩阵的大小。</p>
+<p>范数的本质是距离，是具有 “长度” 概念的函数。存在的意义是为了实现比较，把不能比较的向量转换成可以比较的实数。</p>
+<a id="more"></a>
+
+<h2 id="一、向量范数（Vector-norm）"><a href="#一、向量范数（Vector-norm）" class="headerlink" title="一、向量范数（Vector norm）"></a>一、向量范数（Vector norm）</h2><h3 id="1、向量范数的性质"><a href="#1、向量范数的性质" class="headerlink" title="1、向量范数的性质"></a>1、向量范数的性质</h3><ol>
+<li><strong>非负性</strong>：$||x|| \geq 0$，且 $||x|| = 0$ 当且仅当 $x=0$ 时成立 </li>
+<li><strong>齐次性</strong>：对所有  $ c∈C $ 有$ ||k\cdot x|| = |k| \cdot ||x|| $</li>
+<li><strong>三角不等式</strong>：$||x+y|| \leq ||x|| + ||y||$</li>
+</ol>
+<p> </p>
+<h3 id="2、向量范数的类型"><a href="#2、向量范数的类型" class="headerlink" title="2、向量范数的类型"></a>2、向量范数的类型</h3><p>首先定义一个向量为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x&#x3D;[-5，6，8, -10]</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="1-范数："><a href="#1-范数：" class="headerlink" title="1 - 范数："></a>1 - 范数：</h5><p>$||x||<em>1=\sum</em>{i=1}^n{\left| x_i \right|}$，即向量元素绝对值之和，x 到零点的<code>曼哈顿距离（Manhattan Distance）</code>。</p>
+<p>上述向量a的1范数结果就是：29。matlab调用函数norm(x, 1) 。</p>
+<h5 id="2-范数："><a href="#2-范数：" class="headerlink" title="2 - 范数："></a>2 - 范数：</h5><p>$||x||<em>2=\left( \sum</em>{i=1}^n{\left| x_i \right|^2} \right) ^{\frac{1}{2}}$ ，即向量元素绝对值的平方和再开方，表示x到零点的<code>欧几里得距离（Euclidean distance）</code>。</p>
+<p>上述a的2范数结果就是：15。matlab调用函数norm(x, 2)。</p>
+<h5 id="p-范数："><a href="#p-范数：" class="headerlink" title="p - 范数："></a>p - 范数：</h5><p>$||x||<em>p=\left( \sum</em>{i=1}^n{\left| x_i \right|^p} \right) ^{\frac{1}{p}}$ ，即向量元素绝对值的p次方和的1/p次幂，表示x到零点的p阶<code>闵氏距离（Minkowski distance）</code>。matlab调用函数norm(x, p)。</p>
+<blockquote>
+<p>注意：<strong>p的范围是[1, inf)**。</strong>p在(0,1)范围内定义的并不是范数**，因为违反了三角不等式$||x+y|| \leq ||x|| + ||y||$，此处x和y是向量。</p>
+<p>在p范数下定义的单位球（unit ball）都是凸集（convex set，简单地说，若集合A中任意两点的连线段上的点也在集合A中，则A是凸集），但是当0&lt;p&lt;1时，在该定义下的unit ball并不是凸集（注意：我们没说在该范数定义下，因为如前所述，0&lt;p&lt;1时，并不是范数）.下图展示了p取不同值时unit ball的形状。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="http://bbs.sciencenet.cn/home.php?mod=attachment&filename=image.png&id=537241"></p>
+</blockquote>
+<h5 id="infty-范数："><a href="#infty-范数：" class="headerlink" title="$ \infty $ 范数："></a>$ \infty $ 范数：</h5><p>$||x||_{\infty} = \max_i |x_i|$ ，当p趋向于正无穷时，即所有向量元素绝对值中的最大值。</p>
+<p>上述向量a的负无穷范数结果就是：10。matlab调用函数norm(x, inf)。</p>
+<h5 id="infty-范数：-1"><a href="#infty-范数：-1" class="headerlink" title="$ -\infty $ 范数："></a>$ -\infty $ 范数：</h5><p>$||x||_{-\infty} = \min_i |x_i|$ ，当p趋向于负无穷时，即所有向量元素绝对值中的最小值。</p>
+<p>上述向量a的负无穷范数结果就是：5。matlab调用函数norm(x, -inf)</p>
+<h5 id="0-范数："><a href="#0-范数：" class="headerlink" title="0 - 范数："></a>0 - 范数：</h5><p>当p趋于零，可以证明这时候的极限$ (x^p_1+x^p_2+…+x^p_m)^\frac{1}{p} $恰好是向量中非零元素的个数。</p>
+<h2 id="二、矩阵范数（Matrix-norm）"><a href="#二、矩阵范数（Matrix-norm）" class="headerlink" title="二、矩阵范数（Matrix norm）"></a>二、矩阵范数（Matrix norm）</h2><h3 id="1、矩阵范数的性质"><a href="#1、矩阵范数的性质" class="headerlink" title="1、矩阵范数的性质"></a>1、矩阵范数的性质</h3><ol>
+<li><strong>非负性</strong>：$||A|| \geq 0$，且 $||A|| = 0$ 当且仅当 $A=0$ 时成立 </li>
+<li><strong>齐次性</strong>：对所有  $ c∈C $ 有 $ ||k\cdot A|| = |k| \cdot ||A|| $</li>
+<li><strong>三角不等式</strong>：$||A+B|| \leq ||A|| + ||B||$</li>
+<li><strong>次积性</strong>：$||AB|| \leq ||A|| · ||B||$</li>
+</ol>
+<h3 id="2、矩阵范数的类型"><a href="#2、矩阵范数的类型" class="headerlink" title="2、矩阵范数的类型"></a>2、矩阵范数的类型</h3><p>例如矩阵</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A &#x3D; [ -1  2 -3；</span><br><span class="line">	  4  -6  6 ]</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="1-范数"><a href="#1-范数" class="headerlink" title="1 - 范数"></a>1 - 范数</h5><p> $\lVert A \rVert <em>1=\underset{j}{max}\sum</em>{i=1}^m{\left| a_{i,j} \right|}$ 矩阵的每一列上的元素绝对值先求和，再从中取个最大的，（列和最大）。</p>
+<p>上述矩阵A的1范数先得到[5,8,9]，再取最大的最终结果就是：9。matlab调用函数norm(A, 1) 。</p>
+<h5 id="2-范数：-1"><a href="#2-范数：-1" class="headerlink" title="2 - 范数："></a>2 - 范数：</h5><p>$||A||_2=\sqrt{\lambda} $       ，$λ$ 是 $A^TA$ 矩阵的最大特征值，称为谱范数 。即 $A^TA$ 矩阵的最大特征值的开平方。</p>
+<p>上述矩阵A的2范数得到的最终结果是：10.0623。matlab调用函数norm(A, 2)。</p>
+<h5 id="infty-范数：-2"><a href="#infty-范数：-2" class="headerlink" title="$ \infty $ 范数："></a>$ \infty $ 范数：</h5><p>$\lVert A \rVert <em>{\infty}=\underset{j}{max}\sum</em>{j=1}^m{\left| a_{i,j} \right|}$ ，矩阵的每一行上的元素绝对值先求和，再从中取个最大的，（行和最大）。</p>
+<p>上述矩阵A的1范数先得到[6；16]，再取最大的最终结果就是：16。matlab调用函数norm(A, inf)。</p>
+<blockquote>
+<p>接下来我们要介绍机器学习的低秩，稀疏等一些地方用到的范数，一般有核范数，L0范数，L1范数（有时很多人也叫1范数，这就让初学者很容易混淆），L21范数（有时也叫2范数），F范数。。。</p>
+<p>上述范数都是为了解决实际问题中的困难而提出的新的范数定义，不同于前面的矩阵范数。</p>
+</blockquote>
+<h5 id="核范数-："><a href="#核范数-：" class="headerlink" title="核范数 ："></a>核范数 ：</h5><p>是指矩阵奇异值的和，可以用来低秩表示（因为最小化核范数，相当于最小化矩阵的秩——低秩）</p>
+<p>上述矩阵A最终结果就是：10.9287， matlab调用函数sum(svd(A))</p>
+<h5 id="L0范数："><a href="#L0范数：" class="headerlink" title="L0范数："></a>L0范数：</h5><p>矩阵的非0元素的个数，通常用它来表示矩阵的稀疏性，越小0元素越多，也就越稀疏</p>
+<p>上述矩阵A最终结果就是：6</p>
+<h5 id="L1范数："><a href="#L1范数：" class="headerlink" title="L1范数："></a>L1范数：</h5><p>矩阵中的每个元素绝对值之和，它是L0范数的最优凸近似，因此它也可以表示稀疏</p>
+<p>上述矩阵A最终结果就是：22，matlab调用函数sum(sum(abs(A)))</p>
+<h5 id="F范数："><a href="#F范数：" class="headerlink" title="F范数："></a>F范数：</h5><p><strong>Frobenius范数</strong>。矩阵的各个元素平方之和再开平方根，它通常也叫做矩阵的L2范数，它的有点在它是一个凸函数，可以求导求解，易于计算，$||A||<em>F=\sqrt{\sum</em>{i,j}{\left| a_{i,j} \right|^2}},,=,,\sqrt{tr\left( A^HA \right)}$</p>
+<p>上述矩阵A最终结果就是：10.0995，matlab调用函数norm（A，‘fro’）</p>
+<h5 id="L21范数："><a href="#L21范数：" class="headerlink" title="L21范数："></a>L21范数：</h5><p>矩阵先以每一列为单位，求每一列的F范数（也可认为是向量的2范数），然后再将得到的结果求L1范数（也可认为是向量的1范数），很容易看出它是介于L1和L2之间的一种范数</p>
+<p>上述矩阵A最终结果就是：17.1559，matlab调用函数 norm(A(:,1),2) + norm(A(:,2),2) + norm(A(:,3),2)</p>
+<blockquote>
+<p><strong>总结：</strong></p>
+<p><strong>矩阵的L0，L1，L2范数都和向量的0，1，2范数相对应，而和矩阵的1，2范数有区别</strong></p>
+</blockquote>
+<h2 id="三、向量范数和矩阵范数的相容性（compatibility）"><a href="#三、向量范数和矩阵范数的相容性（compatibility）" class="headerlink" title="三、向量范数和矩阵范数的相容性（compatibility）"></a>三、向量范数和矩阵范数的相容性（compatibility）</h2><ul>
+<li><strong>定义</strong>：设 $||\cdot||<em>{m}$  是 $C^{n \times n}$ 上的<strong>矩阵范数</strong>，$||\cdot||</em>{v}$ 是 $C^{n}$ 上的<strong>向量范数</strong>，对任意的 $A \in C^{n\times n}$ ，$x \in C^{n}$ ，都有：$||AX||<em>{v} \leq ||A||</em>{m}||x||_{v}$</li>
+</ul>
+<p>  则称<strong>矩阵范数$||\cdot||<em>{m}$  与向量范数$||\cdot||</em>{v}$  是相容的</strong>。</p>
+<ul>
+<li> $C^{n \times n}$ 上的 $m_{1}$ 范数与 $C^{n}$ 上的1范数相容。</li>
+<li> $C^{n \times n}$ 上的 $F$ 范数与 $C^{n}$ 上的2范数相容。</li>
+</ul>
+<blockquote>
+<p><strong>参考：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ww2.mathworks.cn/help/matlab/ref/norm.html">https://ww2.mathworks.cn/help/matlab/ref/norm.html</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.cnblogs.com/marsggbo/p/9703446.html">https://www.cnblogs.com/marsggbo/p/9703446.html</a></p>
+</blockquote>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script></article><div class="tag_share"><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/han-suyu/cover/22.png" data-sites="wechat,weibo,qq,facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/05/3416639659.html"><img class="prev-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/han-suyu/cover/21.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Markdown数学公式语法</div></div></a></div><div class="next-post pull-right"><a href="/2020/06/3770813090.html"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/han-suyu/cover/32.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">LeetCode---爬楼梯</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/wechat.jpg'" alt="avatar"/><div class="author-info__name">Seven</div><div class="author-info__description">谦虚受益，满盈招损</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">179</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/han-suyu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1121687782&amp;site=qq&amp;menu=yes" rel="external nofollow noreferrer" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/WeChat.jpg" rel="external nofollow noreferrer" target="_blank" title="WeChat"><i class="iconfont icon-wechat"></i></a><a class="social-icon" href="mailto:han-suyu@foxmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-EMAILMARKETING"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%90%91%E9%87%8F%E8%8C%83%E6%95%B0%EF%BC%88Vector-norm%EF%BC%89"><span class="toc-text">一、向量范数（Vector norm）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%90%91%E9%87%8F%E8%8C%83%E6%95%B0%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-text">1、向量范数的性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%90%91%E9%87%8F%E8%8C%83%E6%95%B0%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">2、向量范数的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E8%8C%83%E6%95%B0%EF%BC%9A"><span class="toc-text">1 - 范数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E8%8C%83%E6%95%B0%EF%BC%9A"><span class="toc-text">2 - 范数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#p-%E8%8C%83%E6%95%B0%EF%BC%9A"><span class="toc-text">p - 范数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#infty-%E8%8C%83%E6%95%B0%EF%BC%9A"><span class="toc-text">$ \infty $ 范数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#infty-%E8%8C%83%E6%95%B0%EF%BC%9A-1"><span class="toc-text">$ -\infty $ 范数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#0-%E8%8C%83%E6%95%B0%EF%BC%9A"><span class="toc-text">0 - 范数：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%9F%A9%E9%98%B5%E8%8C%83%E6%95%B0%EF%BC%88Matrix-norm%EF%BC%89"><span class="toc-text">二、矩阵范数（Matrix norm）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E7%9F%A9%E9%98%B5%E8%8C%83%E6%95%B0%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-text">1、矩阵范数的性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E7%9F%A9%E9%98%B5%E8%8C%83%E6%95%B0%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">2、矩阵范数的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E8%8C%83%E6%95%B0"><span class="toc-text">1 - 范数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E8%8C%83%E6%95%B0%EF%BC%9A-1"><span class="toc-text">2 - 范数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#infty-%E8%8C%83%E6%95%B0%EF%BC%9A-2"><span class="toc-text">$ \infty $ 范数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%B8%E8%8C%83%E6%95%B0-%EF%BC%9A"><span class="toc-text">核范数 ：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#L0%E8%8C%83%E6%95%B0%EF%BC%9A"><span class="toc-text">L0范数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#L1%E8%8C%83%E6%95%B0%EF%BC%9A"><span class="toc-text">L1范数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#F%E8%8C%83%E6%95%B0%EF%BC%9A"><span class="toc-text">F范数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#L21%E8%8C%83%E6%95%B0%EF%BC%9A"><span class="toc-text">L21范数：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%90%91%E9%87%8F%E8%8C%83%E6%95%B0%E5%92%8C%E7%9F%A9%E9%98%B5%E8%8C%83%E6%95%B0%E7%9A%84%E7%9B%B8%E5%AE%B9%E6%80%A7%EF%BC%88compatibility%EF%BC%89"><span class="toc-text">三、向量范数和矩阵范数的相容性（compatibility）</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Seven</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    let initData = {
+      el: '#twikoo-wrap',
+      envId: 'twikoo-comment-6ghgiokk80ee2970',
+      region: 'ap-shanghai'
+    }
+
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    twikoo.init(initData)
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'twikoo-comment-6ghgiokk80ee2970',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

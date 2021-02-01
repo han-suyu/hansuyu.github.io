@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>死锁 | 明天又是周六了</title><meta name="keywords" content="学习总结"><meta name="author" content="Seven"><meta name="copyright" content="Seven"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="死锁和活锁的区别 死锁：拼命去争资源，陷入僵持状态 活锁：面对资源，谁都不去第一个拿，陷入僵持状态  什么是死锁？　　死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。 死锁产生的原因： 系统资源的竞争 进程运行推进顺序不当引起死锁  死锁产生的必要条件（缺失任何一个，都不会发生死锁） 互斥：每个资源要么已经分配给了一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="死锁">
+<meta property="og:url" content="https://hansy.tech/2020/04/448453639.html">
+<meta property="og:site_name" content="明天又是周六了">
+<meta property="og:description" content="死锁和活锁的区别 死锁：拼命去争资源，陷入僵持状态 活锁：面对资源，谁都不去第一个拿，陷入僵持状态  什么是死锁？　　死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。 死锁产生的原因： 系统资源的竞争 进程运行推进顺序不当引起死锁  死锁产生的必要条件（缺失任何一个，都不会发生死锁） 互斥：每个资源要么已经分配给了一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/han-suyu/cover/32.jpg">
+<meta property="article:published_time" content="2020-04-05T15:02:37.000Z">
+<meta property="article:modified_time" content="2020-04-05T15:02:37.000Z">
+<meta property="article:author" content="Seven">
+<meta property="article:tag" content="学习总结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/han-suyu/cover/32.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://hansy.tech/2020/04/448453639"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="u9AaJlYHNmU4dpUtiWPMA9_vQRU4zjcERKUymU8aEao"/><meta name="baidu-site-verification" content="m7BzC4y6nU"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-04-05 23:02:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><link rel="stylesheet" href="https://at.alicdn.com/t/font_2107761_ythu35kdfcq.css"><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="明天又是周六了" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/wechat.jpg'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">179</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-institution"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/color/"><i class="fa-fw fa fa-tachometer"></i><span> RGB颜色</span></a></li><li><a class="site-page" href="/colorPick/"><i class="fa-fw fa fa-magic"></i><span> 颜色提取</span></a></li><li><a class="site-page" href="/hexconvert/"><i class="fa-fw fa fa-calculator"></i><span> 进制转换</span></a></li><li><a class="site-page" href="/diff/"><i class="fa-fw fa fa-clone"></i><span> 文本对比</span></a></li><li><a class="site-page" href="/map/"><i class="fa-fw fa fa-globe"></i><span> 地球图层</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-game"></i><span> 小游戏</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><span> 数独</span></a></li><li><a class="site-page" href="/puzzleNumber/"><span> 数字拼图</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/han-suyu/cover/32.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">明天又是周六了</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-calendar"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fa fa-camera"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/toolbox/"><i class="fa-fw fa fa-leaf"></i><span> 小工具</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-institution"></i><span> 实验室</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/color/"><i class="fa-fw fa fa-tachometer"></i><span> RGB颜色</span></a></li><li><a class="site-page" href="/colorPick/"><i class="fa-fw fa fa-magic"></i><span> 颜色提取</span></a></li><li><a class="site-page" href="/hexconvert/"><i class="fa-fw fa fa-calculator"></i><span> 进制转换</span></a></li><li><a class="site-page" href="/diff/"><i class="fa-fw fa fa-clone"></i><span> 文本对比</span></a></li><li><a class="site-page" href="/map/"><i class="fa-fw fa fa-globe"></i><span> 地球图层</span></a></li><li><a class="site-page" href="/dog/"><i class="fa-fw fa fa-heartbeat"></i><span> 舔狗日记</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fa fa-game"></i><span> 小游戏</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/Sudoku/"><span> 数独</span></a></li><li><a class="site-page" href="/puzzleNumber/"><span> 数字拼图</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">死锁<a class="post-edit-link" href="https://github.com/han-suyu/hansy.tech/edit/main/source/_posts/死锁.md" rel="external nofollow noreferrer" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-04-05T15:02:37.000Z" title="发表于 2020-04-05 23:02:37">2020-04-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-04-05T15:02:37.000Z" title="更新于 2020-04-05 23:02:37">2020-04-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2020/04/448453639.html#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h5 id="死锁和活锁的区别"><a href="#死锁和活锁的区别" class="headerlink" title="死锁和活锁的区别"></a>死锁和活锁的区别</h5><ul>
+<li>死锁：拼命去争资源，陷入僵持状态</li>
+<li>活锁：面对资源，谁都不去第一个拿，陷入僵持状态</li>
+</ul>
+<h3 id="什么是死锁？"><a href="#什么是死锁？" class="headerlink" title="什么是死锁？"></a>什么是死锁？</h3><p>　　死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。</p>
+<h3 id="死锁产生的原因："><a href="#死锁产生的原因：" class="headerlink" title="死锁产生的原因："></a><strong>死锁产生的原因：</strong></h3><ul>
+<li>系统资源的竞争</li>
+<li>进程运行推进顺序不当引起死锁</li>
+</ul>
+<h3 id="死锁产生的必要条件（缺失任何一个，都不会发生死锁）"><a href="#死锁产生的必要条件（缺失任何一个，都不会发生死锁）" class="headerlink" title="死锁产生的必要条件（缺失任何一个，都不会发生死锁）"></a>死锁产生的必要条件（缺失任何一个，都不会发生死锁）</h3><ul>
+<li>互斥：每个资源要么已经分配给了一个进程，要么就是可用的。</li>
+<li>占有和等待：已经得到了某个资源的进程可以再请求新的资源。</li>
+<li>不可抢占：已经分配给一个进程的资源不能强制性地被抢占，它只能被占有它的进程显式地释放。</li>
+<li>环路等待：有两个或者两个以上的进程组成一条环路，该环路中的每个进程都在等待下一个进程所占有的资源。</li>
+</ul>
+<h3 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h3><p>主要有以下四种方法：</p>
+<ul>
+<li>鸵鸟策略</li>
+<li>死锁检测与死锁恢复</li>
+<li>死锁预防</li>
+<li>死锁避免</li>
+</ul>
+<h3 id="鸵鸟策略"><a href="#鸵鸟策略" class="headerlink" title="鸵鸟策略"></a>鸵鸟策略</h3><p>把头埋在沙子里，假装根本没发生问题。</p>
+<blockquote>
+<p>大多数操作系统，包括 Unix，Linux 和 Windows，处理死锁问题的办法仅仅是忽略它。</p>
+</blockquote>
+<h6 id="为什么可行？"><a href="#为什么可行？" class="headerlink" title="为什么可行？"></a>为什么可行？</h6><ol>
+<li>解决死锁问题的代价很高，这种方案会获得更高的性能。</li>
+<li>发生死锁时不会对用户造成多大影响，或发生死锁的概率很低</li>
+</ol>
+<h3 id="死锁检测"><a href="#死锁检测" class="headerlink" title="死锁检测"></a>死锁检测</h3><p>事先不采取任何限制性措施,也不检查系统是否进入不安全区,此方法允许系统在运行过程中发生死锁。但可通过检测机构,及时地检测出死锁的发生,并精确地确定与死锁有关的进程和资源,然后采取适当措施,从系统中将已发生的死锁清除掉。</p>
+<h3 id="死锁恢复"><a href="#死锁恢复" class="headerlink" title="死锁恢复"></a>死锁恢复</h3><ul>
+<li>利用抢占恢复</li>
+<li>利用回滚恢复</li>
+<li>通过杀死进程恢复</li>
+</ul>
+<h3 id="死锁预防（破坏必要条件之一）"><a href="#死锁预防（破坏必要条件之一）" class="headerlink" title="死锁预防（破坏必要条件之一）"></a>死锁预防（破坏必要条件之一）</h3><h5 id="1-破坏互斥条件"><a href="#1-破坏互斥条件" class="headerlink" title="1. 破坏互斥条件"></a>1. 破坏互斥条件</h5><h5 id="2-破坏占有和等待条件"><a href="#2-破坏占有和等待条件" class="headerlink" title="2. 破坏占有和等待条件"></a>2. 破坏占有和等待条件</h5><p>​    一种实现方式是规定所有进程在开始执行前请求所需要的全部资源。</p>
+<h5 id="3-破坏不可抢占条件"><a href="#3-破坏不可抢占条件" class="headerlink" title="3. 破坏不可抢占条件"></a>3. 破坏不可抢占条件</h5><h5 id="4-破坏环路等待"><a href="#4-破坏环路等待" class="headerlink" title="4. 破坏环路等待"></a>4. 破坏环路等待</h5><p>​    给资源统一编号，进程只能按编号顺序来请求资源。</p>
+<h3 id="死锁避免"><a href="#死锁避免" class="headerlink" title="死锁避免"></a>死锁避免</h3><p>在资源的动态分配过程中,用某种方法去防止系统进入不安全状态,从而避免发生死锁。</p>
+<p>常用的实施方法是撤销或挂起一些进程，以便回收一些资源，再将这些资源分配给处于阻塞状态的进程,使之转为就绪状态，以继续运行。</p>
+<h3 id="死锁解答题"><a href="#死锁解答题" class="headerlink" title="死锁解答题"></a>死锁解答题</h3><ul>
+<li><h6 id="n个进程竞争m个资源，问最少需要多少个资源，系统才不会发生死锁"><a href="#n个进程竞争m个资源，问最少需要多少个资源，系统才不会发生死锁" class="headerlink" title="n个进程竞争m个资源，问最少需要多少个资源，系统才不会发生死锁?"></a>n个进程竞争m个资源，问最少需要多少个资源，系统才不会发生死锁?</h6><p>最极端的情况是每个进程有m-1个资源，而总资源一共就有n(m-1)个，那么这个时候也会发生死锁，这个时候只需要再多出一个资源，就可以保证某一个进程执行成功，然后执行成功以后，就会有更多的资源释放，后面的进程也可以执行。所以最终的结果就是<code>n(m-1)+1</code></p>
+</li>
+</ul>
+<ul>
+<li><h6 id="有同类资源m个，被n个进程共享，当M-gt-N和-M-lt-N时候，每个进程最多请求多少个这类资源，一定不会死锁？"><a href="#有同类资源m个，被n个进程共享，当M-gt-N和-M-lt-N时候，每个进程最多请求多少个这类资源，一定不会死锁？" class="headerlink" title="有同类资源m个，被n个进程共享，当M&gt;N和 M&lt;=N时候，每个进程最多请求多少个这类资源，一定不会死锁？"></a>有同类资源m个，被n个进程共享，当M&gt;N和 M&lt;=N时候，每个进程最多请求多少个这类资源，一定不会死锁？</h6><p>例如11个同类资源被5个进程共享，每个进程最多可以请求多3个资源才能保证系统不会发生死锁。<br>因为如每个进程都已分配到2个资源，系统还剩下一个资源，就能保证某一个进程能分配到全部3个资源，并能运行到底，最终释放这3个资源。</p>
+</li>
+</ul>
+<p>​       当m＞n时，设一个进程最多可以请求多x个资源，故当m &gt; n * (x-1)时，系统不会发生死锁。<br>       于是：<br>​       x – 1 &lt; m / n<br>​       x &lt; m / n +1</p>
+<p>​       <code>当 m 能被n除尽时，x = m/n</code><br>​       <code>当 m 不能被n除尽时，x = (m/n)+1</code><br>​       <code>当m &lt;＝n时，每个进程最多可以请求1个资源。</code></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script></article><div class="tag_share"><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/han-suyu/cover/32.jpg" data-sites="wechat,weibo,qq,facebook,twitter"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/04/2429405312.html"><img class="prev-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/han-suyu/cover/21.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">局部性原理</div></div></a></div><div class="next-post pull-right"><a href="/2020/04/241584371.html"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/han-suyu/cover/22.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">虚拟内存、逻辑地址、物理地址</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/wechat.jpg'" alt="avatar"/><div class="author-info__name">Seven</div><div class="author-info__description">谦虚受益，满盈招损</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">179</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">26</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/han-suyu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1121687782&amp;site=qq&amp;menu=yes" rel="external nofollow noreferrer" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/han-suyu/cdn/WeChat.jpg" rel="external nofollow noreferrer" target="_blank" title="WeChat"><i class="iconfont icon-wechat"></i></a><a class="social-icon" href="mailto:han-suyu@foxmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="iconfont icon-EMAILMARKETING"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E5%92%8C%E6%B4%BB%E9%94%81%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">死锁和活锁的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%BB%E9%94%81%EF%BC%9F"><span class="toc-text">什么是死锁？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="toc-text">死锁产生的原因：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E4%BA%A7%E7%94%9F%E7%9A%84%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6%EF%BC%88%E7%BC%BA%E5%A4%B1%E4%BB%BB%E4%BD%95%E4%B8%80%E4%B8%AA%EF%BC%8C%E9%83%BD%E4%B8%8D%E4%BC%9A%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81%EF%BC%89"><span class="toc-text">死锁产生的必要条件（缺失任何一个，都不会发生死锁）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-text">处理方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%B8%B5%E9%B8%9F%E7%AD%96%E7%95%A5"><span class="toc-text">鸵鸟策略</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AF%E8%A1%8C%EF%BC%9F"><span class="toc-text">为什么可行？</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E6%A3%80%E6%B5%8B"><span class="toc-text">死锁检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E6%81%A2%E5%A4%8D"><span class="toc-text">死锁恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E9%A2%84%E9%98%B2%EF%BC%88%E7%A0%B4%E5%9D%8F%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6%E4%B9%8B%E4%B8%80%EF%BC%89"><span class="toc-text">死锁预防（破坏必要条件之一）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E7%A0%B4%E5%9D%8F%E4%BA%92%E6%96%A5%E6%9D%A1%E4%BB%B6"><span class="toc-text">1. 破坏互斥条件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E7%A0%B4%E5%9D%8F%E5%8D%A0%E6%9C%89%E5%92%8C%E7%AD%89%E5%BE%85%E6%9D%A1%E4%BB%B6"><span class="toc-text">2. 破坏占有和等待条件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E7%A0%B4%E5%9D%8F%E4%B8%8D%E5%8F%AF%E6%8A%A2%E5%8D%A0%E6%9D%A1%E4%BB%B6"><span class="toc-text">3. 破坏不可抢占条件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E7%A0%B4%E5%9D%8F%E7%8E%AF%E8%B7%AF%E7%AD%89%E5%BE%85"><span class="toc-text">4. 破坏环路等待</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E9%81%BF%E5%85%8D"><span class="toc-text">死锁避免</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E8%A7%A3%E7%AD%94%E9%A2%98"><span class="toc-text">死锁解答题</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#n%E4%B8%AA%E8%BF%9B%E7%A8%8B%E7%AB%9E%E4%BA%89m%E4%B8%AA%E8%B5%84%E6%BA%90%EF%BC%8C%E9%97%AE%E6%9C%80%E5%B0%91%E9%9C%80%E8%A6%81%E5%A4%9A%E5%B0%91%E4%B8%AA%E8%B5%84%E6%BA%90%EF%BC%8C%E7%B3%BB%E7%BB%9F%E6%89%8D%E4%B8%8D%E4%BC%9A%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81"><span class="toc-text">n个进程竞争m个资源，问最少需要多少个资源，系统才不会发生死锁?</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%89%E5%90%8C%E7%B1%BB%E8%B5%84%E6%BA%90m%E4%B8%AA%EF%BC%8C%E8%A2%ABn%E4%B8%AA%E8%BF%9B%E7%A8%8B%E5%85%B1%E4%BA%AB%EF%BC%8C%E5%BD%93M-gt-N%E5%92%8C-M-lt-N%E6%97%B6%E5%80%99%EF%BC%8C%E6%AF%8F%E4%B8%AA%E8%BF%9B%E7%A8%8B%E6%9C%80%E5%A4%9A%E8%AF%B7%E6%B1%82%E5%A4%9A%E5%B0%91%E4%B8%AA%E8%BF%99%E7%B1%BB%E8%B5%84%E6%BA%90%EF%BC%8C%E4%B8%80%E5%AE%9A%E4%B8%8D%E4%BC%9A%E6%AD%BB%E9%94%81%EF%BC%9F"><span class="toc-text">有同类资源m个，被n个进程共享，当M&gt;N和 M&lt;&#x3D;N时候，每个进程最多请求多少个这类资源，一定不会死锁？</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Seven</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    let initData = {
+      el: '#twikoo-wrap',
+      envId: 'twikoo-comment-6ghgiokk80ee2970',
+      region: 'ap-shanghai'
+    }
+
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    twikoo.init(initData)
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'twikoo-comment-6ghgiokk80ee2970',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
